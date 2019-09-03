@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>BINGO :: TABLERO</title>
+        <style>
+            .seleccionado{
+                text-align: center;
+                background-color: yellow;                
+            }
+            .noseleccionado{
+                text-align: center;
+            }
+            .numero {
+                font-size: 50px;
+            }
+            .mensaje {
+                font-size: 30px;
+            }
+            .btn {
+
+            }
+            .col1 {
+                width: 200px;
+                vertical-align: top;
+            }
+            .col2 {
+                vertical-align: top;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <p:growl autoUpdate="true" />
+        <h:form id="frm">
+
+            <p:panel >
+                <f:facet name="header">
+                    BINGO - DESPEDIDA NATY...
+                    <span style="float: right">
+                        <p:splitButton value="Número" actionListener="#{displayController.sacarNumero()}" update="frm" icon="fa fa-anchor">
+                            <p:menuitem value="Reiniciar" actionListener="#{displayController.init()}" update="frm" icon="fa fa-refresh" />
+                        </p:splitButton>
+                    </span>
+
+                </f:facet>
+
+                <p:dataTable var="fila" value="#{displayController.lstBingoLinea}" >
+                    <p:column>
+                        #{fila.letra}
+                    </p:column>
+                    <p:column styleClass="#{fila.c1.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c1.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c2.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c2.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c3.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c3.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c4.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c4.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c5.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c5.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c6.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c6.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c7.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c7.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c8.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c8.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c9.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c9.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c10.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c10.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c11.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c11.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c12.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c12.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c13.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c13.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c14.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c14.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c15.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c15.valor}
+                    </p:column>
+                </p:dataTable>
+                <p:spacer height="5px" />
+                <h:panelGrid columns="2" columnClasses="col1,col2">
+                    <p:panel header="Número">
+                        <h:outputText 
+                            value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
+                            styleClass="numero"
+                            />
+
+                    </p:panel>
+
+
+                    <p:panel id="mensaje">
+                        <f:facet name="header">
+                            <h:outputText value="MENSAJE DE #{mensajeApplication.usuario}" />
+                        </f:facet>
+                        <h:outputText                             
+                            value="#{mensajeApplication.mensaje}"
+                            styleClass="mensaje"
+                            />
+                    </p:panel>
+
+                </h:panelGrid>
+                <p:poll autoStart="true" update="mensaje" delay="500" />
+
+            </p:panel>
+
+
+
+        </h:form>
+
+    </h:body>
+</html>
+

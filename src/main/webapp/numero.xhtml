@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>NUMERO</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+            .seleccionado{
+                text-align: center;
+                background-color: yellow;                
+            }
+            .noseleccionado{
+                text-align: center;
+            }
+            .numero {
+                font-size: 120px;
+            }
+            .btn {
+
+            }
+            .col1 {
+                width: 200px;
+                vertical-align: top;
+            }
+            .col2 {
+                vertical-align: top;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <p:growl autoUpdate="true" />
+        <h:form id="frm">
+
+
+
+            <p:panel header="Número">
+                <h:outputText 
+                    value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
+                    styleClass="numero"
+                    />
+
+            </p:panel>
+            <p:spacer height="15" />
+            <p:separator />
+            <p:spacer height="15" />
+
+            <p:splitButton value="Número" actionListener="#{displayController.sacarNumero()}" icon="fa fa-anchor">
+                <p:menuitem value="Reiniciar" actionListener="#{displayController.init()}" update="frm" icon="fa fa-refresh" />
+            </p:splitButton>
+
+          
+        </h:form>
+
+    </h:body>
+</html>
+
