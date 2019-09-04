@@ -32,9 +32,12 @@
                     <p:commandButton 
                         value="enviar"
                         icon="fa fa-comment-o"
+                        actionListener="#{mensajeController.nuevoMensaje()}"
                         action="#{mensajeController.enviar()}"
                         />
-                    <p:messages autoUpdate="true" globalOnly="false" />
+                    <p:messages globalOnly="false" >
+                        <p:autoUpdate />
+                    </p:messages>
 
                 </h:panelGrid>
 

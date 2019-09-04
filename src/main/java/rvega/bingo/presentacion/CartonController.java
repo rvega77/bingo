@@ -4,6 +4,7 @@ import rvega.bingo.dominio.Carton;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -28,6 +29,11 @@ public class CartonController implements Serializable {
     private Carton carton;
     private List<CartonLinea> lstCartonLineas;
 
+    @PostConstruct
+    public void init() {
+        nuevoCarton();
+    }
+
     private void convertir() {
         lstCartonLineas = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -44,12 +50,15 @@ public class CartonController implements Serializable {
 
     public void login() {
         usuario = new Usuario(nombre);
-        nuevoCarton();
+    }
+
+    public void logout() {
+        usuario = null;
+        nombre = null;
     }
 
     public void jugar() {
         String nro = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("nro");
-        System.out.println("NRO: " + nro);
         carton.conmutar(Integer.parseInt(nro));
     }
 
@@ -57,13 +66,13 @@ public class CartonController implements Serializable {
         carton = factory.crear(usuario);
         convertir();
     }
-    
-    public String aumentarTamanno(){
+
+    public String aumentarTamanno() {
         tamanno += 5;
         return "/carton.xhtml?faces-redirect=true";
     }
-    
-    public String disminuirTamanno(){
+
+    public String disminuirTamanno() {
         tamanno -= 5;
         return "/carton.xhtml?faces-redirect=true";
     }

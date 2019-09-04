@@ -11,6 +11,8 @@ import rvega.bingo.dominio.Numero;
 
 @ManagedBean(name = "consola")
 @ApplicationScoped
+@Deprecated
+// primera version, ahora se usa displayController
 public class ConsolaController implements Serializable {
 
     private Random rnd;

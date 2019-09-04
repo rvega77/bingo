@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
@@ -12,6 +11,7 @@
         <style>
             .seleccionado, .noseleccionado{
                 font-size: #{cartonController.tamanno}px;
+                cursor: pointer;
             }
             .seleccionado{
                 text-align: center;
@@ -38,13 +38,33 @@
         </script>
     </h:head>
     <h:body>
-        <h:form>
 
-            <p:panel id="pnl" >
-                <f:facet name="header">
-                    <h:outputText value="CARTÓN DE #{cartonController.nombre}" />
-                </f:facet>
+        <p:panel id="pnl" >
 
+            <f:facet name="header">
+                <h:form style="display: inline">
+                    <i class="fa fa-fw fa-user"></i>
+                    <h:outputText value="#{cartonController.nombre}" />
+
+                    <h:panelGroup style="float: right" rendered="#{not empty cartonController.nombre}">
+                        <p:commandButton 
+                            icon="fa fa-font"
+                            value="+"
+                            action="#{cartonController.aumentarTamanno()}"
+                            ajax="false"
+                            /> 
+                        <p:commandButton 
+                            icon="fa fa-font"
+                            value="-"
+                            action="#{cartonController.disminuirTamanno()}"
+                            ajax="false"
+                            />
+                    </h:panelGroup>
+                </h:form>
+
+
+            </f:facet>
+            <h:form>
                 <h:panelGrid columns="1" rendered="#{empty cartonController.nombre}">
                     <p:outputLabel for="usr" value="Nombre:" />
                     <p:inputText id="usr" value="#{cartonController.nombre}" placeholder="puede ser seudónimo..." 
@@ -58,12 +78,15 @@
                         action="#{cartonController.login()}"
                         update="pnl"
                         />
-                    <p:messages autoUpdate="true" globalOnly="false" />
+                    <p:messages globalOnly="false">
+                        <p:autoUpdate />
+                    </p:messages>
 
                 </h:panelGrid>
-
-                <h:panelGroup rendered="#{!empty cartonController.nombre}">
-                    <p:dataTable var="fila" value="#{cartonController.lstCartonLineas}" >
+            </h:form>
+            <h:panelGroup rendered="#{!empty cartonController.nombre}">
+                <h:form>
+                    <p:dataTable id="carton" var="fila" value="#{cartonController.lstCartonLineas}" >
                         <p:column headerText="B" styleClass="#{fila.b.utilizado ? 'seleccionado':'noseleccionado'}" >   
                             <span onclick="jugar(#{fila.b.valor})"> 
                                 #{fila.b.valor}
@@ -90,43 +113,61 @@
                             </span>
                         </p:column>
                     </p:dataTable>
+                    <p:remoteCommand name="rc" 
+                                     update="carton" 
+                                     actionListener="#{cartonController.jugar()}" 
+                                     />
+                </h:form>
+
+                <p:spacer height="5" />
+                <p:separator />
+                <p:spacer height="5" />
+
+                <h:form>
+
+                    <p:inputText id="msg" value="#{mensajeController.texto}" 
+                                 placeholder="mensaje inmediato..." 
+                                 style="width: 80%"
+                                 required="true"
+                                 requiredMessage="Favor, ingrese un mensaje"
+                                 />
+
+                    <p:commandButton 
+                        icon="fa fa-comment-o"
+                        action="#{mensajeController.nuevoMensaje()}"
+                        update="msg"
+                        />                    
 
                     <p:spacer height="15" />
                     <p:separator />
-                    <p:spacer height="15" />
-                    <br />
+                    <p:spacer height="15" width="100%" />
+
                     <p:commandButton 
-                        icon="fa fa-font"
-                        value="+"
-                        action="#{cartonController.aumentarTamanno()}"
-                        ajax="false"
-                        />
-                    <p:commandButton 
-                        icon="fa fa-font"
-                        value="-"
-                        action="#{cartonController.disminuirTamanno()}"
-                        ajax="false"
-                        />
-                    <p:button
-                        icon="fa fa-comment-o"
-                        outcome="/mensaje"
-                        />
-                    <p:commandButton 
-                        style="float: right"
-                        value="Cartón" 
+                        value="Cartón"
                         icon="fa fa-repeat"
                         action="#{cartonController.nuevoCarton()}"
+                        immediate="true"
                         update="pnl"
                         />
-                    <br />
-                    <br />
-                </h:panelGroup>
+                    
+                    <p:commandButton 
+                        icon="fa fa-power-off"
+                        action="#{cartonController.logout()}"
+                        immediate="true"
+                        update="pnl"
+                        />
+                    <p:button
+                        value="Mensaje"
+                        icon="fa fa-external-link"
+                        outcome="/mensaje"
+                        style="float: right"
 
+                        />
 
-            </p:panel>
-            <p:remoteCommand name="rc" update="pnl" actionListener="#{cartonController.jugar()}" />
-        </h:form>
-        
+                </h:form>
+
+            </h:panelGroup>
+        </p:panel>
     </h:body>
 </html>
 

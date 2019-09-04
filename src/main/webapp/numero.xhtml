@@ -31,10 +31,10 @@
         </style>
     </h:head>
     <h:body>
-        <p:growl autoUpdate="true" />
+        <p:growl >
+            <p:autoUpdate />
+        </p:growl>
         <h:form id="frm">
-
-
 
             <p:panel header="Número">
                 <h:outputText 
@@ -47,11 +47,11 @@
             <p:separator />
             <p:spacer height="15" />
 
-            <p:splitButton value="Número" actionListener="#{displayController.sacarNumero()}" icon="fa fa-anchor">
+            <p:splitButton value="Número" actionListener="#{displayController.sacarNumero()}" update="frm" icon="fa fa-anchor">
                 <p:menuitem value="Reiniciar" actionListener="#{displayController.init()}" update="frm" icon="fa fa-refresh" />
             </p:splitButton>
 
-          
+
         </h:form>
 
     </h:body>

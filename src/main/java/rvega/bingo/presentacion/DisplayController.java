@@ -26,6 +26,7 @@ public class DisplayController {
     private Random rnd;
     private Numero numeroCarton;
     private List<BingoLinea> lstBingoLinea;
+    private String titulo = "BINGO";
 
     @PostConstruct
     public void init() {
@@ -77,6 +78,14 @@ public class DisplayController {
 
     public void setNumeroCarton(Numero numeroCarton) {
         this.numeroCarton = numeroCarton;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
 }

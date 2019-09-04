@@ -33,21 +33,24 @@
         </style>
     </h:head>
     <h:body>
-        <p:growl autoUpdate="true" />
+        <p:growl>
+            <p:autoUpdate />
+        </p:growl>
         <h:form id="frm">
 
             <p:panel >
                 <f:facet name="header">
-                    BINGO - DESPEDIDA NATY...
-                    <span style="float: right">
+                    <h:outputText value="#{displayController.titulo}" />
+
+                    <h:panelGroup style="float: right" rendered="false">
                         <p:splitButton value="Número" actionListener="#{displayController.sacarNumero()}" update="frm" icon="fa fa-anchor">
                             <p:menuitem value="Reiniciar" actionListener="#{displayController.init()}" update="frm" icon="fa fa-refresh" />
                         </p:splitButton>
-                    </span>
+                    </h:panelGroup>
 
                 </f:facet>
 
-                <p:dataTable var="fila" value="#{displayController.lstBingoLinea}" >
+                <p:dataTable id="tablero" var="fila" value="#{displayController.lstBingoLinea}" >
                     <p:column>
                         #{fila.letra}
                     </p:column>
@@ -119,7 +122,7 @@
                     </p:panel>
 
                 </h:panelGrid>
-                <p:poll autoStart="true" update="mensaje" delay="500" />
+                <p:poll autoStart="true" update="frm" delay="500" />
 
             </p:panel>
 

@@ -22,14 +22,13 @@ public class Bingo implements Serializable {
 
     @PostConstruct
     public void init() {
-        System.out.println("CREAR TABLERO BINGO");
         // crear consola de bingo
-        listaB = new ArrayList<Numero>();
-        listaI = new ArrayList<Numero>();
-        listaN = new ArrayList<Numero>();
-        listaG = new ArrayList<Numero>();
-        listaO = new ArrayList<Numero>();
-        mapTotal = new HashMap<Integer, Numero>();
+        listaB = new ArrayList<>();
+        listaI = new ArrayList<>();
+        listaN = new ArrayList<>();
+        listaG = new ArrayList<>();
+        listaO = new ArrayList<>();
+        mapTotal = new HashMap<>();
 
         //letra B
         for (int i = 1; i <= 15; i++) {

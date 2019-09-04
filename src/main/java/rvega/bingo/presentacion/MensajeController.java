@@ -1,6 +1,5 @@
 package rvega.bingo.presentacion;
 
-import rvega.bingo.presentacion.CartonController;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -21,10 +20,13 @@ public class MensajeController implements Serializable {
 
     private String texto;
 
-    public String enviar() {
+    public void nuevoMensaje() {
         mensajeApplication.setUsuario(cartonController.getNombre());
         mensajeApplication.setMensaje(texto);
         texto = null;
+    }
+
+    public String enviar() {
         return "/carton.xhtml?faces-redirect=true";
     }
 
