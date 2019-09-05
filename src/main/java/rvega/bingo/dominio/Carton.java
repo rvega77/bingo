@@ -46,4 +46,19 @@ public class Carton implements Serializable {
 
     }
 
+    public Integer contarFaltantes(List<Integer> lstNumeros) {
+        int total = 24;
+        for (Numero n : mapNumeros.values()) {
+            if (lstNumeros.contains(n.getValor())) {
+                total--;
+            }
+        }
+        return total;
+    }
+
+    @Override
+    public String toString() {
+        return "Carton{" + "mapColumnas=" + mapColumnas + '}';
+    }
+
 }

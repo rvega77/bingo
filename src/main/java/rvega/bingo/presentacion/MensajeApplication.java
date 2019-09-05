@@ -11,7 +11,7 @@ import javax.inject.Named;
 @ApplicationScoped
 public class MensajeApplication {
     private String usuario = "...";
-    private String mensaje = "Puedes enviar mensaje de tu celcular...";
+    private String mensaje = "Puedes enviar mensaje de tu celular...";
 
     public MensajeApplication() {
     }

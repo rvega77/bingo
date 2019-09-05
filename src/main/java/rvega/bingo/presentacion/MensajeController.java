@@ -21,7 +21,7 @@ public class MensajeController implements Serializable {
     private String texto;
 
     public void nuevoMensaje() {
-        mensajeApplication.setUsuario(cartonController.getNombre());
+        mensajeApplication.setUsuario(cartonController.getUsuario().getNombre());
         mensajeApplication.setMensaje(texto);
         texto = null;
     }

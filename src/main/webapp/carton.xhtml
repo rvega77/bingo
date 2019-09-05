@@ -44,9 +44,9 @@
             <f:facet name="header">
                 <h:form style="display: inline">
                     <i class="fa fa-fw fa-user"></i>
-                    <h:outputText value="#{cartonController.nombre}" />
+                    <h:outputText value="#{cartonController.usuario.nombre}" />
 
-                    <h:panelGroup style="float: right" rendered="#{not empty cartonController.nombre}">
+                    <h:panelGroup style="float: right" rendered="#{not empty cartonController.usuario.nombre}">
                         <p:commandButton 
                             icon="fa fa-font"
                             value="+"
@@ -65,9 +65,9 @@
 
             </f:facet>
             <h:form>
-                <h:panelGrid columns="1" rendered="#{empty cartonController.nombre}">
+                <h:panelGrid columns="1" rendered="#{empty cartonController.usuario.nombre}">
                     <p:outputLabel for="usr" value="Nombre:" />
-                    <p:inputText id="usr" value="#{cartonController.nombre}" placeholder="puede ser seudónimo..." 
+                    <p:inputText id="usr" value="#{cartonController.usuario.nombre}" placeholder="seudónimo..." 
                                  styleClass="txt" 
                                  required="true"
                                  requiredMessage="Favor, ingrese su nombre o seudónimo"
@@ -84,7 +84,7 @@
 
                 </h:panelGrid>
             </h:form>
-            <h:panelGroup rendered="#{!empty cartonController.nombre}">
+            <h:panelGroup rendered="#{!empty cartonController.usuario.nombre}">
                 <h:form>
                     <p:dataTable id="carton" var="fila" value="#{cartonController.lstCartonLineas}" >
                         <p:column headerText="B" styleClass="#{fila.b.utilizado ? 'seleccionado':'noseleccionado'}" >   

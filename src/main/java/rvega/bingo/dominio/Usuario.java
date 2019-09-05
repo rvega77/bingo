@@ -1,6 +1,7 @@
 package rvega.bingo.dominio;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ public class Usuario implements Serializable {
 
     private String id;
     private String nombre;
+    private Date tiempo;
 
     public Usuario() {
         id = UUID.randomUUID().toString();
@@ -38,6 +40,14 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
+    public Date getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(Date tiempo) {
+        this.tiempo = tiempo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -61,6 +71,11 @@ public class Usuario implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", tiempo=" + tiempo + '}';
     }
 
 }

@@ -42,6 +42,18 @@
                 <f:facet name="header">
                     <h:outputText value="#{displayController.titulo}" />
 
+                    <h:panelGroup style="float: right">
+                        <i class="fa fa-fw fa-user"></i>
+                        <h:outputText value="#{cartonFactory.cantidadUsuarios}" />
+                        <h:panelGroup>
+                            <i class="fa fa-fw fa-ellipsis-v"></i>
+                            <i class="fa fa-fw fa-info-circle" style="color: #F31431"></i>
+                            <i class="fa fa-fw fa-child" style="color: #F31431"></i>
+                            <h:outputText value="#{displayController.cantidadCartonesPorGanar}" style="color: #F31431" />  
+                        </h:panelGroup>
+
+                    </h:panelGroup>
+
                     <h:panelGroup style="float: right" rendered="false">
                         <p:splitButton value="Número" actionListener="#{displayController.sacarNumero()}" update="frm" icon="fa fa-anchor">
                             <p:menuitem value="Reiniciar" actionListener="#{displayController.init()}" update="frm" icon="fa fa-refresh" />
@@ -122,7 +134,7 @@
                     </p:panel>
 
                 </h:panelGrid>
-                <p:poll autoStart="true" update="frm" delay="500" />
+                <p:poll autoStart="false" update="frm" delay="500" />
 
             </p:panel>
 

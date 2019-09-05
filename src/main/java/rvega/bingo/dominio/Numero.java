@@ -65,4 +65,9 @@ public class Numero implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Numero{" + "valor=" + valor + ", utilizado=" + utilizado + ", letra=" + letra + '}';
+    }
+
 }

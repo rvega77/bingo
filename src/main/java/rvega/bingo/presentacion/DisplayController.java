@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import rvega.bingo.dominio.Carton;
 import rvega.bingo.dominio.Numero;
 
 /**
@@ -23,10 +24,14 @@ public class DisplayController {
 
     @Inject
     private Bingo bingo;
+    @Inject
+    private CartonFactory factory;
+
     private Random rnd;
     private Numero numeroCarton;
     private List<BingoLinea> lstBingoLinea;
     private String titulo = "BINGO";
+    private int cantidadCartonesPorGanar;
 
     @PostConstruct
     public void init() {
@@ -54,10 +59,22 @@ public class DisplayController {
             } while (numeroCarton.isUtilizado());
             numeroCarton.setUtilizado(true);
             actualizarTablero();
+            calcularCartonesPorGanar();
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "TABLERO LLENO", null);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+    }
+
+    private void calcularCartonesPorGanar() {
+        cantidadCartonesPorGanar = 0;
+        List<Integer> numeros = bingo.getListaUtilizados();
+        for (Carton c : factory.getCartones()) {
+            if (c.contarFaltantes(numeros) <= 1) {
+                cantidadCartonesPorGanar++;
+            }
+        }
+        System.out.println("Por Ganar : " + cantidadCartonesPorGanar);
     }
 
     public Bingo getBingo() {
@@ -86,6 +103,14 @@ public class DisplayController {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public int getCantidadCartonesPorGanar() {
+        return cantidadCartonesPorGanar;
+    }
+
+    public void setCantidadCartonesPorGanar(int cantidadCartonesPorGanar) {
+        this.cantidadCartonesPorGanar = cantidadCartonesPorGanar;
     }
 
 }

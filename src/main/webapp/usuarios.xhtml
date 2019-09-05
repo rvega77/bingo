@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
@@ -10,13 +9,24 @@
 
     </h:head>
     <h:body>
-        <p:dataGrid var="u" value="#{cartonFactory.usuarios}" columns="2" layout="grid"
-                    >
+        <p:dataTable var="u" value="#{usuariosController.lstUsuario}"
+                     rowIndexVar="idx"
+                     >
             <f:facet name="header">
                 USUARIOS CONECTADOS
             </f:facet>
-            #{u.nombre}
-        </p:dataGrid>
+            <p:column headerText="NRO" style="width: 32px">
+                #{idx + 1}
+            </p:column>
+            <p:column headerText="USUARIO">
+                #{u.nombre}
+            </p:column>
+            <p:column headerText="CARTÓN">
+                <span style="float: right">
+                    #{usuariosController.contarFaltantes(u)} 
+                </span>
+            </p:column>
+        </p:dataTable>
     </h:body>
 </html>
 
