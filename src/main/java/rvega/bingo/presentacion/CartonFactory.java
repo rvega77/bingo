@@ -87,6 +87,10 @@ public class CartonFactory {
         return mapCarton.get(u);
     }
 
+    public boolean existeUsuario(Usuario u) {
+        return mapCarton.containsKey(u);
+    }
+
     public Integer getCantidadUsuarios() {
         System.out.println("getCantidadUsuarios");
         System.out.println(mapCarton);

@@ -60,8 +60,15 @@ public class CartonController implements Serializable {
     }
 
     public void jugar() {
-        String nro = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("nro");
-        carton.conmutar(Integer.parseInt(nro));
+        if (factory.existeUsuario(usuario)) {
+            String nro = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("nro");
+            carton.conmutar(Integer.parseInt(nro));
+        } else {
+            FacesContext
+                    .getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Cartón Inválido", null));
+
+        }
     }
 
     public void nuevoCarton() {

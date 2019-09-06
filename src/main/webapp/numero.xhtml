@@ -36,7 +36,7 @@
         </p:growl>
         <h:form id="frm">
 
-            <p:panel header="Número">
+            <p:panel header="NÚMERO">
                 <h:outputText 
                     value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
                     styleClass="numero"
@@ -48,7 +48,7 @@
             <p:spacer height="15" width="100%" />
 
             <p:commandButton
-                value="Nuevo Número"
+                value="Nuevo"
                 actionListener="#{displayController.sacarNumero()}" 
                 update="frm"     
                 style="width: 98%; font-size: 35px"
@@ -61,13 +61,13 @@
             <br />
             <br />
             <p:separator />
-                        
+
             <p:button
                 icon="fa fa-gear"
                 value="Admin"
                 outcome="/admin"
                 />
-            
+
             <p:button
                 icon="fa fa-user"         
                 value="Usuarios" 
