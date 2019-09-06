@@ -134,7 +134,8 @@
 
                     <p:commandButton 
                         icon="fa fa-comment-o"
-                        action="#{mensajeController.nuevoMensaje()}"
+                        actionListener="#{mensajeController.nuevoMensaje()}"
+                        action="#{cartonController.enviarMensaje()}"
                         update="msg"
                         />                    
 

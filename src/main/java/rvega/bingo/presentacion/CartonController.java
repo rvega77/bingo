@@ -82,6 +82,12 @@ public class CartonController implements Serializable {
         }
     }
 
+    public void enviarMensaje() {
+        FacesContext
+                .getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje Enviado...", null));
+    }
+
     public String aumentarTamanno() {
         tamanno += 5;
         return "/carton.xhtml?faces-redirect=true";
