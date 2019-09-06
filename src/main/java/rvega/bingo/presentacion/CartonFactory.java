@@ -22,8 +22,29 @@ public class CartonFactory {
 
     private final Random rnd = new Random();
     private final Map<Usuario, Carton> mapCarton = Collections.synchronizedMap(new HashMap<>());
+    private boolean bloqueado;
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
+    public void reset() {
+        mapCarton.clear();
+    }
 
     public Carton crear(Usuario usr) {
+
+        if (bloqueado) {
+            // solo se puede crear uno
+            if (mapCarton.containsKey(usr)) {
+                throw new IllegalStateException("No se pueden crear cartones");
+            }
+        }
+
         Carton c = new Carton();
         c.agregar("B", crearColumna("B", 1));
         c.agregar("I", crearColumna("I", 16));

@@ -16,7 +16,7 @@
                 text-align: center;
             }
             .numero {
-                font-size: 120px;
+                font-size: 130px;
             }
             .btn {
 
@@ -61,16 +61,16 @@
             <br />
             <br />
             <p:separator />
-            <p:commandButton
-                icon="fa fa-refresh"         
-                value="Reiniciar" 
-                actionListener="#{displayController.init()}" 
-                update="frm"
+                        
+            <p:button
+                icon="fa fa-gear"
+                value="Admin"
+                outcome="/admin"
                 />
             
             <p:button
                 icon="fa fa-user"         
-                value="usuarios" 
+                value="Usuarios" 
                 outcome="/usuarios"
                 style="float: right"
                 />
