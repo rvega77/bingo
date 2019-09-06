@@ -45,7 +45,7 @@
                     <h:panelGroup style="float: right">
                         <i class="fa fa-fw fa-user"></i>
                         <h:outputText value="#{cartonFactory.cantidadUsuarios}" />
-                        <h:panelGroup>
+                        <h:panelGroup rendered="#{displayController.existenPorGanar}" >
                             <i class="fa fa-fw fa-ellipsis-v"></i>
                             <i class="fa fa-fw fa-info-circle" style="color: #F31431"></i>
                             <i class="fa fa-fw fa-child" style="color: #F31431"></i>

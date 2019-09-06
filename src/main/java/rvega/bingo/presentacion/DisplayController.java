@@ -77,6 +77,10 @@ public class DisplayController {
         System.out.println("Por Ganar : " + cantidadCartonesPorGanar);
     }
 
+    public boolean isExistenPorGanar() {
+        return cantidadCartonesPorGanar > 0;
+    }
+
     public Bingo getBingo() {
         return bingo;
     }
