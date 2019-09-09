@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import rvega.bingo.dominio.CartonLinea;
 import rvega.bingo.dominio.Usuario;
+import rvega.bingo.socket.PushBean;
 
 /**
  *
@@ -21,6 +22,9 @@ import rvega.bingo.dominio.Usuario;
 @Named
 @SessionScoped
 public class CartonController implements Serializable {
+
+    @Inject
+    private PushBean pushBean;
 
     @Inject
     private CartonFactory factory;
@@ -53,6 +57,8 @@ public class CartonController implements Serializable {
     public void login() {
         usuario.setTiempo(new Date());
         nuevoCarton();
+        //evento
+        pushBean.enviarUsuario(usuario.getNombre());
     }
 
     public void logout() {

@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import rvega.bingo.dominio.Carton;
 import rvega.bingo.dominio.Numero;
+import rvega.bingo.socket.PushBean;
 
 /**
  *
@@ -21,18 +22,20 @@ import rvega.bingo.dominio.Numero;
 @Named
 @ApplicationScoped
 public class DisplayController {
-
+    
+    @Inject
+    private PushBean pushBean;
     @Inject
     private Bingo bingo;
     @Inject
     private CartonFactory factory;
-
+    
     private Random rnd;
     private Numero numeroCarton;
     private List<BingoLinea> lstBingoLinea;
     private String titulo = "BINGO";
     private int cantidadCartonesPorGanar;
-
+    
     @PostConstruct
     public void init() {
         rnd = new Random();
@@ -40,7 +43,7 @@ public class DisplayController {
         actualizarTablero();
         numeroCarton = null;
     }
-
+    
     private void actualizarTablero() {
         lstBingoLinea = new ArrayList<>();
         lstBingoLinea.add(new BingoLinea("B", bingo.getListaB()));
@@ -49,7 +52,13 @@ public class DisplayController {
         lstBingoLinea.add(new BingoLinea("G", bingo.getListaG()));
         lstBingoLinea.add(new BingoLinea("O", bingo.getListaO()));
     }
-
+    
+    public void nuevoUsuario() {
+        String usr = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("usr");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "BIENVENIDA: " + usr, usr);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
     public void sacarNumero() {
         if (bingo.disponibles()) {
             do {
@@ -60,12 +69,13 @@ public class DisplayController {
             numeroCarton.setUtilizado(true);
             actualizarTablero();
             calcularCartonesPorGanar();
+            pushBean.enviarJuego(numeroCarton.toFmtString());
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "TABLERO LLENO", null);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     private void calcularCartonesPorGanar() {
         cantidadCartonesPorGanar = 0;
         List<Integer> numeros = bingo.getListaUtilizados();
@@ -76,45 +86,45 @@ public class DisplayController {
         }
         System.out.println("Por Ganar : " + cantidadCartonesPorGanar);
     }
-
+    
     public boolean isExistenPorGanar() {
         return cantidadCartonesPorGanar > 0;
     }
-
+    
     public Bingo getBingo() {
         return bingo;
     }
-
+    
     public void setBingo(Bingo bingo) {
         this.bingo = bingo;
     }
-
+    
     public List<BingoLinea> getLstBingoLinea() {
         return lstBingoLinea;
     }
-
+    
     public Numero getNumeroCarton() {
         return numeroCarton;
     }
-
+    
     public void setNumeroCarton(Numero numeroCarton) {
         this.numeroCarton = numeroCarton;
     }
-
+    
     public String getTitulo() {
         return titulo;
     }
-
+    
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
+    
     public int getCantidadCartonesPorGanar() {
         return cantidadCartonesPorGanar;
     }
-
+    
     public void setCantidadCartonesPorGanar(int cantidadCartonesPorGanar) {
         this.cantidadCartonesPorGanar = cantidadCartonesPorGanar;
     }
-
+    
 }

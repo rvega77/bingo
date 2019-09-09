@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      >
     <h:head>
         <title>BINGO :: TABLERO</title>
         <style>
@@ -31,18 +33,60 @@
                 vertical-align: top;
             }
         </style>
+
+        <script>
+            function socketUsuarioListener(message, channel, event) {
+                console.log(message + " : " + channel + " : " + event);
+                usuario = message;
+                actualizarUsuarios([{name: "usr", value: message}]);
+            }
+
+            function socketJuegoListener(message, channel, event) {
+                console.log(message + " : " + channel + " : " + event);
+                usuario = message;
+                actualizarTablero();
+            }
+
+            function socketMensajeListener(message, channel, event) {
+                console.log(message + " : " + channel + " : " + event);
+                usuario = message;
+                actualizarMensajes();
+            }
+
+            function mensajeBienvenida(usuario) {
+                PF('msgGlobo').renderMessage({
+                    "summary": "BIENVENIDA",
+                    "detail": usuario,
+                    "severity": "info"
+                });
+            }
+        </script>
     </h:head>
     <h:body>
-        <p:growl>
+        <o:socket channel="bingoUsuarioChannel" onmessage="socketUsuarioListener" />
+        <o:socket channel="bingoJuegoChannel" onmessage="socketJuegoListener" />
+        <o:socket channel="bingoMensajeChannel" onmessage="socketMensajeListener" />
+
+        <p:growl widgetVar="msgGlobo">
             <p:autoUpdate />
         </p:growl>
         <h:form id="frm">
+            <p:remoteCommand name="actualizarUsuarios" 
+                             actionListener="#{displayController.nuevoUsuario()}"
+                             update=":frm:usr" 
+                             />
+            <p:remoteCommand name="actualizarTablero" 
+                             update=":frm:usr :frm:tablero :frm:numero" 
+                             />
+            <p:remoteCommand name="actualizarMensajes" 
+                             update=":frm:mensaje" 
+                             />
 
             <p:panel >
                 <f:facet name="header">
                     <h:outputText value="#{displayController.titulo}" />
 
-                    <h:panelGroup style="float: right">
+                    <h:panelGroup id="usr" style="float: right">
                         <i class="fa fa-fw fa-user"></i>
                         <h:outputText value="#{cartonFactory.cantidadUsuarios}" />
                         <h:panelGroup rendered="#{displayController.existenPorGanar}" >
@@ -114,7 +158,7 @@
                 </p:dataTable>
                 <p:spacer height="5px" />
                 <h:panelGrid columns="2" columnClasses="col1,col2">
-                    <p:panel header="Número">
+                    <p:panel id="numero" header="NÚMERO">
                         <h:outputText 
                             value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
                             styleClass="numero"

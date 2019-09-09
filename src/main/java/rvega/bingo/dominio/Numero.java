@@ -70,4 +70,8 @@ public class Numero implements Serializable {
         return "Numero{" + "valor=" + valor + ", utilizado=" + utilizado + ", letra=" + letra + '}';
     }
 
+    public String toFmtString() {
+        return letra + " " + valor;
+    }
+
 }
