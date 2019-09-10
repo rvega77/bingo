@@ -41,7 +41,7 @@
                 <version>7.1.1</version>
                 <configuration>
                     <tomeeVersion>7.1.1</tomeeVersion>
-                    <tomeeClassifier>plus</tomeeClassifier>
+                    <tomeeClassifier>plus</tomeeClassifier>                    
                     <webapps>
                         <webapp>${project.groupId}:${project.artifactId}:${project.version}?name=${project.artifactId}</webapp> 
                     </webapps>
