@@ -41,5 +41,6 @@ public class AdminController {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Cartones Reiniciados"));
-    }
+            pushBean.enviarUsuario("");
+}
 }
