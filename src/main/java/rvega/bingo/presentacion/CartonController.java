@@ -27,6 +27,8 @@ public class CartonController implements Serializable {
     private PushBean pushBean;
 
     @Inject
+    private DisplayController displayController;
+    @Inject
     private CartonFactory factory;
 
     private int tamanno = 30;
@@ -59,6 +61,7 @@ public class CartonController implements Serializable {
         nuevoCarton();
         //evento
         pushBean.enviarUsuario(usuario.getNombre());
+        displayController.nuevoUsuario(usuario);
     }
 
     public void logout() {

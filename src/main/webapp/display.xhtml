@@ -5,7 +5,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:o="http://omnifaces.org/ui"
-      >
+
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>BINGO :: TABLERO</title>
         <style>
@@ -19,14 +20,32 @@
             .numero {
                 font-size: 50px;
             }
+            .mensaje-cantidad {
+                display: inline-block;
+                float: right;
+                padding: 2px 7px;
+                border-radius: 25px;
+                color: white;      
+                background-color: #d63031;
+                font-size: small;
+            }
+            .usuario {
+                display: inline-block;
+                padding: 2px 7px;
+                border-radius: 25px;
+                background-color: #2399e5;
+                color: white;
+                font-size: 15px;
+                vertical-align: text-bottom;
+            }
             .mensaje {
-                font-size: 30px;
+                font-size: 25px;
             }
             .btn {
 
             }
             .col1 {
-                width: 200px;
+                width: 150px;
                 vertical-align: top;
             }
             .col2 {
@@ -37,13 +56,11 @@
         <script>
             function socketUsuarioListener(message, channel, event) {
                 console.log(message + " : " + channel + " : " + event);
-                usuario = message;
                 actualizarUsuarios([{name: "usr", value: message}]);
             }
 
             function socketJuegoListener(message, channel, event) {
                 console.log(message + " : " + channel + " : " + event);
-                usuario = message;
                 actualizarTablero();
             }
 
@@ -55,8 +72,8 @@
 
             function mensajeBienvenida(usuario) {
                 PF('msgGlobo').renderMessage({
-                    "summary": "BIENVENIDA",
-                    "detail": usuario,
+                    "summary": usuario,
+                    "detail": null,
                     "severity": "info"
                 });
             }
@@ -72,7 +89,6 @@
         </p:growl>
         <h:form id="frm">
             <p:remoteCommand name="actualizarUsuarios" 
-                             actionListener="#{displayController.nuevoUsuario()}"
                              update=":frm:usr" 
                              />
             <p:remoteCommand name="actualizarTablero" 
@@ -107,7 +123,7 @@
                 </f:facet>
 
                 <p:dataTable id="tablero" var="fila" value="#{displayController.lstBingoLinea}" >
-                    <p:column>
+                    <p:column footerText="">
                         #{fila.letra}
                     </p:column>
                     <p:column styleClass="#{fila.c1.utilizado ? 'seleccionado':'noseleccionado'}">                    
@@ -156,7 +172,7 @@
                         #{fila.c15.valor}
                     </p:column>
                 </p:dataTable>
-                <p:spacer height="5px" />
+
                 <h:panelGrid columns="2" columnClasses="col1,col2">
                     <p:panel id="numero" header="NÚMERO">
                         <h:outputText 
@@ -169,12 +185,25 @@
 
                     <p:panel id="mensaje">
                         <f:facet name="header">
-                            <h:outputText value="MENSAJE DE #{mensajeApplication.usuario}" />
+                            <h:outputText value="MENSAJES" />
+                            <h:outputText                             
+                                value="#{mensajeApplication.cantidad}"
+                                styleClass="mensaje-cantidad"
+                                />
                         </f:facet>
-                        <h:outputText                             
-                            value="#{mensajeApplication.mensaje}"
-                            styleClass="mensaje"
-                            />
+                        
+                        <ui:repeat var="m" value="#{mensajeApplication.lstMensaje}">
+                            <div>
+                                <h:outputText                             
+                                    value="#{m.usuario}"
+                                    styleClass="usuario"
+                                    />
+                                <h:outputText                             
+                                    value="#{m.texto}"
+                                    styleClass="mensaje"
+                                    /> 
+                            </div>
+                        </ui:repeat>
                     </p:panel>
 
                 </h:panelGrid>

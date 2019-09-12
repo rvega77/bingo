@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.socket.PushBean;
 
 /**
@@ -15,8 +16,6 @@ import rvega.bingo.socket.PushBean;
 public class MensajeController implements Serializable {
 
     @Inject
-    private PushBean pushBean;
-    @Inject
     private MensajeApplication mensajeApplication;
     @Inject
     private CartonController cartonController;
@@ -24,9 +23,11 @@ public class MensajeController implements Serializable {
     private String texto;
 
     public void nuevoMensaje() {
-        mensajeApplication.setUsuario(cartonController.getUsuario().getNombre());
-        mensajeApplication.setMensaje(texto);
-        pushBean.enviarMensaje(texto);
+        Mensaje m = new Mensaje();
+
+        m.setUsuario(cartonController.getUsuario().getNombre());
+        m.setTexto(texto);
+        mensajeApplication.agregar(m);
         texto = null;
     }
 

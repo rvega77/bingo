@@ -31,7 +31,6 @@ public class ConsolaController implements Serializable {
         do {
             numero = rnd.nextInt(75) + 1;
             numeroCarton = bingo.getMapTotal().get(numero);
-            System.out.println(numero + " : " + numeroCarton.isUtilizado());
         } while (numeroCarton.isUtilizado());
 
         numeroCarton.setUtilizado(true);

@@ -17,6 +17,8 @@ public class AdminController {
 
     @Inject
     private PushBean pushBean;
+    @Inject
+    private MensajeApplication mensajeApplication;
     
     public void actualizarTitulo() {
         FacesContext
@@ -35,6 +37,7 @@ public class AdminController {
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Tablero Reiniciado"));
         pushBean.enviarJuego("");
+        mensajeApplication.purgar();
     }
     
     public void actualizarCartones() {

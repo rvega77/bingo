@@ -12,7 +12,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import rvega.bingo.dominio.Carton;
+import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.dominio.Numero;
+import rvega.bingo.dominio.Usuario;
 import rvega.bingo.socket.PushBean;
 
 /**
@@ -29,6 +31,8 @@ public class DisplayController {
     private Bingo bingo;
     @Inject
     private CartonFactory factory;
+    @Inject
+    private MensajeApplication mensajeApplication;
 
     private Random rnd;
     private Numero numeroCarton;
@@ -54,10 +58,15 @@ public class DisplayController {
         lstBingoLinea.add(new BingoLinea("O", bingo.getListaO()));
     }
 
-    public void nuevoUsuario() {
-        String usr = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("usr");
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "BIENVENIDA: " + usr, usr);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    public void nuevoUsuario(Usuario usuario) {
+        //String usr = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("usr");
+//        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "BIENVENIDA: " + usr, usr);
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
+        Mensaje m = new Mensaje();
+        m.setUsuario("Bingo");
+        m.setTexto("Nuevo jugador: " + usuario.getNombre());
+        mensajeApplication.agregar(m);
+
     }
 
     public void sacarNumero() {
@@ -65,7 +74,6 @@ public class DisplayController {
             do {
                 int numero = rnd.nextInt(75) + 1;
                 numeroCarton = bingo.getMapTotal().get(numero);
-                System.out.println(numero + " : " + numeroCarton.isUtilizado());
             } while (numeroCarton.isUtilizado());
             numeroCarton.setUtilizado(true);
             actualizarTablero();
@@ -85,7 +93,7 @@ public class DisplayController {
                 cantidadCartonesPorGanar++;
             }
         }
-        System.out.println("Por Ganar : " + cantidadCartonesPorGanar);
+        //System.out.println("Por Ganar : " + cantidadCartonesPorGanar);
     }
 
     public boolean isExistenPorGanar() {

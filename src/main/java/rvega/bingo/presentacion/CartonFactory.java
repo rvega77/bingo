@@ -57,9 +57,9 @@ public class CartonFactory {
         c.getMapColumnas().get("N").add(2, null);
 
         mapCarton.put(usr, c);
-        System.out.println("CREAR CARTON");
-        System.out.println("USUARIO : " + usr);
-        System.out.println("CARTON : " + c);
+//        System.out.println("CREAR CARTON");
+//        System.out.println("USUARIO : " + usr);
+//        System.out.println("CARTON : " + c);
         return c;
     }
 
@@ -92,8 +92,6 @@ public class CartonFactory {
     }
 
     public Integer getCantidadUsuarios() {
-        System.out.println("getCantidadUsuarios");
-        System.out.println(mapCarton);
         return mapCarton.size();
     }
 }
