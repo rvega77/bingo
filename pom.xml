@@ -43,8 +43,9 @@
                     <tomeeVersion>7.1.1</tomeeVersion>
                     <tomeeClassifier>plus</tomeeClassifier>                    
                     <webapps>
-                        <webapp>${project.groupId}:${project.artifactId}:${project.version}?name=${project.artifactId}</webapp> 
+                        <webapp>${project.groupId}:${project.artifactId}:${project.version}?name=ROOT</webapp> 
                     </webapps>
+                    <tomeeHttpPort>80</tomeeHttpPort>
                 </configuration>
             </plugin>
             <plugin>

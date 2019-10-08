@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>NUMERO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +18,9 @@
             }
             .numero {
                 font-size: 130px;
+            }
+            .numero-historico {
+                font-size: 35px;
             }
             .btn {
 
@@ -43,9 +47,8 @@
                     />
 
             </p:panel>
+
             <p:spacer height="15" />
-            <p:separator />
-            <p:spacer height="15" width="100%" />
 
             <p:commandButton
                 value="Nuevo"
@@ -54,11 +57,24 @@
                 style="width: 98%; font-size: 35px"
                 />
 
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+            <p:spacer height="15" />
+
+            <p:panel header="ÚLTIMOS NÚMEROS">
+                <ui:repeat var="n" value="#{displayController.lstUltimosNumeros}"
+                           varStatus="status"
+                           >
+                    <h:outputText 
+                        value="#{n.toFmtString()}"
+                        styleClass="numero-historico"
+                        />
+                    <h:outputText 
+                        value=" :: "
+                        styleClass="numero-historico"
+                        rendered="#{not status.last}"
+                        />
+                </ui:repeat>
+            </p:panel>
+            
             <br />
             <p:separator />
 

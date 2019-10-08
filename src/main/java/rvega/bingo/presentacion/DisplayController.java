@@ -1,9 +1,13 @@
 package rvega.bingo.presentacion;
 
+import java.util.ArrayDeque;
 import rvega.bingo.dominio.Bingo;
 import rvega.bingo.dominio.BingoLinea;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -39,6 +43,8 @@ public class DisplayController {
     private List<BingoLinea> lstBingoLinea;
     private String titulo = "BINGO";
     private int cantidadCartonesPorGanar;
+    // ultimos numeros jugados
+    private Deque<Numero> lstUltimosNumeros;
 
     @PostConstruct
     public void init() {
@@ -47,6 +53,7 @@ public class DisplayController {
         actualizarTablero();
         numeroCarton = null;
         cantidadCartonesPorGanar = 0;
+        lstUltimosNumeros = new ArrayDeque<>();
     }
 
     private void actualizarTablero() {
@@ -71,6 +78,9 @@ public class DisplayController {
 
     public void sacarNumero() {
         if (bingo.disponibles()) {
+            if (numeroCarton != null) {
+                agregarUltimosUtilizados();
+            }
             do {
                 int numero = rnd.nextInt(75) + 1;
                 numeroCarton = bingo.getMapTotal().get(numero);
@@ -82,6 +92,13 @@ public class DisplayController {
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "TABLERO LLENO", null);
             FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    private void agregarUltimosUtilizados() {
+        lstUltimosNumeros.addFirst(numeroCarton);
+        if (lstUltimosNumeros.size() > 3) {
+            lstUltimosNumeros.removeLast();
         }
     }
 
@@ -98,6 +115,10 @@ public class DisplayController {
 
     public boolean isExistenPorGanar() {
         return cantidadCartonesPorGanar > 0;
+    }
+
+    public List<Numero> getLstUltimosNumeros() {
+        return new ArrayList<>(lstUltimosNumeros);
     }
 
     public Bingo getBingo() {
