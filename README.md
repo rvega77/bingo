@@ -16,6 +16,6 @@ Juego Familiar en donde tu celular es tu cartón.
 
 Netbeans 11
 java jdk8
-Payara 5 (puede ser otro, ej: tomee)
+TomEE (puede ser otro, ej: payara)
 Framework: JSF - CDI + Primefaces 7.0
 
