@@ -18,4 +18,5 @@ Netbeans 11
 java jdk8
 TomEE (puede ser otro, ej: payara)
 Framework: JSF - CDI + Primefaces 7.0
+Se utiliza plugins maven para empaquetar todos en un jar
 
