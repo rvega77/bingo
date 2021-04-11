@@ -57,7 +57,6 @@
                     <p:commandButton
                         icon="fa fa-refresh"         
                         value="Reiniciar" 
-                        actionListener="#{displayController.init()}" 
                         action="#{adminController.actualizarTablero()}"
                         />
                 </p:panelGrid>
@@ -74,6 +73,21 @@
                         value="Reiniciar (#{cartonFactory.cantidadUsuarios})" 
                         actionListener="#{cartonFactory.reset()}" 
                         action="#{adminController.actualizarCartones()}"
+                        update="@this"
+                        />
+                </p:panelGrid>
+                
+                <p:spacer height="10px" />
+
+                <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
+                    <f:facet name="header">
+                        <h:outputText value="Rifa" />
+                    </f:facet>
+
+                    <p:commandButton
+                        icon="fa fa-file-text-o"         
+                        value="Iniciar Sorteo (#{rifaController.cantidadUsuarios})" 
+                        action="#{adminController.sortearRifa()}"
                         update="@this"
                         />
                 </p:panelGrid>

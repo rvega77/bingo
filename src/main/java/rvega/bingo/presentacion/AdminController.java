@@ -1,5 +1,7 @@
 package rvega.bingo.presentacion;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -18,32 +20,62 @@ public class AdminController {
     @Inject
     private PushBean pushBean;
     @Inject
+    private DisplayController displayController;
+    @Inject
+    private RifaController rifaController;
+    @Inject
     private MensajeApplication mensajeApplication;
-    
+
     public void actualizarTitulo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Título Actualizado"));
     }
-    
+
     public void actualizarBloqueo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Bloqueo Actualizado"));
     }
-    
+
     public void actualizarTablero() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Tablero Reiniciado"));
+        displayController.init();
+        rifaController.init();
         pushBean.enviarJuego("");
         mensajeApplication.purgar();
     }
-    
+
     public void actualizarCartones() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Cartones Reiniciados"));
-            pushBean.enviarUsuario("");
-}
+        pushBean.enviarUsuario("");
+    }
+
+    public void sortearRifa() {
+        FacesContext
+                .getCurrentInstance()
+                .addMessage(null, new FacesMessage("Iniciando Sorteo"));
+
+//        ExecutorService es = Executors.newFixedThreadPool(1); 
+//        es.
+        long t = 500;
+        try {
+            for (int i = 0; i < 50; i++) {
+                rifaController.sortear();
+                pushBean.enviarJuego("");
+                Thread.sleep(t);
+                t -= 50;
+                if (t < 0) {
+                    t = 5;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
