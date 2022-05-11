@@ -30,12 +30,17 @@ public class CartonController implements Serializable {
     private DisplayController displayController;
     @Inject
     private CartonFactory factory;
+    @Inject
+    private RifaController rifaController;
 
     private int tamanno = 30;
     private Usuario usuario;
     private Carton carton;
     //derivado para renderizar el carton
     private List<CartonLinea> lstCartonLineas;
+    
+    // numero de rifa
+    private int numero;
 
     @PostConstruct
     public void init() {
@@ -107,6 +112,21 @@ public class CartonController implements Serializable {
         return "/carton.xhtml?faces-redirect=true";
     }
 
+    public void comprar() {
+        System.out.println("NUMERO : " + numero);
+        try {
+            rifaController.comprar(usuario, numero);
+            pushBean.enviarJuego("");
+            FacesContext
+                    .getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Número Comprado", null));
+        } catch (Exception ex) {
+            FacesContext
+                    .getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), null));
+        }
+    }
+
     public List<CartonLinea> getLstCartonLineas() {
         return lstCartonLineas;
     }
@@ -137,6 +157,14 @@ public class CartonController implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
 }

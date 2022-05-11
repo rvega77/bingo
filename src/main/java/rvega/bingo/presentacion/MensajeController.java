@@ -5,7 +5,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import rvega.bingo.dominio.Mensaje;
-import rvega.bingo.socket.PushBean;
 
 /**
  *

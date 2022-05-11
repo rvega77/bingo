@@ -22,23 +22,12 @@ public class Rifa {
     public void init() {
     }
     
-    public void testGanadores() {
-        Random rnd = new Random();
-        
-        comprar(rnd.nextInt(maxNichos), new Usuario("URS TEST 1"));
-        comprar(rnd.nextInt(maxNichos), new Usuario("URS TEST 2"));
-        comprar(rnd.nextInt(maxNichos), new Usuario("URS TEST 3"));
-        comprar(rnd.nextInt(maxNichos), new Usuario("URS TEST 4"));
-        comprar(rnd.nextInt(maxNichos), new Usuario("URS TEST 5"));
-        comprar(rnd.nextInt(maxNichos), new Usuario("URS TEST 6"));
-        comprar(rnd.nextInt(maxNichos), new Usuario("URS TEST 7"));
-        comprar(rnd.nextInt(maxNichos), new Usuario("URS TEST 8"));
-    }
-    
-    public void comprar(int idx, Usuario usr) {
-        //todo logica para comprar
-        nichos.get(idx).setUsuario(usr);
-        
+    public synchronized void comprar(int idx, Usuario usr) {
+        RifaNicho n = nichos.get(idx);
+        if (n.getUsuario() != null){
+            throw new IllegalStateException("Ya fue comprado por : " + n.getUsuario().getNombre());
+        }
+        n.setUsuario(usr);        
     }
     
     public void crearNichos(int max) {
