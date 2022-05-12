@@ -22,15 +22,16 @@
 
                 <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
                     <f:facet name="header">
-                        <h:outputText value="Título Bingo" />
+                        <h:outputText value="Título Juego" />
                     </f:facet>
-                    <p:inputText value="#{displayController.titulo}"
+                    <p:inputText id="titulo" value="#{cnf.titulo}"
                                  style="width: 98%"
                                  />
                     <p:commandButton
                         icon="fa fa-pencil"
                         value="Actualizar"
                         action="#{adminController.actualizarTitulo()}"
+                        process="titulo"
                         />
                 </p:panelGrid>
 
@@ -38,10 +39,26 @@
 
                 <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
                     <f:facet name="header">
-                        <h:outputText value="Bloquear Generador de Cartones" />
+                        <h:outputText value="Modo Juego" />
                     </f:facet>
 
-                    <p:toggleSwitch value="#{cartonFactory.bloqueado}">
+                    <p:selectOneButton value="#{cnf.modo}">
+                        <f:selectItems value="#{adminController.lstModo}" />
+                        <p:ajax listener="#{adminController.actualizarModo()}"
+                                update="pnlModo"
+                                />
+                    </p:selectOneButton>
+
+                </p:panelGrid>
+
+                <p:spacer height="10px" />
+
+                <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
+                    <f:facet name="header">
+                        <h:outputText value="Bloquear" />
+                    </f:facet>
+
+                    <p:toggleSwitch value="#{cnf.bloqueado}">
                         <p:ajax listener="#{adminController.actualizarBloqueo()}" />
                     </p:toggleSwitch>
 
@@ -63,35 +80,68 @@
 
                 <p:spacer height="10px" />
 
-                <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
-                    <f:facet name="header">
-                        <h:outputText value="Reiniciar Cartones" />
-                    </f:facet>
+                <h:panelGroup id="pnlModo">
 
-                    <p:commandButton
-                        icon="fa fa-file-text-o"         
-                        value="Reiniciar (#{cartonFactory.cantidadUsuarios})" 
-                        actionListener="#{cartonFactory.reset()}" 
-                        action="#{adminController.actualizarCartones()}"
-                        update="@this"
-                        />
-                </p:panelGrid>
-                
-                <p:spacer height="10px" />
+                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
+                                 rendered="#{cnf.modoBingo}"
+                                 >
+                        <f:facet name="header">
+                            <h:outputText value="Reiniciar Cartones" />
+                        </f:facet>
 
-                <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
-                    <f:facet name="header">
-                        <h:outputText value="Rifa" />
-                    </f:facet>
+                        <p:commandButton
+                            icon="fa fa-file-text-o"         
+                            value="Reiniciar (#{cartonFactory.cantidadUsuarios})" 
+                            actionListener="#{cartonFactory.reset()}" 
+                            action="#{adminController.actualizarCartones()}"
+                            update="@this"
+                            />
+                    </p:panelGrid>
 
-                    <p:commandButton
-                        icon="fa fa-file-text-o"         
-                        value="Iniciar Sorteo (#{rifaController.cantidadUsuarios})" 
-                        action="#{adminController.sortearRifa()}"
-                        update="@this"
-                        />
-                </p:panelGrid>
+                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
+                                 rendered="#{cnf.modoRifa}"
+                                 >
+                        <f:facet name="header">
+                            <h:outputText value="Dimensiones de la Rifa" />
+                        </f:facet>
+                        <h:panelGrid columns="4" style="width: 100%">
+                            <h:outputText value="Fils" />
+                            <p:inputText id="filas" value="#{cnf.filas}"
+                                           style="width: 50px"                                           
+                                           />
 
+                            <h:outputText value="Cols" />
+                            <p:inputText id="columnas" value="#{cnf.columnas}" 
+                                           style="width: 50px"                                           
+                                           />
+                        </h:panelGrid>
+
+                        <p:commandButton
+                            icon="fa fa-pencil"
+                            value="Actualizar"
+                            action="#{adminController.actualizarDimensiones()}"
+                            process="filas columnas"
+                            />
+                    </p:panelGrid>
+
+                    <p:spacer height="10px" />
+
+                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
+                                 rendered="#{cnf.modoRifa}"
+                                 >
+                        <f:facet name="header">
+                            <h:outputText value="Sorteo Rifa" />
+                        </f:facet>
+
+                        <p:commandButton
+                            icon="fa fa-file-text-o"         
+                            value="Iniciar (#{rifaController.cantidadUsuarios})" 
+                            action="#{adminController.sortearRifa()}"
+                            update="@this"
+                            />
+                    </p:panelGrid>
+
+                </h:panelGroup>
 
             </h:form>
 

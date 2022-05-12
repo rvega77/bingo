@@ -6,10 +6,8 @@ import java.util.ArrayDeque;
 import rvega.bingo.negocio.Bingo;
 import rvega.bingo.dominio.BingoLinea;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -43,7 +41,6 @@ public class DisplayController {
     private Random rnd;
     private Numero numeroCarton;
     private List<BingoLinea> lstBingoLinea;
-    private String titulo = "BINGO";
     private int cantidadCartonesPorGanar;
     // ultimos numeros jugados
     private Deque<Numero> lstUltimosNumeros;
@@ -121,42 +118,6 @@ public class DisplayController {
 
     public List<Numero> getLstUltimosNumeros() {
         return new ArrayList<>(lstUltimosNumeros);
-    }
-
-    public Bingo getBingo() {
-        return bingo;
-    }
-
-    public void setBingo(Bingo bingo) {
-        this.bingo = bingo;
-    }
-
-    public List<BingoLinea> getLstBingoLinea() {
-        return lstBingoLinea;
-    }
-
-    public Numero getNumeroCarton() {
-        return numeroCarton;
-    }
-
-    public void setNumeroCarton(Numero numeroCarton) {
-        this.numeroCarton = numeroCarton;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public int getCantidadCartonesPorGanar() {
-        return cantidadCartonesPorGanar;
-    }
-
-    public void setCantidadCartonesPorGanar(int cantidadCartonesPorGanar) {
-        this.cantidadCartonesPorGanar = cantidadCartonesPorGanar;
     }
 
 }

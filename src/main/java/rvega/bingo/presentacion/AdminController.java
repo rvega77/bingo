@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import rvega.bingo.dominio.TipoModo;
 import rvega.bingo.socket.PushBean;
 
 /**
@@ -27,12 +28,28 @@ public class AdminController {
     @Inject
     private MensajeApplication mensajeApplication;
 
+    public TipoModo[] getLstModo() {
+        return TipoModo.values();
+    }
+
     public void actualizarTitulo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Título Actualizado"));
     }
 
+    public void actualizarModo() {
+        FacesContext
+                .getCurrentInstance()
+                .addMessage(null, new FacesMessage("Modo Juego Actualizado"));
+    }
+    
+    public void actualizarDimensiones() {
+        FacesContext
+                .getCurrentInstance()
+                .addMessage(null, new FacesMessage("Dimensiones Rifa Actualizada"));
+    }
+    
     public void actualizarBloqueo() {
         FacesContext
                 .getCurrentInstance()

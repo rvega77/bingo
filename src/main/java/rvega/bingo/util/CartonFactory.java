@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import rvega.bingo.dominio.Numero;
 import rvega.bingo.dominio.Usuario;
@@ -20,17 +21,11 @@ import rvega.bingo.dominio.Usuario;
 @ApplicationScoped
 public class CartonFactory {
 
+    @Inject
+    private ConfiguracionApplication cnf;
+
     private final Random rnd = new Random();
     private final Map<Usuario, Carton> mapCarton = Collections.synchronizedMap(new HashMap<>());
-    private boolean bloqueado;
-
-    public boolean isBloqueado() {
-        return bloqueado;
-    }
-
-    public void setBloqueado(boolean bloqueado) {
-        this.bloqueado = bloqueado;
-    }
 
     public void reset() {
         mapCarton.clear();
@@ -38,7 +33,7 @@ public class CartonFactory {
 
     public Carton crear(Usuario usr) {
 
-        if (bloqueado) {
+        if (cnf.isBloqueado()) {
             // solo se puede crear uno
             if (mapCarton.containsKey(usr)) {
                 throw new IllegalStateException("No se pueden crear cartones");
@@ -57,9 +52,6 @@ public class CartonFactory {
         c.getMapColumnas().get("N").add(2, null);
 
         mapCarton.put(usr, c);
-//        System.out.println("CREAR CARTON");
-//        System.out.println("USUARIO : " + usr);
-//        System.out.println("CARTON : " + c);
         return c;
     }
 
