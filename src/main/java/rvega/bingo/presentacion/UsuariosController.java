@@ -1,5 +1,6 @@
 package rvega.bingo.presentacion;
 
+import rvega.bingo.util.CartonFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import rvega.bingo.dominio.Bingo;
+import rvega.bingo.negocio.Bingo;
 import rvega.bingo.dominio.Usuario;
 
 /**

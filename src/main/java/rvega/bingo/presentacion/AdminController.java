@@ -1,5 +1,6 @@
 package rvega.bingo.presentacion;
 
+import rvega.bingo.negocio.MensajeApplication;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.enterprise.context.ApplicationScoped;

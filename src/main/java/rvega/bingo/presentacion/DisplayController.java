@@ -1,7 +1,9 @@
 package rvega.bingo.presentacion;
 
+import rvega.bingo.negocio.MensajeApplication;
+import rvega.bingo.util.CartonFactory;
 import java.util.ArrayDeque;
-import rvega.bingo.dominio.Bingo;
+import rvega.bingo.negocio.Bingo;
 import rvega.bingo.dominio.BingoLinea;
 import java.util.ArrayList;
 import java.util.Collections;

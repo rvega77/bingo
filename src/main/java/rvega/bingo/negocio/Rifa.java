@@ -1,4 +1,4 @@
-package rvega.bingo.dominio;
+package rvega.bingo.negocio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import rvega.bingo.dominio.RifaNicho;
+import rvega.bingo.dominio.Usuario;
 
 /**
  *

@@ -1,5 +1,6 @@
 package rvega.bingo.presentacion;
 
+import rvega.bingo.util.CartonFactory;
 import rvega.bingo.dominio.Carton;
 import java.io.Serializable;
 import java.util.ArrayList;

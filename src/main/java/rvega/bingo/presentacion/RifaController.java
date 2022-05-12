@@ -1,11 +1,12 @@
 package rvega.bingo.presentacion;
 
+import rvega.bingo.negocio.MensajeApplication;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import rvega.bingo.dominio.Mensaje;
-import rvega.bingo.dominio.Rifa;
+import rvega.bingo.negocio.Rifa;
 import rvega.bingo.dominio.Usuario;
 
 /**

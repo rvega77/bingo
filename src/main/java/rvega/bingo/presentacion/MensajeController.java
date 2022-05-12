@@ -1,5 +1,6 @@
 package rvega.bingo.presentacion;
 
+import rvega.bingo.negocio.MensajeApplication;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
