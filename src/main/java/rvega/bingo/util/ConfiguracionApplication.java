@@ -37,4 +37,8 @@ public class ConfiguracionApplication {
     public boolean isModoRifa() {
         return modo == TipoModo.RIFA;
     }
+
+    public int getMaxNichos() {
+        return filas * columnas;
+    }
 }

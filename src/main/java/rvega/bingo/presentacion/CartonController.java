@@ -41,9 +41,6 @@ public class CartonController implements Serializable {
     //derivado para renderizar el carton
     private List<CartonLinea> lstCartonLineas;
 
-    // numero de rifa
-    private int numero;
-
     @PostConstruct
     public void init() {
 
@@ -90,21 +87,6 @@ public class CartonController implements Serializable {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje Enviado...", null));
-    }
-
-    public void comprar() {
-        System.out.println("NUMERO : " + numero);
-        try {
-            rifaController.comprar(usuarioSession.getUsuario(), numero);
-            pushBean.enviarJuego("");
-            FacesContext
-                    .getCurrentInstance()
-                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Número Comprado", null));
-        } catch (Exception ex) {
-            FacesContext
-                    .getCurrentInstance()
-                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), null));
-        }
     }
 
 }
