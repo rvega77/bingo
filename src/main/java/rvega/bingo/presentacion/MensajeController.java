@@ -6,6 +6,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import rvega.bingo.dominio.Mensaje;
+import rvega.bingo.util.UsuarioSession;
 
 /**
  *
@@ -19,13 +20,15 @@ public class MensajeController implements Serializable {
     private MensajeApplication mensajeApplication;
     @Inject
     private CartonController cartonController;
+    @Inject
+    private UsuarioSession usuarioSession;
 
     private String texto;
 
     public void nuevoMensaje() {
         Mensaje m = new Mensaje();
 
-        m.setUsuario(cartonController.getUsuario().getNombre());
+        m.setUsuario(usuarioSession.getUsuario().getNombre());
         m.setTexto(texto);
         mensajeApplication.agregar(m);
         texto = null;
