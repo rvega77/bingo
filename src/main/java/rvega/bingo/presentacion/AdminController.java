@@ -16,7 +16,7 @@ import rvega.bingo.socket.PushBean;
 @Named
 @ApplicationScoped
 public class AdminController {
-    
+
     @Inject
     private PushBean pushBean;
     @Inject
@@ -25,36 +25,38 @@ public class AdminController {
     private RifaController rifaController;
     @Inject
     private MensajeApplication mensajeApplication;
-    
+
     public TipoModo[] getLstModo() {
         return TipoModo.values();
     }
-    
+
     public void actualizarTitulo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Título Actualizado"));
     }
-    
+
     public void actualizarModo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Modo Juego Actualizado"));
         pushBean.enviarCarton("");
     }
-    
+
     public void actualizarDimensiones() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Dimensiones Rifa Actualizada"));
+        rifaController.init();
+        pushBean.enviarJuego("");
     }
-    
+
     public void actualizarBloqueo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Bloqueo Actualizado"));
     }
-    
+
     public void actualizarTablero() {
         FacesContext
                 .getCurrentInstance()
@@ -64,14 +66,14 @@ public class AdminController {
         pushBean.enviarJuego("");
         mensajeApplication.purgar();
     }
-    
+
     public void actualizarCartones() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Cartones Reiniciados"));
         pushBean.enviarUsuario("");
     }
-    
+
     public void sortearRifa() {
         FacesContext
                 .getCurrentInstance()
@@ -94,5 +96,5 @@ public class AdminController {
             ex.printStackTrace();
         }
     }
-    
+
 }

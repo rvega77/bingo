@@ -9,6 +9,7 @@ import lombok.Data;
 import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.dominio.Usuario;
+import rvega.bingo.util.ConfiguracionApplication;
 
 /**
  * permite crear una rifa
@@ -19,37 +20,34 @@ import rvega.bingo.dominio.Usuario;
 @ApplicationScoped
 @Data
 public class RifaController {
-    
+
+    @Inject
+    private ConfiguracionApplication cnf;
     @Inject
     private Rifa rifa;
     @Inject
     private MensajeApplication mensajeApplication;
-    
-    private int filas;
-    private int columnas;
-    
+
     @PostConstruct
     public void init() {
-        filas = 8;
-        columnas = 6;
-        rifa.crearNichos(filas * columnas);
+        rifa.crearNichos(cnf.getMaxNichos());
     }
-    
+
     public long getCantidadUsuarios() {
         return rifa.getNichos()
                 .stream()
                 .filter(n -> n.getUsuario() != null)
                 .count();
     }
-    
+
     public void sortear() {
         rifa.sortear();
     }
-    
+
     public void adquirir(Usuario usr, int numero) {
         rifa.adquirir(numero, usr);
         rifa.liberar(numero, usr);
         mensajeApplication.agregar(new Mensaje(usr.getNombre(), "rifa # " + numero));
     }
-    
+
 }
