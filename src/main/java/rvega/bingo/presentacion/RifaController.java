@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Data;
 import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.dominio.Usuario;
@@ -16,6 +17,7 @@ import rvega.bingo.dominio.Usuario;
  */
 @Named
 @ApplicationScoped
+@Data
 public class RifaController {
     
     @Inject
@@ -44,33 +46,10 @@ public class RifaController {
         rifa.sortear();
     }
     
-    public void comprar(Usuario usr, int numero) {
-        rifa.comprar(numero - 1, usr);
+    public void adquirir(Usuario usr, int numero) {
+        rifa.adquirir(numero, usr);
+        rifa.liberar(numero, usr);
         mensajeApplication.agregar(new Mensaje(usr.getNombre(), "rifa # " + numero));
-    }
-    
-    public Rifa getRifa() {
-        return rifa;
-    }
-    
-    public void setRifa(Rifa rifa) {
-        this.rifa = rifa;
-    }
-    
-    public int getFilas() {
-        return filas;
-    }
-    
-    public void setFilas(int filas) {
-        this.filas = filas;
-    }
-    
-    public int getColumnas() {
-        return columnas;
-    }
-    
-    public void setColumnas(int columnas) {
-        this.columnas = columnas;
     }
     
 }

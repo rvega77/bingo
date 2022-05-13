@@ -24,7 +24,15 @@
                             value="Adquirir"
                             icon="fa fa-shopping-cart"
                             action="#{nichoController.adquirir()}"
+                            update="salida"
                             />
+                        <h:panelGroup id="salida">
+                            <p:staticMessage severity="info"
+                                             summary="Aquirido # #{nichoController.adquirido}"
+                                             rendered="#{not empty nichoController.adquirido}"
+                                             />
+                        </h:panelGroup>
+
                     </h:panelGrid>
                 </h:form>
             </h:panelGroup>

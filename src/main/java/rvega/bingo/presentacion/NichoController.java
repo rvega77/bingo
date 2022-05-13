@@ -30,6 +30,7 @@ public class NichoController implements Serializable {
 
     // numero de rifa
     private int numero;
+    private Integer adquirido;
 
     @PostConstruct
     public void init() {
@@ -38,7 +39,8 @@ public class NichoController implements Serializable {
 
     public void adquirir() {
         try {
-            rifaController.comprar(usuarioSession.getUsuario(), numero);
+            rifaController.adquirir(usuarioSession.getUsuario(), numero);
+            adquirido = numero;
             pushBean.enviarJuego("");
             FacesContext
                     .getCurrentInstance()
