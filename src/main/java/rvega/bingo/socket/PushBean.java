@@ -26,6 +26,10 @@ public class PushBean {
     @Push(channel = "bingoMensajeChannel")
     private PushContext mensajeChannel;
 
+    @Inject
+    @Push(channel = "bingoCartonChannel")
+    private PushContext cartonChannel;
+
     public void enviarUsuario(String data) {
         usuarioChannel.send(data);
     }
@@ -36,5 +40,9 @@ public class PushBean {
 
     public void enviarMensaje(String data) {
         mensajeChannel.send(data);
+    }
+
+    public void enviarCarton(String data) {
+        cartonChannel.send(data);
     }
 }

@@ -42,7 +42,9 @@
                         <h:outputText value="Modo Juego" />
                     </f:facet>
 
-                    <p:selectOneButton value="#{cnf.modo}">
+                    <p:selectOneButton value="#{cnf.modo}"
+                                       required="true"
+                                       >
                         <f:selectItems value="#{adminController.lstModo}" />
                         <p:ajax listener="#{adminController.actualizarModo()}"
                                 update="pnlModo"
@@ -107,13 +109,13 @@
                         <h:panelGrid columns="4" style="width: 100%">
                             <h:outputText value="Fils" />
                             <p:inputText id="filas" value="#{cnf.filas}"
-                                           style="width: 50px"                                           
-                                           />
+                                         style="width: 50px"                                           
+                                         />
 
                             <h:outputText value="Cols" />
                             <p:inputText id="columnas" value="#{cnf.columnas}" 
-                                           style="width: 50px"                                           
-                                           />
+                                         style="width: 50px"                                           
+                                         />
                         </h:panelGrid>
 
                         <p:commandButton

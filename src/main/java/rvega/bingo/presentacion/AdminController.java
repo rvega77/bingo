@@ -1,8 +1,6 @@
 package rvega.bingo.presentacion;
 
 import rvega.bingo.negocio.MensajeApplication;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -18,7 +16,7 @@ import rvega.bingo.socket.PushBean;
 @Named
 @ApplicationScoped
 public class AdminController {
-
+    
     @Inject
     private PushBean pushBean;
     @Inject
@@ -27,21 +25,22 @@ public class AdminController {
     private RifaController rifaController;
     @Inject
     private MensajeApplication mensajeApplication;
-
+    
     public TipoModo[] getLstModo() {
         return TipoModo.values();
     }
-
+    
     public void actualizarTitulo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Título Actualizado"));
     }
-
+    
     public void actualizarModo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Modo Juego Actualizado"));
+        pushBean.enviarCarton("");
     }
     
     public void actualizarDimensiones() {
@@ -55,7 +54,7 @@ public class AdminController {
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Bloqueo Actualizado"));
     }
-
+    
     public void actualizarTablero() {
         FacesContext
                 .getCurrentInstance()
@@ -65,14 +64,14 @@ public class AdminController {
         pushBean.enviarJuego("");
         mensajeApplication.purgar();
     }
-
+    
     public void actualizarCartones() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Cartones Reiniciados"));
         pushBean.enviarUsuario("");
     }
-
+    
     public void sortearRifa() {
         FacesContext
                 .getCurrentInstance()
@@ -95,5 +94,5 @@ public class AdminController {
             ex.printStackTrace();
         }
     }
-
+    
 }
