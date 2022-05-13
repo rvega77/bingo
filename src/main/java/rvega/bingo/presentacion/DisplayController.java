@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Data;
 import rvega.bingo.dominio.Carton;
 import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.dominio.Numero;
@@ -27,6 +28,7 @@ import rvega.bingo.socket.PushBean;
  */
 @Named
 @ApplicationScoped
+@Data
 public class DisplayController {
 
     @Inject

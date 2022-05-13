@@ -5,15 +5,15 @@ import rvega.bingo.dominio.Carton;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
 import rvega.bingo.dominio.CartonLinea;
-import rvega.bingo.socket.PushBean;
 import rvega.bingo.util.UsuarioSession;
 
 /**
@@ -21,21 +21,16 @@ import rvega.bingo.util.UsuarioSession;
  * @author rvega77
  */
 @Named
-@ViewScoped
+@SessionScoped
 @Data
 public class CartonController implements Serializable {
 
-    @Inject
-    private PushBean pushBean;
-    @Inject
-    private UsuarioSession usuarioSession;
+    private static final Logger LOG = Logger.getLogger(CartonController.class.getName());
 
     @Inject
-    private DisplayController displayController;
+    private UsuarioSession usuarioSession;
     @Inject
     private CartonFactory factory;
-    @Inject
-    private RifaController rifaController;
 
     private Carton carton;
     //derivado para renderizar el carton
@@ -43,7 +38,7 @@ public class CartonController implements Serializable {
 
     @PostConstruct
     public void init() {
-
+        nuevoCarton();
     }
 
     private void convertir() {
@@ -81,12 +76,6 @@ public class CartonController implements Serializable {
                     .getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), null));
         }
-    }
-
-    public void enviarMensaje() {
-        FacesContext
-                .getCurrentInstance()
-                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje Enviado...", null));
     }
 
 }

@@ -19,7 +19,7 @@
 
             <p:panel id="pnl" >
                 <f:facet name="header">
-                    <h:outputText value="MENSAJE DE #{cartonController.usuario.nombre}" />
+                    <h:outputText value="MENSAJE DE #{usuarioSession.nombre}" />
                 </f:facet>
 
                 <h:panelGrid columns="1">
@@ -31,9 +31,10 @@
                                      />
                     <p:commandButton 
                         value="enviar"
-                        icon="fa fa-comment-o"
-                        actionListener="#{mensajeController.nuevoMensaje()}"
+                        icon="fa fa-send"
+                        actionListener="#{mensajeController.enviarMensaje()}"
                         action="#{mensajeController.enviar()}"
+                        ajax="false"
                         />
                     <p:messages globalOnly="false" >
                         <p:autoUpdate />
@@ -46,7 +47,7 @@
                 <p:spacer height="15" />
                 <br />
 
-                <p:button value="voler" icon="fa fa-reply" outcome="/carton" />
+                <p:button value="voler" icon="fa fa-reply" outcome="/index" />
             </p:panel>
         </h:form>   
     </h:body>
