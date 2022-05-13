@@ -27,7 +27,7 @@ public class Rifa {
     public synchronized void comprar(int idx, Usuario usr) {
         RifaNicho n = nichos.get(idx);
         if (n.getUsuario() != null){
-            throw new IllegalStateException("Ya fue comprado por : " + n.getUsuario().getNombre());
+            throw new IllegalStateException("Ya fue adquirido por : " + n.getUsuario().getNombre());
         }
         n.setUsuario(usr);        
     }

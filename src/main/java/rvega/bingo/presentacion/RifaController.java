@@ -46,7 +46,7 @@ public class RifaController {
     
     public void comprar(Usuario usr, int numero) {
         rifa.comprar(numero - 1, usr);
-        mensajeApplication.agregar(new Mensaje(usr.getNombre(), "Ha comprado el Número : " + numero));
+        mensajeApplication.agregar(new Mensaje(usr.getNombre(), "rifa # " + numero));
     }
     
     public Rifa getRifa() {

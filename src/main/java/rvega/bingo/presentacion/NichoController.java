@@ -1,6 +1,8 @@
 package rvega.bingo.presentacion;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -15,7 +17,7 @@ import rvega.bingo.util.UsuarioSession;
  * @author rodri
  */
 @Named
-@ViewScoped
+@SessionScoped
 @Data
 public class NichoController implements Serializable {
 
@@ -29,14 +31,18 @@ public class NichoController implements Serializable {
     // numero de rifa
     private int numero;
 
-    public void comprar() {
-        System.out.println("NUMERO : " + numero);
+    @PostConstruct
+    public void init() {
+        numero = 1;
+    }
+
+    public void adquirir() {
         try {
             rifaController.comprar(usuarioSession.getUsuario(), numero);
             pushBean.enviarJuego("");
             FacesContext
                     .getCurrentInstance()
-                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Número Comprado", null));
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Número Adquirido", null));
         } catch (Exception ex) {
             FacesContext
                     .getCurrentInstance()
