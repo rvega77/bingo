@@ -1,12 +1,220 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>BINGO :: TABLERO</title>
+        <style>
+            .seleccionado{
+                text-align: center;
+                background-color: yellow;                
+            }
+            .noseleccionado{
+                text-align: center;
+            }
+            .numero {
+                font-size: 50px;
+            }
+            .mensaje-cantidad {
+                display: inline-block;
+                float: right;
+                padding: 2px 7px;
+                border-radius: 25px;
+                color: white;      
+                background-color: #d63031;
+                font-size: small;
+            }
+            .usuario {
+                display: inline-block;
+                padding: 2px 7px;
+                border-radius: 25px;
+                background-color: #2399e5;
+                color: white;
+                font-size: 15px;
+                vertical-align: text-bottom;
+            }
+            .mensaje {
+                font-size: 25px;
+            }
+            .btn {
+
+            }
+            .col1 {
+                width: 150px;
+                vertical-align: top;
+            }
+            .col2 {
+                vertical-align: top;
+            }
+        </style>
+
+        <script>
+            function socketUsuarioListener(message, channel, event) {
+                console.log(message + " : " + channel + " : " + event);
+                actualizarUsuarios([{name: "usr", value: message}]);
+            }
+
+            function socketJuegoListener(message, channel, event) {
+                console.log(message + " : " + channel + " : " + event);
+                actualizarTablero();
+            }
+
+            function socketMensajeListener(message, channel, event) {
+                console.log(message + " : " + channel + " : " + event);
+                usuario = message;
+                actualizarMensajes();
+            }
+
+            function mensajeBienvenida(usuario) {
+                PF('msgGlobo').renderMessage({
+                    "summary": usuario,
+                    "detail": null,
+                    "severity": "info"
+                });
+            }
+        </script>
     </h:head>
     <h:body>
-        
+        <o:socket channel="bingoUsuarioChannel" onmessage="socketUsuarioListener" />
+        <o:socket channel="bingoJuegoChannel" onmessage="socketJuegoListener" />
+        <o:socket channel="bingoMensajeChannel" onmessage="socketMensajeListener" />
+
+        <p:growl widgetVar="msgGlobo">
+            <p:autoUpdate />
+        </p:growl>
+        <h:form id="frm">
+            <p:remoteCommand name="actualizarUsuarios" 
+                             update=":frm:usr" 
+                             />
+            <p:remoteCommand name="actualizarTablero" 
+                             update=":frm:usr :frm:tablero :frm:numero" 
+                             />
+            <p:remoteCommand name="actualizarMensajes" 
+                             update=":frm:mensaje" 
+                             />
+
+            <p:panel >
+                <f:facet name="header">
+                    <h:outputText value="#{cnf.titulo}" />
+
+                    <h:panelGroup id="usr" style="float: right">
+                        <i class="fa fa-fw fa-user"></i>
+                        <h:outputText value="#{cartonFactory.cantidadUsuarios}" />
+                        <h:panelGroup rendered="#{displayController.existenPorGanar}" >
+                            <i class="fa fa-fw fa-ellipsis-v"></i>
+                            <i class="fa fa-fw fa-info-circle" style="color: #F31431"></i>
+                            <i class="fa fa-fw fa-child" style="color: #F31431"></i>
+                            <h:outputText value="#{displayController.cantidadCartonesPorGanar}" style="color: #F31431" />  
+                        </h:panelGroup>
+
+                    </h:panelGroup>
+
+                    <h:panelGroup style="float: right" rendered="false">
+                        <p:splitButton value="Número" actionListener="#{displayController.sacarNumero()}" update="frm" icon="fa fa-anchor">
+                            <p:menuitem value="Reiniciar" actionListener="#{displayController.init()}" update="frm" icon="fa fa-refresh" />
+                        </p:splitButton>
+                    </h:panelGroup>
+
+                </f:facet>
+
+                <p:dataTable id="tablero" var="fila" value="#{displayController.lstBingoLinea}" >
+                    <p:column footerText="">
+                        #{fila.letra}
+                    </p:column>
+                    <p:column styleClass="#{fila.c1.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c1.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c2.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c2.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c3.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c3.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c4.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c4.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c5.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c5.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c6.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c6.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c7.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c7.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c8.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c8.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c9.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c9.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c10.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c10.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c11.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c11.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c12.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c12.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c13.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c13.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c14.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c14.valor}
+                    </p:column>
+                    <p:column styleClass="#{fila.c15.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                        #{fila.c15.valor}
+                    </p:column>
+                </p:dataTable>
+
+                <h:panelGrid columns="2" columnClasses="col1,col2">
+                    <p:panel id="numero" header="NÚMERO">
+                        <h:outputText 
+                            value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
+                            styleClass="numero"
+                            />
+
+                    </p:panel>
+
+
+                    <p:panel id="mensaje">
+                        <f:facet name="header">
+                            <h:outputText value="MENSAJES" />
+                            <h:outputText                             
+                                value="#{mensajeApplication.cantidad}"
+                                styleClass="mensaje-cantidad"
+                                />
+                        </f:facet>
+                        
+                        <ui:repeat var="m" value="#{mensajeApplication.lstMensaje}">
+                            <div>
+                                <h:outputText                             
+                                    value="#{m.usuario}"
+                                    styleClass="usuario"
+                                    />
+                                <h:outputText                             
+                                    value="#{m.texto}"
+                                    styleClass="mensaje"
+                                    /> 
+                            </div>
+                        </ui:repeat>
+                    </p:panel>
+
+                </h:panelGrid>
+                <p:poll autoStart="false" update="frm" delay="500" />
+
+            </p:panel>
+
+
+
+        </h:form>
+
     </h:body>
 </html>
 
