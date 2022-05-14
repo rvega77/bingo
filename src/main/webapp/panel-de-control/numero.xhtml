@@ -11,7 +11,7 @@
         <style>
             .seleccionado{
                 text-align: center;
-                background-color: yellow;                
+                background-color: yellow;
             }
             .noseleccionado{
                 text-align: center;
@@ -35,6 +35,7 @@
         </style>
     </h:head>
     <h:body>
+        <ui:include src="/panel-de-control/menu.xhtml" />
         <p:growl >
             <p:autoUpdate />
         </p:growl>
@@ -74,23 +75,6 @@
                         />
                 </ui:repeat>
             </p:panel>
-            
-            <br />
-            <p:separator />
-
-            <p:button
-                icon="fa fa-gear"
-                value="Admin"
-                outcome="/admin"
-                />
-
-            <p:button
-                icon="fa fa-user"         
-                value="Usuarios" 
-                outcome="/usuarios"
-                style="float: right"
-                />
-
         </h:form>
 
     </h:body>
