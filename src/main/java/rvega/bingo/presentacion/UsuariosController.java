@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import rvega.bingo.negocio.Bingo;
 import rvega.bingo.dominio.Usuario;
+import rvega.bingo.negocio.Rifa;
+import rvega.bingo.util.ConfiguracionApplication;
 
 /**
  *
@@ -20,20 +22,33 @@ import rvega.bingo.dominio.Usuario;
 public class UsuariosController implements Serializable {
 
     @Inject
+    private ConfiguracionApplication cnf;
+    @Inject
     private Bingo bingo;
     @Inject
     private CartonFactory factory;
+    @Inject
+    private Rifa rifa;
 
     // lista de usuarios
     private List<Usuario> lstUsuario;
 
     @PostConstruct
     public void init() {
-        lstUsuario = factory.getUsuarios();
+        if (cnf.isModoBingo()) {
+            lstUsuario = factory.getUsuarios();
+        }
+        if (cnf.isModoRifa()){
+            lstUsuario = rifa.getUsuarios();
+        }
     }
 
     public Integer contarFaltantes(Usuario u) {
         return factory.getCarton(u).contarFaltantes(bingo.getListaUtilizados());
+    }
+    
+    public Integer obtenerPosicion(Usuario u) {
+        return rifa.getPosicion(u);
     }
 
     public List<Usuario> getLstUsuario() {

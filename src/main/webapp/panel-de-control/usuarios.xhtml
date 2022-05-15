@@ -23,9 +23,18 @@
             <p:column headerText="USUARIO">
                 #{u.nombre}
             </p:column>
-            <p:column headerText="CARTÓN">
+            <p:column headerText="CARTÓN"
+                      rendered="#{cnf.modoBingo}"
+                      >
                 <span style="float: right">
                     #{usuariosController.contarFaltantes(u)} 
+                </span>
+            </p:column>
+            <p:column headerText="NICHO"
+                      rendered="#{cnf.modoRifa}"
+                      >
+                <span style="float: right">
+                    #{usuariosController.obtenerPosicion(u)}
                 </span>
             </p:column>
         </p:dataTable>

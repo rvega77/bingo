@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -20,22 +21,22 @@ import rvega.bingo.dominio.Usuario;
 @ApplicationScoped
 @Data
 public class Rifa {
-    
+
     private List<RifaNicho> nichos;
     private Map<Integer, RifaNicho> map;
     private int maxNichos;
     private Random rnd;
-    
+
     @PostConstruct
     public void init() {
         rnd = new Random();
         crearNichos(0);
     }
-    
+
     public synchronized void adquirir(int numero, Usuario usr) {
         RifaNicho n = map.get(numero);
         if (n.getUsuario() != null) {
-            if (usr.equals(usr)) {
+            if (usr.equals(n.getUsuario())) {
                 throw new IllegalStateException("Ya es tuyo !!");
             } else {
                 throw new IllegalStateException("Ya fue adquirido por : " + n.getUsuario().getNombre());
@@ -43,7 +44,7 @@ public class Rifa {
         }
         n.setUsuario(usr);
     }
-    
+
     public void liberar(int numero, Usuario usr) {
         nichos.forEach(n -> {
             if (usr.equals(n.getUsuario())) {
@@ -53,10 +54,10 @@ public class Rifa {
             }
         });
     }
-    
+
     public void crearNichos(int max) {
         maxNichos = max;
-        
+
         nichos = new ArrayList<>();
         map = new HashMap<>();
         for (int i = 0; i < maxNichos; i++) {
@@ -65,14 +66,34 @@ public class Rifa {
             map.put(n.getPosicion(), n);
         }
     }
-    
+
+    public List<Usuario> getUsuarios() {
+        return nichos
+                .stream()
+                .filter(n -> n.getUsuario() != null)
+                .map(n -> n.getUsuario())
+                .collect(Collectors.toList());
+    }
+
+    public Integer getPosicion(Usuario usr) {
+        RifaNicho nicho = nichos.stream()
+                .filter(n -> usr.equals(n.getUsuario()))
+                .findFirst()
+                .orElse(null);
+        Integer p = null;
+        if (nicho != null) {
+            p = nicho.getPosicion();
+        }
+        return p;
+    }
+
     public long getCantidadUsuarios() {
         return nichos
                 .stream()
                 .filter(n -> n.getUsuario() != null)
                 .count();
     }
-    
+
     public RifaNicho getNichoGanador() {
         return nichos
                 .stream()
@@ -80,7 +101,7 @@ public class Rifa {
                 .findFirst()
                 .orElse(null);
     }
-    
+
     public void sortear() {
         // ninguno es ganador
         nichos.forEach(n -> n.setGanador(false));

@@ -9,28 +9,11 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 
         <style>
-            .seleccionado{
-                text-align: center;
-                background-color: yellow;
-            }
-            .noseleccionado{
-                text-align: center;
-            }
             .numero {
                 font-size: 130px;
             }
             .numero-historico {
                 font-size: 35px;
-            }
-            .btn {
-
-            }
-            .col1 {
-                width: 200px;
-                vertical-align: top;
-            }
-            .col2 {
-                vertical-align: top;
             }
         </style>
     </h:head>
@@ -47,7 +30,9 @@
                         <h:outputText value="Ganador" />
                     </f:facet>
 
-                    <h:outputText value="#{sorteoController.mostrarGanador()}" />
+                    <h:outputText value="#{sorteoController.mostrarGanador()}" 
+                                  styleClass="numero-historico"
+                                  />
 
                     <f:facet name="footer">
                         <p:commandButton
