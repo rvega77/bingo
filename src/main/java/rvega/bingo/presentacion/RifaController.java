@@ -7,7 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
-import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.dominio.Usuario;
 import rvega.bingo.util.ConfiguracionApplication;
@@ -34,17 +33,6 @@ public class RifaController {
     @PostConstruct
     public void init() {
         rifa.crearNichos(cnf.getMaxNichos());
-    }
-
-    public long getCantidadUsuarios() {
-        return rifa.getNichos()
-                .stream()
-                .filter(n -> n.getUsuario() != null)
-                .count();
-    }
-
-    public void sortear() {
-        rifa.sortear();
     }
 
     public void adquirir(Usuario usr, int numero) {

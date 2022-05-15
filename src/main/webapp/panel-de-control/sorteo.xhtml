@@ -40,23 +40,26 @@
             <p:autoUpdate />
         </p:growl>
         <h:form id="frm">
+            <p:panel header="SORTEO DE RIFA">
 
-            <p:spacer height="10px" />
+                <p:panelGrid columns="1" style="width: 100%">
+                    <f:facet name="header">
+                        <h:outputText value="Ganador" />
+                    </f:facet>
 
-            <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
-                         rendered="#{cnf.modoRifa}"
-                         >
-                <f:facet name="header">
-                    <h:outputText value="Sorteo Rifa" />
-                </f:facet>
+                    <h:outputText value="#{sorteoController.mostrarGanador()}" />
 
-                <p:commandButton
-                    icon="fa fa-file-text-o"         
-                    value="Iniciar (#{rifaController.cantidadUsuarios})" 
-                    action="#{adminController.sortearRifa()}"
-                    update="@this"
-                    />
-            </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton
+                            value="Iniciar (#{sorteoController.cantidadUsuarios})" 
+                            action="#{sorteoController.sortearRifa()}"
+                            update="@form"
+                            style="width: 98%; font-size: 35px"
+
+                            />
+                    </f:facet>
+                </p:panelGrid>
+            </p:panel>
         </h:form>
 
     </h:body>

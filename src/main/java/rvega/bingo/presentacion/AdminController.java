@@ -76,27 +76,4 @@ public class AdminController {
         pushBean.enviarUsuario("");
     }
 
-    public void sortearRifa() {
-        FacesContext
-                .getCurrentInstance()
-                .addMessage(null, new FacesMessage("Iniciando Sorteo"));
-
-//        ExecutorService es = Executors.newFixedThreadPool(1); 
-//        es.
-        long t = 500;
-        try {
-            for (int i = 0; i < 50; i++) {
-                rifaController.sortear();
-                pushBean.enviarJuego("");
-                Thread.sleep(t);
-                t -= 50;
-                if (t < 0) {
-                    t = 5;
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
 }

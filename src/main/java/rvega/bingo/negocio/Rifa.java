@@ -20,15 +20,18 @@ import rvega.bingo.dominio.Usuario;
 @ApplicationScoped
 @Data
 public class Rifa {
-
+    
     private List<RifaNicho> nichos;
     private Map<Integer, RifaNicho> map;
     private int maxNichos;
-
+    private Random rnd;
+    
     @PostConstruct
     public void init() {
+        rnd = new Random();
+        crearNichos(0);
     }
-
+    
     public synchronized void adquirir(int numero, Usuario usr) {
         RifaNicho n = map.get(numero);
         if (n.getUsuario() != null) {
@@ -40,7 +43,7 @@ public class Rifa {
         }
         n.setUsuario(usr);
     }
-
+    
     public void liberar(int numero, Usuario usr) {
         nichos.forEach(n -> {
             if (usr.equals(n.getUsuario())) {
@@ -50,10 +53,10 @@ public class Rifa {
             }
         });
     }
-
+    
     public void crearNichos(int max) {
         maxNichos = max;
-
+        
         nichos = new ArrayList<>();
         map = new HashMap<>();
         for (int i = 0; i < maxNichos; i++) {
@@ -62,12 +65,27 @@ public class Rifa {
             map.put(n.getPosicion(), n);
         }
     }
-
+    
+    public long getCantidadUsuarios() {
+        return nichos
+                .stream()
+                .filter(n -> n.getUsuario() != null)
+                .count();
+    }
+    
+    public RifaNicho getNichoGanador() {
+        return nichos
+                .stream()
+                .filter(n -> n.isGanador())
+                .findFirst()
+                .orElse(null);
+    }
+    
     public void sortear() {
+        // ninguno es ganador
         nichos.forEach(n -> n.setGanador(false));
-
-        Random rnd = new Random();
-        nichos.get(rnd.nextInt(maxNichos)).setGanador(true);
-
+        int idx = rnd.nextInt(maxNichos);
+        // marcar el ganador
+        nichos.get(idx).setGanador(true);
     }
 }
