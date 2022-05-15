@@ -66,17 +66,6 @@ public class DisplayController {
         lstBingoLinea.add(new BingoLinea("O", bingo.getListaO()));
     }
 
-    public void nuevoUsuario(Usuario usuario) {
-        //String usr = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("usr");
-//        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "BIENVENIDA: " + usr, usr);
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
-        Mensaje m = new Mensaje();
-        m.setUsuario("Bingo");
-        m.setTexto("Nuevo jugador: " + usuario.getNombre());
-        mensajeApplication.agregar(m);
-
-    }
-
     public void sacarNumero() {
         if (bingo.disponibles()) {
             if (numeroCarton != null) {

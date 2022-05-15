@@ -19,34 +19,39 @@ import rvega.bingo.socket.PushBean;
 @Named
 @ApplicationScoped
 public class MensajeApplication {
-    
-    private static final Mensaje MENSAJE = new Mensaje("Bingo", "Puedes enviar mensajes desde tu celular...");
-    
+
+    private static final String SISTEMA = "🤖";
+    private static final Mensaje MENSAJE = new Mensaje(SISTEMA, "Puedes enviar mensajes desde tu celular...");
+
     @Inject
     private PushBean pushBean;
     private final Queue<Mensaje> lstMensaje = Collections.asLifoQueue(new ArrayDeque<>());
-    
+
     @PostConstruct
     public void init() {
         lstMensaje.add(MENSAJE);
     }
-    
+
     public void agregar(Mensaje m) {
         lstMensaje.add(m);
         pushBean.enviarMensaje(m.toString());
     }
-    
+
+    public void enviarMensajeSistema(String m) {
+        agregar(new Mensaje(SISTEMA, m));
+    }
+
     public void purgar() {
         lstMensaje.clear();
-        agregar(new Mensaje("Bingo", "Reiniciar Tablero..."));
+        enviarMensajeSistema("Reiniciar Tablero...");
     }
-    
+
     public int getCantidad() {
         return lstMensaje.size();
     }
-    
+
     public List<Mensaje> getLstMensaje() {
         return new ArrayList<>(lstMensaje);
     }
-    
+
 }

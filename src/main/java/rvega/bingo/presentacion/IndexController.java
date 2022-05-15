@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Data;
 import rvega.bingo.dominio.Usuario;
+import rvega.bingo.negocio.MensajeApplication;
 import rvega.bingo.socket.PushBean;
 import rvega.bingo.util.UsuarioSession;
 
@@ -23,10 +24,9 @@ public class IndexController {
     @Inject
     private PushBean pushBean;
     @Inject
-    private UsuarioSession usuarioSession;
-
+    private MensajeApplication mensajeApplication;
     @Inject
-    private DisplayController displayController;
+    private UsuarioSession usuarioSession;
 
     private String nick;
 
@@ -37,7 +37,8 @@ public class IndexController {
         usuarioSession.setUsuario(usuario);
         //evento
         pushBean.enviarUsuario(usuario.getNombre());
-        displayController.nuevoUsuario(usuario);
+        String m = "Nuevo jugador: " + usuario.getNombre();
+        mensajeApplication.enviarMensajeSistema(m);
     }
 
     public void logout() {
