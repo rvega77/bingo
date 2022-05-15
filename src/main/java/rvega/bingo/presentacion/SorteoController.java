@@ -40,7 +40,7 @@ public class SorteoController implements Serializable {
 
     public void sortearRifa() {
         rifa.sortear();
-        pushBean.enviarJuego("");
+        pushBean.enviarJuego("sorteo");
 
 //        long t = 500;
 //        try {

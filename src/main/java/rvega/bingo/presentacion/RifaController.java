@@ -36,6 +36,9 @@ public class RifaController {
     }
 
     public void adquirir(Usuario usr, int numero) {
+        if (cnf.isBloqueado()) {
+            throw new IllegalStateException("Rifa Bloqueada !!");
+        }
         rifa.adquirir(numero, usr);
         rifa.liberar(numero, usr);
     }
