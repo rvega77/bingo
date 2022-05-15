@@ -129,23 +129,6 @@
                             />
                     </p:panelGrid>
 
-                    <p:spacer height="10px" />
-
-                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
-                                 rendered="#{cnf.modoRifa}"
-                                 >
-                        <f:facet name="header">
-                            <h:outputText value="Sorteo Rifa" />
-                        </f:facet>
-
-                        <p:commandButton
-                            icon="fa fa-file-text-o"         
-                            value="Iniciar (#{rifaController.cantidadUsuarios})" 
-                            action="#{adminController.sortearRifa()}"
-                            update="@this"
-                            />
-                    </p:panelGrid>
-
                 </h:panelGroup>
 
             </h:form>
