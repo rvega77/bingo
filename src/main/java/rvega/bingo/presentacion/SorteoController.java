@@ -75,7 +75,7 @@ public class SorteoController implements Serializable {
         usr.setNombre(nombre);
         try {
             rifa.adquirir(numero, usr);
-            mensajeApplication.enviarMensajeSistema(nombre + " ha adquirido el número " + numero);
+            mensajeApplication.enviarMensajeSistema(nombre + " tiene el # " + numero);
             pushBean.enviarJuego("");
             
             FacesContext.getCurrentInstance()
