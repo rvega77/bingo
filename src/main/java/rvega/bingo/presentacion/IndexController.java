@@ -8,6 +8,7 @@ import lombok.Data;
 import rvega.bingo.dominio.Usuario;
 import rvega.bingo.negocio.MensajeApplication;
 import rvega.bingo.socket.PushBean;
+import rvega.bingo.util.ColorFactory;
 import rvega.bingo.util.UsuarioSession;
 
 /**
@@ -24,6 +25,8 @@ public class IndexController {
     @Inject
     private PushBean pushBean;
     @Inject
+    private ColorFactory colorFactory;
+    @Inject
     private MensajeApplication mensajeApplication;
     @Inject
     private UsuarioSession usuarioSession;
@@ -35,6 +38,7 @@ public class IndexController {
         Usuario usuario = new Usuario();
         usuario.setNombre(nick);
         usuarioSession.setUsuario(usuario);
+        usuarioSession.setColor(colorFactory.get());
         //evento
         pushBean.enviarUsuario(usuario.getNombre());
         String m = "Nuevo jugador: " + usuario.getNombre();

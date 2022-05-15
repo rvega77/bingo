@@ -16,6 +16,7 @@ import rvega.bingo.dominio.Usuario;
 public class UsuarioSession implements Serializable {
 
     private Usuario usuario;
+    private String color;
     private int tamanno = 30;
 
     public boolean isValido() {
