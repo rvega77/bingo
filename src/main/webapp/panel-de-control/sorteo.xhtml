@@ -22,8 +22,8 @@
         <p:growl >
             <p:autoUpdate />
         </p:growl>
-        <h:form id="frm">
-            <p:panel header="SORTEO DE RIFA">
+        <p:panel header="SORTEO DE RIFA">
+            <h:form id="frm">
 
                 <p:panelGrid columns="1" style="width: 100%">
                     <f:facet name="header">
@@ -44,8 +44,38 @@
                             />
                     </f:facet>
                 </p:panelGrid>
-            </p:panel>
-        </h:form>
+            </h:form>
+
+            <p:spacer height="15px" />
+
+            <h:form id="frmAdquirir">
+
+                <p:panelGrid columns="1" style="text-align: center; width: 100%">
+                    <f:facet name="header">
+                        <h:outputText value="Adquirir Manual" />
+                    </f:facet>  
+
+                    <p:knob cursor="true" 
+                            value="#{sorteoController.numero}"
+                            min="1"
+                            max="#{cnf.maxNichos}"
+                            />
+
+                    <p:inputText value="#{sorteoController.nombre}" 
+                                 placeholder="nombre"
+                                 style="width: 98%"
+                                 />
+
+                    <f:facet name="footer">
+                        <p:commandButton 
+                            value="Adquirir"
+                            icon="fa fa-shopping-cart"
+                            action="#{sorteoController.adquirirManual()}"
+                            />
+                    </f:facet> 
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
 
     </h:body>
 </html>

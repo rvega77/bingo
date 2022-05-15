@@ -1,10 +1,15 @@
 package rvega.bingo.presentacion;
 
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Data;
 import rvega.bingo.dominio.RifaNicho;
+import rvega.bingo.dominio.Usuario;
+import rvega.bingo.negocio.MensajeApplication;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.socket.PushBean;
 
@@ -14,13 +19,20 @@ import rvega.bingo.socket.PushBean;
  */
 @Named
 @ViewScoped
+@Data
 public class SorteoController implements Serializable {
-
+    
     @Inject
     private PushBean pushBean;
     @Inject
+    private MensajeApplication mensajeApplication;
+    @Inject
     private Rifa rifa;
 
+    // especial compra manual
+    private int numero;
+    private String nombre;
+    
     public String mostrarGanador() {
         String s = "Sin Ganador";
         RifaNicho n = rifa.getNichoGanador();
@@ -33,11 +45,11 @@ public class SorteoController implements Serializable {
         }
         return s;
     }
-
+    
     public long getCantidadUsuarios() {
         return rifa.getCantidadUsuarios();
     }
-
+    
     public void sortearRifa() {
         rifa.sortear();
         pushBean.enviarJuego("sorteo");
@@ -56,5 +68,22 @@ public class SorteoController implements Serializable {
 //        } catch (Exception ex) {
 //            ex.printStackTrace();
 //        }
+    }
+    
+    public void adquirirManual() {
+        Usuario usr = new Usuario();
+        usr.setNombre(nombre);
+        try {
+            rifa.adquirir(numero, usr);
+            mensajeApplication.enviarMensajeSistema(nombre + " ha adquirido el número " + numero);
+            pushBean.enviarJuego("");
+            
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK, número Adquirido !!", null));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
+            
+        }
     }
 }
