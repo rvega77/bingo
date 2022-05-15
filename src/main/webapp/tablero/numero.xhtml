@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Numero</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:panel header="NÚMERO">
+                <h:outputText 
+                    value="#{displayController.numeroCarton.toFmtString()}"
+                    styleClass="numero"
+                    rendered="#{not empty displayController.numeroCarton}"
+                    />
+                <h:outputText 
+                    value="- --"
+                    styleClass="numero"
+                    rendered="#{empty displayController.numeroCarton}"
+                    />
+            </p:panel>  
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -50,10 +50,6 @@ public class RifaController {
     public void adquirir(Usuario usr, int numero) {
         rifa.adquirir(numero, usr);
         rifa.liberar(numero, usr);
-        mensajeApplication.agregar(new Mensaje(usr.getNombre(), "rifa # " + numero));
-        rifa.getNichos().forEach(n->{
-            LOG.info(n.toString());
-        });
     }
 
 }

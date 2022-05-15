@@ -10,8 +10,8 @@
         <title>BINGO :: TABLERO</title>
     </h:head>
     <h:body>
-            <ui:composition>
-                        <h:panelGroup rendered="#{cnf.modoBingo}">
+        <ui:composition>
+            <h:panelGroup rendered="#{cnf.modoBingo}">
 
                 <div class="ui-g">
                     <div class="ui-g-12">
@@ -67,13 +67,9 @@
                         </p:dataTable>
                     </div>
                     <div class="ui-g-4">
-                        <p:panel id="numero" header="NÚMERO">
-                            <h:outputText 
-                                value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
-                                styleClass="numero"
-                                />
 
-                        </p:panel>
+                        <ui:include src="/tablero/numero.xhtml" />
+
                     </div>
                     <div class="ui-g-8">
                         <h:panelGroup id="bingoMensaje">
@@ -81,8 +77,8 @@
                         </h:panelGroup>
                     </div>
                 </div>
-        </h:panelGroup>
-            </ui:composition>
+            </h:panelGroup>
+        </ui:composition>
     </h:body>
 </html>
 

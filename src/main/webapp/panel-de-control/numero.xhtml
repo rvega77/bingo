@@ -40,13 +40,7 @@
         </p:growl>
         <h:form id="frm">
 
-            <p:panel header="NÚMERO">
-                <h:outputText 
-                    value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
-                    styleClass="numero"
-                    />
-
-            </p:panel>
+            <ui:include src="/tablero/numero.xhtml" />
 
             <p:spacer height="15" />
 
