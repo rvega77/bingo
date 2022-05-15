@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
@@ -11,79 +10,79 @@
         <title>BINGO :: TABLERO</title>
     </h:head>
     <h:body>
+            <ui:composition>
+                        <h:panelGroup rendered="#{cnf.modoBingo}">
 
-        <p:growl widgetVar="msgGlobo">
-            <p:autoUpdate />
-        </p:growl>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:dataTable id="bingo" var="fila" value="#{displayController.lstBingoLinea}" >
+                            <p:column footerText="">
+                                #{fila.letra}
+                            </p:column>
+                            <p:column styleClass="#{fila.c1.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c1.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c2.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c2.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c3.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c3.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c4.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c4.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c5.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c5.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c6.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c6.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c7.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c7.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c8.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c8.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c9.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c9.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c10.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c10.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c11.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c11.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c12.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c12.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c13.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c13.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c14.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c14.valor}
+                            </p:column>
+                            <p:column styleClass="#{fila.c15.utilizado ? 'seleccionado':'noseleccionado'}">                    
+                                #{fila.c15.valor}
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    <div class="ui-g-4">
+                        <p:panel id="numero" header="NÚMERO">
+                            <h:outputText 
+                                value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
+                                styleClass="numero"
+                                />
 
-        <h:panelGroup rendered="#{cnf.modoBingo}">
-            <p:dataTable id="bingo" var="fila" value="#{displayController.lstBingoLinea}" >
-                <p:column footerText="">
-                    #{fila.letra}
-                </p:column>
-                <p:column styleClass="#{fila.c1.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c1.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c2.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c2.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c3.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c3.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c4.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c4.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c5.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c5.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c6.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c6.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c7.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c7.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c8.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c8.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c9.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c9.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c10.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c10.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c11.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c11.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c12.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c12.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c13.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c13.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c14.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c14.valor}
-                </p:column>
-                <p:column styleClass="#{fila.c15.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                    #{fila.c15.valor}
-                </p:column>
-            </p:dataTable>
-
-            <h:panelGrid columns="2" columnClasses="col1,col2">
-                <p:panel id="numero" header="NÚMERO">
-                    <h:outputText 
-                        value="#{displayController.numeroCarton.letra} #{displayController.numeroCarton.valor}"
-                        styleClass="numero"
-                        />
-
-                </p:panel>
-
-                <h:panelGroup id="bingoMensaje">
-                    <ui:include src="/tablero/mensajes.xhtml" />
-                </h:panelGroup>
-
-            </h:panelGrid>
-
+                        </p:panel>
+                    </div>
+                    <div class="ui-g-8">
+                        <h:panelGroup id="bingoMensaje">
+                            <ui:include src="/tablero/mensajes.xhtml" />
+                        </h:panelGroup>
+                    </div>
+                </div>
         </h:panelGroup>
+            </ui:composition>
     </h:body>
 </html>
 

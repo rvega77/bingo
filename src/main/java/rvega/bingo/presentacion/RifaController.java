@@ -1,5 +1,6 @@
 package rvega.bingo.presentacion;
 
+import java.util.logging.Logger;
 import rvega.bingo.negocio.MensajeApplication;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -20,6 +21,8 @@ import rvega.bingo.util.ConfiguracionApplication;
 @ApplicationScoped
 @Data
 public class RifaController {
+
+    private static final Logger LOG = Logger.getLogger(RifaController.class.getName());
 
     @Inject
     private ConfiguracionApplication cnf;
@@ -48,6 +51,9 @@ public class RifaController {
         rifa.adquirir(numero, usr);
         rifa.liberar(numero, usr);
         mensajeApplication.agregar(new Mensaje(usr.getNombre(), "rifa # " + numero));
+        rifa.getNichos().forEach(n->{
+            LOG.info(n.toString());
+        });
     }
 
 }

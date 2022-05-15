@@ -34,6 +34,7 @@ public class AdminController {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Título Actualizado"));
+        pushBean.enviarJuego("");
     }
 
     public void actualizarModo() {
@@ -41,6 +42,7 @@ public class AdminController {
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Modo Juego Actualizado"));
         pushBean.enviarCarton("");
+        pushBean.enviarJuego("");
     }
 
     public void actualizarDimensiones() {
