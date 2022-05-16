@@ -21,8 +21,9 @@
                                     columns="#{cnf.columnas}" 
                                     layout="grid"
                                     >
-                            <p:panel  style="text-align:center; width: 100%" 
-                                      styleClass="#{fila.ganador ? 'ganador' : not empty fila.usuario ? 'seleccionado':'noseleccionado'}">
+                            <p:panel id="nicho"
+                                     style="text-align:center; width: 100%" 
+                                     styleClass="#{fila.ganador ? 'ganador' : not empty fila.usuario ? 'seleccionado':'noseleccionado'}">
                                 <span>
                                     #{fila.posicion}
                                 </span>
