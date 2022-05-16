@@ -32,6 +32,10 @@ public class IndexController {
     private UsuarioSession usuarioSession;
 
     private String nick;
+    
+    public String getMensaje(){
+        return MensajeApplication.SISTEMA + " : Puedes usar Emojis!!";
+    }
 
     public void login() {
         LOG.info("LOGIN : " + nick);
@@ -41,7 +45,7 @@ public class IndexController {
         usuarioSession.setColor(colorFactory.get());
         //evento
         pushBean.enviarUsuario(usuario.getNombre());
-        String m = "Nuevo jugador: " + usuario.getNombre();
+        String m = "ha ingresado : " + usuario.getNombre();
         mensajeApplication.enviarMensajeSistema(m);
     }
 

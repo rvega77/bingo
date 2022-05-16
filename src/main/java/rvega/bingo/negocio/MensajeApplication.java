@@ -20,7 +20,7 @@ import rvega.bingo.socket.PushBean;
 @ApplicationScoped
 public class MensajeApplication {
 
-    private static final String SISTEMA = "🤖";
+    public static final String SISTEMA = "🤖";
     private static final Mensaje MENSAJE = new Mensaje(SISTEMA, "Puedes enviar mensajes desde tu celular...");
 
     @Inject
