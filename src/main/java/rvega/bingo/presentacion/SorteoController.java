@@ -30,7 +30,7 @@ public class SorteoController implements Serializable {
     private Rifa rifa;
 
     // especial compra manual
-    private int numero;
+    private int numero = 1;
     private String nombre;
 
     public String mostrarGanador() {
