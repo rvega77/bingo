@@ -3,12 +3,16 @@ package rvega.bingo.negocio;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.socket.PushBean;
 
@@ -34,7 +38,10 @@ public class MensajeApplication {
 
     public void agregar(Mensaje m) {
         lstMensaje.add(m);
-        pushBean.enviarMensaje(m.toString());
+        Map<String, String> map = new HashMap<>();
+        map.put("usuario", m.getUsuario());
+        map.put("texto", m.getTexto());
+        pushBean.enviarMensaje(map);
     }
 
     public void enviarMensajeSistema(String m) {

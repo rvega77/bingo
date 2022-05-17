@@ -43,16 +43,32 @@
                 console.log(message + " : " + channel + " : " + event);
                 actualizarCarton();
             }
+
+            function socketMensajeListener(message, channel, event) {
+                console.log(message + " : " + channel + " : " + event);
+                mensajeGlobo(message);
+            }
+
+            function mensajeGlobo(message) {
+                PF('msgGlobo').renderMessage({
+                    "summary": message.usuario,
+                    "detail": message.texto,
+                    "severity": "info"
+                });
+            }
         </script>
     </h:head>
     <h:body>
         <o:socket channel="bingoCartonChannel" onmessage="socketCartonListener" />
+        <o:socket channel="bingoMensajeChannel" onmessage="socketMensajeListener" />
         <h:form>
             <p:remoteCommand name="actualizarCarton" 
                              update=":pnl" 
                              />
         </h:form>
-
+        <p:growl widgetVar="msgGlobo">
+            <p:autoUpdate />
+        </p:growl>
         <p:panel id="pnl" >
 
             <f:facet name="header">
@@ -127,10 +143,6 @@
                     <p:spacer height="15" />
 
                     <p:separator />
-
-                    <p:growl>
-                        <p:autoUpdate />
-                    </p:growl>
 
                     <p:commandButton 
                         value="Cartón"

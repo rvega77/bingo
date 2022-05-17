@@ -38,7 +38,7 @@ public class PushBean {
         juegoChannel.send(data);
     }
 
-    public void enviarMensaje(String data) {
+    public void enviarMensaje(Object data) {
         mensajeChannel.send(data);
     }
 

@@ -74,14 +74,7 @@
                 usuario = message;
                 actualizarMensajes();
             }
-            
-            function mensajeBienvenida(usuario) {
-                PF('msgGlobo').renderMessage({
-                    "summary": usuario,
-                    "detail": null,
-                    "severity": "info"
-                });
-            }
+
         </script>
     </h:head>
     <h:body>
@@ -89,7 +82,7 @@
         <o:socket channel="bingoJuegoChannel" onmessage="socketJuegoListener" />
         <o:socket channel="bingoMensajeChannel" onmessage="socketMensajeListener" />
 
-        <p:growl widgetVar="msgGlobo">
+        <p:growl>
             <p:autoUpdate />
         </p:growl>
         <h:form>
