@@ -126,47 +126,46 @@
                 <p:spacer height="5" />
 
                 <h:form>
-
-                    <p:inputText id="msg" value="#{mensajeController.texto}" 
-                                 placeholder="mensaje inmediato..." 
-                                 style="width: 80%"
-                                 required="true"
-                                 requiredMessage="Favor, ingrese un mensaje"
-                                 />
-
-                    <p:commandButton 
-                        icon="fa fa-send"
-                        action="#{mensajeController.enviarMensaje()}"
-                        update="msg"
-                        />                    
-
-                    <p:spacer height="15" />
+                    <div class="ui-g">
+                        <div class="ui-g-10">
+                            <p:inputText id="msg" value="#{mensajeController.texto}" 
+                                         placeholder="mensaje inmediato..." 
+                                         style="width: 100%"
+                                         required="true"
+                                         requiredMessage="Favor, ingrese un mensaje"
+                                         />
+                        </div>
+                        <div class="ui-g-2">
+                            <p:commandButton 
+                                icon="fa fa-send"
+                                action="#{mensajeController.enviarMensaje()}"
+                                update="msg"
+                                />  
+                        </div>
+                    </div>
 
                     <p:separator />
 
-                    <p:commandButton 
-                        value="Cartón"
-                        icon="fa fa-repeat"
-                        action="#{cartonController.nuevoCarton()}"
-                        immediate="true"
-                        update="pnl"
-                        rendered="#{cnf.modoBingo}"
-                        />
-
-                    <p:commandButton 
-                        icon="fa fa-power-off"
-                        action="#{indexController.logout()}"
-                        immediate="true"
-                        update="pnl"
-                        style="float: right"
-                        />
-                    <p:button
-                        value="Mensaje"
-                        icon="fa fa-external-link"
-                        outcome="/usuario/mensaje"
-                        style="float: right"
-                        rendered="false"
-                        />
+                    <div class="ui-g">
+                        <div class="ui-g-8">
+                            <p:commandButton 
+                                value="Cartón"
+                                icon="fa fa-repeat"
+                                action="#{cartonController.nuevoCarton()}"
+                                immediate="true"
+                                update="pnl"
+                                rendered="#{cnf.modoBingo}"
+                                />
+                        </div>                    
+                        <div class="ui-g-4" style="text-align: end">
+                            <p:commandButton 
+                                icon="fa fa-power-off"
+                                action="#{indexController.logout()}"
+                                immediate="true"
+                                update="pnl"
+                                />
+                        </div>                    
+                    </div> 
                 </h:form>
 
             </h:panelGroup>
