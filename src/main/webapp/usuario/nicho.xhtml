@@ -13,29 +13,32 @@
         <ui:composition>
             <h:panelGroup rendered="#{cnf.modoRifa}" >
                 <h:form>
-                    <h:panelGrid columns="1" style="text-align: center; width: 100%">
-                        <p:knob cursor="true" 
-                                value="#{nichoController.numero}"
-                                min="1"
-                                max="#{cnf.maxNichos}"
+                    <p:panel header="RIFA">
+                        <h:panelGrid columns="1" style="text-align: center; width: 100%">
+                            <p:knob cursor="true" 
+                                    value="#{nichoController.numero}"
+                                    min="1"
+                                    max="#{cnf.maxNichos}"
+                                    />
+
+                            <p:separator />
+
+                            <p:commandButton 
+                                value="Adquirir"
+                                icon="fa fa-shopping-cart"
+                                action="#{nichoController.adquirir()}"
+                                update="salida"
                                 />
+                            <h:panelGroup id="salida">
+                                <p:staticMessage severity="info"
+                                                 summary="Aquirido # #{nichoController.adquirido}"
+                                                 rendered="#{false and not empty nichoController.adquirido}"
+                                                 />
+                            </h:panelGroup>
 
-                        <p:separator />
+                        </h:panelGrid>
+                    </p:panel>
 
-                        <p:commandButton 
-                            value="Adquirir"
-                            icon="fa fa-shopping-cart"
-                            action="#{nichoController.adquirir()}"
-                            update="salida"
-                            />
-                        <h:panelGroup id="salida">
-                            <p:staticMessage severity="info"
-                                             summary="Aquirido # #{nichoController.adquirido}"
-                                             rendered="#{false and not empty nichoController.adquirido}"
-                                             />
-                        </h:panelGroup>
-
-                    </h:panelGrid>
                 </h:form>
             </h:panelGroup>
         </ui:composition>
