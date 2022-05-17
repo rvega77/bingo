@@ -50,11 +50,12 @@
             }
 
             function mensajeGlobo(message) {
-                PF('msgGlobo').renderMessage({
-                    "summary": message.usuario,
-                    "detail": message.texto,
-                    "severity": "info"
-                });
+                PF('msgGlobo').removeAll();
+                PF('msgGlobo').show([{
+                        "summary": message.usuario,
+                        "detail": message.texto,
+                        "severity": "info"
+                    }]);
             }
         </script>
     </h:head>
@@ -66,7 +67,7 @@
                              update=":pnl" 
                              />
         </h:form>
-        <p:growl widgetVar="msgGlobo">
+        <p:growl widgetVar="msgGlobo" life="1500">
             <p:autoUpdate />
         </p:growl>
         <p:panel id="pnl" >
