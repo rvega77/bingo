@@ -15,7 +15,7 @@
     </h:head>
     <h:body>
         <ui:include src="/panel-de-control/menu.xhtml" />
-        
+
         <p:panel header="ADMINISTRACIÓN">
             <h:form>
 
@@ -31,7 +31,7 @@
                                  style="width: 98%"
                                  />
                     <p:commandButton
-                        icon="fa fa-pencil"
+                        icon="pi pi-pencil"
                         value="Actualizar"
                         action="#{adminController.actualizarTitulo()}"
                         process="titulo"
@@ -77,7 +77,7 @@
                     </f:facet>
 
                     <p:commandButton
-                        icon="fa fa-refresh"         
+                        icon="pi pi-refresh"         
                         value="Reiniciar" 
                         action="#{adminController.actualizarTablero()}"
                         />
@@ -95,7 +95,7 @@
                         </f:facet>
 
                         <p:commandButton
-                            icon="fa fa-file-text-o"         
+                            icon="pi pi-file-o"         
                             value="Reiniciar (#{cartonFactory.cantidadUsuarios})" 
                             actionListener="#{cartonFactory.reset()}" 
                             action="#{adminController.actualizarCartones()}"
@@ -122,7 +122,7 @@
                         </h:panelGrid>
 
                         <p:commandButton
-                            icon="fa fa-pencil"
+                            icon="pi pi-pencil"
                             value="Actualizar"
                             action="#{adminController.actualizarDimensiones()}"
                             process="filas columnas"
