@@ -2,10 +2,10 @@ package rvega.bingo.presentacion;
 
 import java.util.logging.Logger;
 import rvega.bingo.negocio.MensajeApplication;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.Data;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.dominio.Usuario;

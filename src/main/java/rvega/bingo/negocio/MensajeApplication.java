@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.socket.PushBean;
 
