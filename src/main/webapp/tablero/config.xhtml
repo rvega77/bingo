@@ -11,12 +11,26 @@
         <ui:composition>
             <h:panelGroup rendered="#{cnf.modoConfig}">
                 <div class="ui-g">
-                    <div class="ui-g-5">
+                    <div class="ui-g-4">
                         <p:panel id="config" header="SCANEAR QR PARA INICIAR SESIÓN">
-                            <p:barcode value="http://192.168.1.160:8091/bingo/" type="qr" width="400" height="400"/>
+                            <div style="width: 100%;text-align: center">
+
+                                <p:barcode value="#{cnf.url}" 
+                                           type="qr" 
+                                           width="400" 
+                                           height="400"
+                                           />
+
+                                <p:divider />
+
+                                <h:outputText value="#{cnf.url}" 
+                                              style="font-size: xx-large"
+                                              />
+                            </div>
+
                         </p:panel>
                     </div>
-                    <div class="ui-g-7">
+                    <div class="ui-g-8">
                         <h:panelGroup id="configMensaje">
                             <ui:include src="/tablero/mensajes.xhtml" />
                         </h:panelGroup>
