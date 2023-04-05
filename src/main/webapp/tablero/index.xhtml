@@ -93,7 +93,7 @@
                              update=":frm:usr :frm:tablero" 
                              />
             <p:remoteCommand name="actualizarMensajes" 
-                             update=":frm:bingoMensaje :frm:rifaMensaje" 
+                             update=":frm:configMensaje :frm:bingoMensaje :frm:rifaMensaje" 
                              />
         </h:form>
 
@@ -118,6 +118,7 @@
                 </f:facet>
 
                 <h:panelGroup id="tablero">
+                    <ui:include src="/tablero/config.xhtml" />
                     <ui:include src="/tablero/bingo.xhtml" />
                     <ui:include src="/tablero/rifa.xhtml" />
                 </h:panelGroup>

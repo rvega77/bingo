@@ -24,10 +24,14 @@ public class ConfiguracionApplication {
     @PostConstruct
     public void init() {
         titulo = "CAMARADERIA";
-        modo = TipoModo.BINGO;
+        modo = TipoModo.CONFIG;
         bloqueado = false;
         columnas = 6;
         filas = 8;
+    }
+
+    public boolean isModoConfig() {
+        return modo == TipoModo.CONFIG;
     }
 
     public boolean isModoBingo() {

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>RIFA :: TABLERO</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:panelGroup rendered="#{cnf.modoConfig}">
+                <div class="ui-g">
+                    <div class="ui-g-5">
+                        <p:panel id="config" header="SCANEAR QR PARA INICIAR SESIÓN">
+                            <p:barcode value="http://192.168.1.160:8091/bingo/" type="qr" width="400" height="400"/>
+                        </p:panel>
+                    </div>
+                    <div class="ui-g-7">
+                        <h:panelGroup id="configMensaje">
+                            <ui:include src="/tablero/mensajes.xhtml" />
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </ui:composition>
+    </h:body>
+</html>
+
