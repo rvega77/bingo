@@ -74,19 +74,19 @@
 
             <f:facet name="header">
                 <h:form style="display: inline">
-                    <span class="fa fa-fw fa-user"></span>
+                    <span class="pi pi-user"></span>
                     <h:outputText value="#{usuarioSession.nombre}" />
 
                     <h:panelGroup style="float: right" rendered="#{usuarioSession.valido}">
                         <p:commandButton 
-                            icon="fa fa-fw fa-plus"
+                            icon="pi pi-plus"
                             value="A"
                             action="#{usuarioSession.aumentarTamanno()}"
                             ajax="false"
                             rendered="#{cnf.modoBingo}"
                             /> 
                         <p:commandButton 
-                            icon="fa fa-fw fa-minus"
+                            icon="pi pi-minus"
                             value="A"
                             action="#{usuarioSession.disminuirTamanno()}"
                             ajax="false"
@@ -106,7 +106,7 @@
 
                     <p:commandButton 
                         value="Entrar al Juego"
-                        icon="fa fa-user"
+                        icon="pi pi-user"
                         action="#{indexController.login()}"
                         update="pnl"
                         />
@@ -123,7 +123,7 @@
                 <ui:include src="/usuario/nicho.xhtml" />
 
                 <p:spacer height="5" />
-                <p:separator />
+                <p:divider />
                 <p:spacer height="5" />
 
                 <h:form>
@@ -138,20 +138,20 @@
                         </div>
                         <div class="ui-g-2">
                             <p:commandButton 
-                                icon="fa fa-send"
+                                icon="pi pi-send"
                                 action="#{mensajeController.enviarMensaje()}"
                                 update="msg"
                                 />  
                         </div>
                     </div>
 
-                    <p:separator />
+                    <p:divider />
 
                     <div class="ui-g">
                         <div class="ui-g-8">
                             <p:commandButton 
                                 value="Cartón"
-                                icon="fa fa-repeat"
+                                icon="pi pi-replay"
                                 action="#{cartonController.nuevoCarton()}"
                                 immediate="true"
                                 update="pnl"
@@ -160,7 +160,7 @@
                         </div>                    
                         <div class="ui-g-4" style="text-align: end">
                             <p:commandButton 
-                                icon="fa fa-power-off"
+                                icon="pi pi-power-off"
                                 action="#{indexController.logout()}"
                                 immediate="true"
                                 update="pnl"
