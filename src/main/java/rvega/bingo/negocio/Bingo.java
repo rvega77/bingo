@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
@@ -62,20 +61,6 @@ public class Bingo implements Serializable {
             listaO.add(n);
             mapTotal.put(i, n);
         }
-    }
-
-    public boolean disponibles() {
-        return mapTotal.values().stream().anyMatch((n) -> (!n.isUtilizado()));
-    }
-
-    public List<Integer> getListaUtilizados() {
-        return mapTotal
-                .values()
-                .stream()
-                .filter(p -> p.isUtilizado())
-                .map(Numero::getValor)
-                .collect(Collectors.toList());
-
     }
 
     public List<Numero> getListaB() {

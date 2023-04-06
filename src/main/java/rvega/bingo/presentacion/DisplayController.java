@@ -17,10 +17,9 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
 import rvega.bingo.dominio.Carton;
-import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.dominio.Numero;
-import rvega.bingo.dominio.Usuario;
 import rvega.bingo.socket.PushBean;
+import rvega.bingo.util.TombolaApplication;
 
 /**
  *
@@ -30,33 +29,34 @@ import rvega.bingo.socket.PushBean;
 @ApplicationScoped
 @Data
 public class DisplayController {
-
+    
+    @Inject
+    private MensajeApplication mensajeApplication;
+    @Inject
+    private TombolaApplication tombolaApplication;
     @Inject
     private PushBean pushBean;
     @Inject
     private Bingo bingo;
     @Inject
     private CartonFactory factory;
-    @Inject
-    private MensajeApplication mensajeApplication;
-
-    private Random rnd;
+    
     private Numero numeroCarton;
     private List<BingoLinea> lstBingoLinea;
     private int cantidadCartonesPorGanar;
     // ultimos numeros jugados
     private Deque<Numero> lstUltimosNumeros;
-
+    
     @PostConstruct
     public void init() {
-        rnd = new Random();
         bingo.init();
+        tombolaApplication.inicializar(bingo.getMapTotal().size());
         actualizarTablero();
         numeroCarton = null;
         cantidadCartonesPorGanar = 0;
         lstUltimosNumeros = new ArrayDeque<>();
     }
-
+    
     private void actualizarTablero() {
         lstBingoLinea = new ArrayList<>();
         lstBingoLinea.add(new BingoLinea("B", bingo.getListaB()));
@@ -65,16 +65,14 @@ public class DisplayController {
         lstBingoLinea.add(new BingoLinea("G", bingo.getListaG()));
         lstBingoLinea.add(new BingoLinea("O", bingo.getListaO()));
     }
-
+    
     public void sacarNumero() {
-        if (bingo.disponibles()) {
+        if (tombolaApplication.isDisponibles()) {
             if (numeroCarton != null) {
                 agregarUltimosUtilizados();
             }
-            do {
-                int numero = rnd.nextInt(75) + 1;
-                numeroCarton = bingo.getMapTotal().get(numero);
-            } while (numeroCarton.isUtilizado());
+            int numero = tombolaApplication.sacarNumero();
+            numeroCarton = bingo.getMapTotal().get(numero);
             numeroCarton.setUtilizado(true);
             actualizarTablero();
             calcularCartonesPorGanar();
@@ -84,17 +82,17 @@ public class DisplayController {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     private void agregarUltimosUtilizados() {
         lstUltimosNumeros.addFirst(numeroCarton);
         if (lstUltimosNumeros.size() > 3) {
             lstUltimosNumeros.removeLast();
         }
     }
-
+    
     private void calcularCartonesPorGanar() {
         cantidadCartonesPorGanar = 0;
-        List<Integer> numeros = bingo.getListaUtilizados();
+        List<Integer> numeros = tombolaApplication.getListaUtilizados();
         for (Carton c : factory.getCartones()) {
             if (c.contarFaltantes(numeros) <= 1) {
                 cantidadCartonesPorGanar++;
@@ -102,13 +100,13 @@ public class DisplayController {
         }
         //System.out.println("Por Ganar : " + cantidadCartonesPorGanar);
     }
-
+    
     public boolean isExistenPorGanar() {
         return cantidadCartonesPorGanar > 0;
     }
-
+    
     public List<Numero> getLstUltimosNumeros() {
         return new ArrayList<>(lstUltimosNumeros);
     }
-
+    
 }

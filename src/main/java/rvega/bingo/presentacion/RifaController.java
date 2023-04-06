@@ -13,6 +13,7 @@ import rvega.bingo.dominio.RifaNicho;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.dominio.Usuario;
 import rvega.bingo.util.ConfiguracionApplication;
+import rvega.bingo.util.TombolaApplication;
 
 /**
  * permite crear una rifa
@@ -29,6 +30,8 @@ public class RifaController {
     @Inject
     private ConfiguracionApplication cnf;
     @Inject
+    private TombolaApplication tombolaApplication;
+    @Inject
     private Rifa rifa;
     @Inject
     private MensajeApplication mensajeApplication;
@@ -41,6 +44,8 @@ public class RifaController {
     public void init() {
         rifa.init();
         rifa.crearNichos(cnf.getMaxNichos());
+        tombolaApplication.inicializar(cnf.getMaxNichos());
+
         filas = new ArrayList<>();
         for (int i = 0; i < cnf.getFilas(); i++) {
             filas.add(i);

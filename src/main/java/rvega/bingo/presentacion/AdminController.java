@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import rvega.bingo.dominio.TipoModo;
 import rvega.bingo.socket.PushBean;
+import rvega.bingo.util.ConfiguracionApplication;
 
 /**
  *
@@ -17,6 +18,8 @@ import rvega.bingo.socket.PushBean;
 @ApplicationScoped
 public class AdminController {
 
+    @Inject
+    private ConfiguracionApplication cnf;
     @Inject
     private PushBean pushBean;
     @Inject
@@ -63,8 +66,13 @@ public class AdminController {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Tablero Reiniciado"));
-        displayController.init();
-        rifaController.init();
+        
+        if (cnf.isModoBingo()) {
+            displayController.init();
+        }
+        if (cnf.isModoRifa()) {
+            rifaController.init();
+        }
         pushBean.enviarJuego("");
         mensajeApplication.purgar();
     }

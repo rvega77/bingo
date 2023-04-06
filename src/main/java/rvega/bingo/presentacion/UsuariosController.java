@@ -2,16 +2,17 @@ package rvega.bingo.presentacion;
 
 import rvega.bingo.util.CartonFactory;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import rvega.bingo.negocio.Bingo;
+import java.util.ArrayList;
+import lombok.Data;
 import rvega.bingo.dominio.Usuario;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.util.ConfiguracionApplication;
+import rvega.bingo.util.TombolaApplication;
 
 /**
  *
@@ -19,12 +20,13 @@ import rvega.bingo.util.ConfiguracionApplication;
  */
 @Named
 @ViewScoped
+@Data
 public class UsuariosController implements Serializable {
 
     @Inject
     private ConfiguracionApplication cnf;
     @Inject
-    private Bingo bingo;
+    private TombolaApplication tombolaApplication;
     @Inject
     private CartonFactory factory;
     @Inject
@@ -35,28 +37,21 @@ public class UsuariosController implements Serializable {
 
     @PostConstruct
     public void init() {
+        lstUsuario = new ArrayList<>();
         if (cnf.isModoBingo()) {
             lstUsuario = factory.getUsuarios();
         }
-        if (cnf.isModoRifa()){
+        if (cnf.isModoRifa()) {
             lstUsuario = rifa.getUsuarios();
         }
     }
 
     public Integer contarFaltantes(Usuario u) {
-        return factory.getCarton(u).contarFaltantes(bingo.getListaUtilizados());
+        return factory.getCarton(u).contarFaltantes(tombolaApplication.getListaUtilizados());
     }
-    
+
     public Integer obtenerPosicion(Usuario u) {
         return rifa.getPosicion(u);
-    }
-
-    public List<Usuario> getLstUsuario() {
-        return lstUsuario;
-    }
-
-    public void setLstUsuario(List<Usuario> lstUsuario) {
-        this.lstUsuario = lstUsuario;
     }
 
 }
