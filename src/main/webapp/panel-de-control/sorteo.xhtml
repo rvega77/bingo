@@ -9,20 +9,15 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 
         <style>
-            .numero {
-                font-size: 130px;
-            }
-            .numero-historico {
+            .sorteo-ganador {
                 font-size: 35px;
             }
         </style>
     </h:head>
     <h:body>
         <ui:include src="/panel-de-control/menu.xhtml" />
-        <p:growl >
-            <p:autoUpdate />
-        </p:growl>
-        <p:panel header="SORTEO DE RIFA">
+
+        <p:panel header="RIFA">
             <h:form id="frm">
 
                 <p:panelGrid columns="1" style="width: 100%">
@@ -31,7 +26,7 @@
                     </f:facet>
 
                     <h:outputText value="#{sorteoController.mostrarGanador()}" 
-                                  styleClass="numero-historico"
+                                  styleClass="sorteo-ganador"
                                   />
 
                     <f:facet name="footer">

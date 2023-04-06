@@ -8,67 +8,51 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 
         <style>
-            .seleccionado{
-                text-align: center;
-                background-color: yellow;
-            }
-            .noseleccionado{
-                text-align: center;
-            }
             .numero {
                 font-size: 130px;
             }
             .numero-historico {
                 font-size: 35px;
             }
-            .btn {
-
-            }
-            .col1 {
-                width: 200px;
-                vertical-align: top;
-            }
-            .col2 {
-                vertical-align: top;
-            }
         </style>
     </h:head>
     <h:body>
         <ui:include src="/panel-de-control/menu.xhtml" />
-        <p:growl >
-            <p:autoUpdate />
-        </p:growl>
-        <h:form id="frm">
 
-            <ui:include src="/tablero/numero.xhtml" />
+        <p:panel header="BINGO">
 
-            <p:spacer height="15" />
+            <h:form id="frm">
 
-            <p:commandButton
-                value="Nuevo"
-                actionListener="#{displayController.sacarNumero()}" 
-                update="frm"     
-                style="width: 98%; font-size: 35px"
-                />
+                <ui:include src="/tablero/numero.xhtml" />
 
-            <p:spacer height="15" />
+                <p:spacer height="15px" />
 
-            <p:panel header="ÚLTIMOS NÚMEROS">
-                <ui:repeat var="n" value="#{displayController.lstUltimosNumeros}"
-                           varStatus="status"
-                           >
-                    <h:outputText 
-                        value="#{n.toFmtString()}"
-                        styleClass="numero-historico"
-                        />
-                    <h:outputText 
-                        value=" :: "
-                        styleClass="numero-historico"
-                        rendered="#{not status.last}"
-                        />
-                </ui:repeat>
-            </p:panel>
-        </h:form>
+                <p:commandButton
+                    value="Nuevo"
+                    actionListener="#{displayController.sacarNumero()}" 
+                    update="frm"     
+                    style="width: 98%; font-size: 35px"
+                    />
+
+                <p:spacer height="15px" />
+
+                <p:panel header="ÚLTIMOS NÚMEROS">
+                    <ui:repeat var="n" value="#{displayController.lstUltimosNumeros}"
+                               varStatus="status"
+                               >
+                        <h:outputText 
+                            value="#{n.toFmtString()}"
+                            styleClass="numero-historico"
+                            />
+                        <h:outputText 
+                            value=" :: "
+                            styleClass="numero-historico"
+                            rendered="#{not status.last}"
+                            />
+                    </ui:repeat>
+                </p:panel>
+            </h:form>
+        </p:panel>
 
     </h:body>
 </html>
