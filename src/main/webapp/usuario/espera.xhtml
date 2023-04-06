@@ -11,7 +11,10 @@
         <ui:composition>
             <h:panelGroup rendered="#{cnf.modoConfig}">
                 <h:panelGrid columns="2" style="width: 100%">
-                    <p:graphicImage name="spinner.gif" library="images"/>
+                    <p:graphicImage name="#{imagenUtil.nombre}" 
+                                    library="images"
+                                    cache="false"
+                                    />
                     <h:outputText value="Esperando el inicio del juego..."
                                   style="color: gray"
                                   />
