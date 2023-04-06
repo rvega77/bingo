@@ -1,10 +1,8 @@
 package rvega.bingo.negocio;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.stream.Collectors;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -22,21 +20,14 @@ import rvega.bingo.dominio.Usuario;
 @Data
 public class Rifa {
 
-    private List<RifaNicho> nichos;
-    private Map<Integer, RifaNicho> map;
     private int maxNichos;
-    private Random rnd;
-    //numeros sorteados
-    private int ultimoIndiceSorteado;
-    private List<Integer> lstNumeroSorteados;
+    private Map<Integer, RifaNicho> map;
+    //ganador
     private RifaNicho ganador;
 
     @PostConstruct
     public void init() {
-        rnd = new Random();
         crearNichos(0);
-        ultimoIndiceSorteado = 0;
-        lstNumeroSorteados = new ArrayList<>();
         ganador = null;
     }
 
@@ -53,7 +44,7 @@ public class Rifa {
     }
 
     public void liberar(int numero, Usuario usr) {
-        nichos.forEach(n -> {
+        map.values().forEach(n -> {
             if (usr.equals(n.getUsuario())) {
                 if (n.getPosicion() != numero) {
                     n.setUsuario(null);
@@ -65,17 +56,15 @@ public class Rifa {
     public void crearNichos(int max) {
         maxNichos = max;
 
-        nichos = new ArrayList<>();
         map = new HashMap<>();
         for (int i = 0; i < maxNichos; i++) {
             RifaNicho n = new RifaNicho(i + 1);
-            nichos.add(n);
             map.put(n.getPosicion(), n);
         }
     }
 
     public List<Usuario> getUsuarios() {
-        return nichos
+        return map.values()
                 .stream()
                 .filter(n -> n.getUsuario() != null)
                 .map(n -> n.getUsuario())
@@ -83,7 +72,7 @@ public class Rifa {
     }
 
     public Integer getPosicion(Usuario usr) {
-        RifaNicho nicho = nichos.stream()
+        RifaNicho nicho = map.values().stream()
                 .filter(n -> usr.equals(n.getUsuario()))
                 .findFirst()
                 .orElse(null);
@@ -95,7 +84,7 @@ public class Rifa {
     }
 
     public long getCantidadUsuarios() {
-        return nichos
+        return map.values()
                 .stream()
                 .filter(n -> n.getUsuario() != null)
                 .count();
@@ -105,23 +94,21 @@ public class Rifa {
         return ganador;
     }
 
-    public void sortear() {
+    public void marcarPosibleGanador(int numero) {
         // ninguno es ganador
-        nichos.forEach(n -> n.setGanador(false));
-        int idx = rnd.nextInt(maxNichos);
+        map.values().forEach(n -> n.setGanador(false));
         // marcar el ganador
-        nichos.get(idx).setGanador(true);
-        ultimoIndiceSorteado = idx;
+        map.get(numero).setGanador(true);
     }
 
-    public void marcarUtilizados() {
-        lstNumeroSorteados.forEach(n -> {
-            nichos.get(n).setUtilizado(true);
+    public void marcarUtilizados(List<Integer> lstUtilizados) {
+        lstUtilizados.forEach(n -> {
+            map.get(n).setUtilizado(true);
         });
     }
 
-    public void marcarGanador() {
-        lstNumeroSorteados.add(ultimoIndiceSorteado);
-        ganador = nichos.get(ultimoIndiceSorteado);
+    public void marcarGanador(int numero) {
+        marcarPosibleGanador(numero);
+        ganador = map.get(numero);
     }
 }

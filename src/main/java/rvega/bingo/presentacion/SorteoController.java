@@ -15,6 +15,7 @@ import rvega.bingo.dominio.Usuario;
 import rvega.bingo.negocio.MensajeApplication;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.socket.PushBean;
+import rvega.bingo.util.TombolaApplication;
 
 /**
  *
@@ -28,9 +29,11 @@ public class SorteoController implements Serializable {
     private static final Logger LOG = Logger.getLogger(SorteoController.class.getName());
 
     @Inject
-    private PushBean pushBean;
-    @Inject
     private MensajeApplication mensajeApplication;
+    @Inject
+    private TombolaApplication tombolaApplication;
+    @Inject
+    private PushBean pushBean;
     @Inject
     private Rifa rifa;
 
@@ -57,20 +60,22 @@ public class SorteoController implements Serializable {
 
     public String getFmtNumerosSorteados() {
         return String.join(" :: ",
-                rifa.getLstNumeroSorteados()
+                tombolaApplication.getListaUtilizados()
                         .stream()
-                        .map(e -> String.valueOf(e + 1))
+                        .map(e -> e.toString())
                         .collect(Collectors.toList())
         );
     }
 
     public void sortearRifa() {
-        rifa.marcarUtilizados();
+        rifa.marcarUtilizados(tombolaApplication.getListaUtilizados());
         long t = 500;
         try {
             for (int i = 0; i < 50; i++) {
-                rifa.sortear();
+                int n = tombolaApplication.sacarNumero();
+                rifa.marcarPosibleGanador(n);
                 pushBean.enviarJuego("");
+                tombolaApplication.devolverNumero(n);
                 Thread.sleep(t);
                 t -= 50;
                 if (t < 0) {
@@ -78,7 +83,9 @@ public class SorteoController implements Serializable {
                 }
             }
             // el que importa....
-            rifa.marcarGanador();
+            int g = tombolaApplication.sacarNumero();
+            rifa.marcarGanador(g);
+            pushBean.enviarJuego("");
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
             LOG.log(Level.SEVERE, "SORTEO", ex);
