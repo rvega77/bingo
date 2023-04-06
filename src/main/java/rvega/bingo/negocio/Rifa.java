@@ -35,7 +35,9 @@ public class Rifa {
     public void init() {
         rnd = new Random();
         crearNichos(0);
+        ultimoIndiceSorteado = 0;
         lstNumeroSorteados = new ArrayList<>();
+        ganador = null;
     }
 
     public synchronized void adquirir(int numero, Usuario usr) {

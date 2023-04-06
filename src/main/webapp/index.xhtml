@@ -119,6 +119,7 @@
                 </h:panelGrid>
             </h:form>
             <h:panelGroup rendered="#{usuarioSession.valido}">
+                <ui:include src="/usuario/espera.xhtml" />
                 <ui:include src="/usuario/carton.xhtml" />
                 <ui:include src="/usuario/nicho.xhtml" />
 
