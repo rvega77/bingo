@@ -12,6 +12,9 @@
             .sorteo-ganador {
                 font-size: 35px;
             }
+            .sorteo-utilizado {
+                font-size: 25px;
+            }
         </style>
     </h:head>
     <h:body>
@@ -40,9 +43,17 @@
                                 />
                         </f:facet>
                     </p:panelGrid>
+
+                    <p:spacer height="15px" />
+
+                    <p:panel header="NÚMEROS SORTEADOS"
+                             styleClass="sorteo-utilizado"
+                             >
+                        #{sorteoController.fmtNumerosSorteados}
+                    </p:panel>
                 </h:form>
             </p:tab>
-            
+
             <p:tab title="COMPRAR NUMERO">
                 <h:form id="frmAdquirir">
 
@@ -73,7 +84,7 @@
                 </h:form>
             </p:tab>
         </p:accordionPanel>
-        
+
     </h:body>
 </html>
 

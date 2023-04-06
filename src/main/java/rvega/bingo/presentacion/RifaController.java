@@ -39,6 +39,7 @@ public class RifaController {
 
     @PostConstruct
     public void init() {
+        rifa.init();
         rifa.crearNichos(cnf.getMaxNichos());
         filas = new ArrayList<>();
         for (int i = 0; i < cnf.getFilas(); i++) {
@@ -53,6 +54,20 @@ public class RifaController {
     public RifaNicho get(int f, int c) {
         int posicion = f * cnf.getColumnas() + (c + 1);
         return rifa.getMap().get(posicion);
+    }
+
+    public String css(int f, int c) {
+        RifaNicho n = get(f, c);
+        String css = "noseleccionado";
+        if (n.isGanador()) {
+            css = "ganador";
+        } else if (n.isUtilizado()) {
+            css = "utilizado";
+        } else if (n.getUsuario() != null) {
+            css = "seleccionado";
+        }
+
+        return css;
     }
 
     public void adquirir(Usuario usr, int numero) {

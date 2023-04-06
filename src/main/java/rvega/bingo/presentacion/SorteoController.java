@@ -6,6 +6,9 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import lombok.Data;
 import rvega.bingo.dominio.RifaNicho;
 import rvega.bingo.dominio.Usuario;
@@ -21,6 +24,8 @@ import rvega.bingo.socket.PushBean;
 @ViewScoped
 @Data
 public class SorteoController implements Serializable {
+
+    private static final Logger LOG = Logger.getLogger(SorteoController.class.getName());
 
     @Inject
     private PushBean pushBean;
@@ -50,10 +55,17 @@ public class SorteoController implements Serializable {
         return rifa.getCantidadUsuarios();
     }
 
-    public void sortearRifa() {
-//        rifa.sortear();
-//        pushBean.enviarJuego("sorteo");
+    public String getFmtNumerosSorteados() {
+        return String.join(" :: ",
+                rifa.getLstNumeroSorteados()
+                        .stream()
+                        .map(e -> String.valueOf(e + 1))
+                        .collect(Collectors.toList())
+        );
+    }
 
+    public void sortearRifa() {
+        rifa.marcarUtilizados();
         long t = 500;
         try {
             for (int i = 0; i < 50; i++) {
@@ -65,8 +77,11 @@ public class SorteoController implements Serializable {
                     t = 25;
                 }
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            // el que importa....
+            rifa.marcarGanador();
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            LOG.log(Level.SEVERE, "SORTEO", ex);
         }
     }
 

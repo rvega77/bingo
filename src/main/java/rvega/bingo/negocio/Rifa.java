@@ -26,11 +26,16 @@ public class Rifa {
     private Map<Integer, RifaNicho> map;
     private int maxNichos;
     private Random rnd;
+    //numeros sorteados
+    private int ultimoIndiceSorteado;
+    private List<Integer> lstNumeroSorteados;
+    private RifaNicho ganador;
 
     @PostConstruct
     public void init() {
         rnd = new Random();
         crearNichos(0);
+        lstNumeroSorteados = new ArrayList<>();
     }
 
     public synchronized void adquirir(int numero, Usuario usr) {
@@ -95,11 +100,7 @@ public class Rifa {
     }
 
     public RifaNicho getNichoGanador() {
-        return nichos
-                .stream()
-                .filter(n -> n.isGanador())
-                .findFirst()
-                .orElse(null);
+        return ganador;
     }
 
     public void sortear() {
@@ -108,5 +109,17 @@ public class Rifa {
         int idx = rnd.nextInt(maxNichos);
         // marcar el ganador
         nichos.get(idx).setGanador(true);
+        ultimoIndiceSorteado = idx;
+    }
+
+    public void marcarUtilizados() {
+        lstNumeroSorteados.forEach(n -> {
+            nichos.get(n).setUtilizado(true);
+        });
+    }
+
+    public void marcarGanador() {
+        lstNumeroSorteados.add(ultimoIndiceSorteado);
+        ganador = nichos.get(ultimoIndiceSorteado);
     }
 }

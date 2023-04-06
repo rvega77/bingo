@@ -19,7 +19,7 @@
                             <p:columns var="c" value="#{rifaController.columnas}" 
                                        footerText=""
                                        style="text-align:center; width" 
-                                       styleClass="#{rifaController.get(f, c).ganador ? 'ganador' : not empty rifaController.get(f, c).usuario ? 'seleccionado':'noseleccionado'}"
+                                       styleClass="#{rifaController.css(f, c)}"
                                        >
 
                                 #{rifaController.get(f, c).posicion}
