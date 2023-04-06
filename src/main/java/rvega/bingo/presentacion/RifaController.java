@@ -6,7 +6,10 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
+import rvega.bingo.dominio.RifaNicho;
 import rvega.bingo.negocio.Rifa;
 import rvega.bingo.dominio.Usuario;
 import rvega.bingo.util.ConfiguracionApplication;
@@ -30,9 +33,26 @@ public class RifaController {
     @Inject
     private MensajeApplication mensajeApplication;
 
+    // filas y columnas
+    private List<Integer> filas;
+    private List<Integer> columnas;
+
     @PostConstruct
     public void init() {
         rifa.crearNichos(cnf.getMaxNichos());
+        filas = new ArrayList<>();
+        for (int i = 0; i < cnf.getFilas(); i++) {
+            filas.add(i);
+        }
+        columnas = new ArrayList<>();
+        for (int i = 0; i < cnf.getColumnas(); i++) {
+            columnas.add(i);
+        }
+    }
+
+    public RifaNicho get(int f, int c) {
+        int posicion = f * cnf.getColumnas() + (c + 1);
+        return rifa.getMap().get(posicion);
     }
 
     public void adquirir(Usuario usr, int numero) {

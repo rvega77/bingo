@@ -11,23 +11,23 @@
         <ui:composition>
             <h:panelGroup rendered="#{cnf.modoRifa}">
                 <div class="ui-g">
-                    <div class="ui-g-7">
-                        <p:dataGrid id="rifa" 
-                                    var="fila" 
-                                    value="#{rifaController.rifa.nichos}" 
-                                    columns="#{cnf.columnas}" 
-                                    layout="grid"
-                                    >
-                            <p:panel id="nicho"
-                                     style="text-align:center; width: 100%" 
-                                     styleClass="#{fila.ganador ? 'ganador' : not empty fila.usuario ? 'seleccionado':'noseleccionado'}">
-                                <span>
-                                    #{fila.posicion}
-                                </span>
-                            </p:panel>
-                        </p:dataGrid>
+                    <div class="ui-g-6">
+                        <p:dataTable id="rifa" 
+                                     var="f" 
+                                     value="#{rifaController.filas}" 
+                                     >
+                            <p:columns var="c" value="#{rifaController.columnas}" 
+                                       footerText=""
+                                       style="text-align:center; width" 
+                                       styleClass="#{rifaController.get(f, c).ganador ? 'ganador' : not empty rifaController.get(f, c).usuario ? 'seleccionado':'noseleccionado'}"
+                                       >
+
+                                #{rifaController.get(f, c).posicion}
+                            </p:columns>
+
+                        </p:dataTable>
                     </div>
-                    <div class="ui-g-5">
+                    <div class="ui-g-6">
                         <h:panelGroup id="rifaMensaje">
                             <ui:include src="/tablero/mensajes.xhtml" />
                         </h:panelGroup>

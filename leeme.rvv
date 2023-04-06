@@ -1,4 +1,4 @@
 mvn clean package tomee:exec
 
-sudo JAVA_HOME=/opt/jdk1.8.0_212 /opt/jdk1.8.0_212/bin/java -jar target/bingo-1.0-SNAPSHOT-exec.jar
+sudo JAVA_HOME=/opt/jdk11 /opt/jdk11/bin/java -jar target/bingo-*-exec.jar
 

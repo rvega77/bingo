@@ -129,16 +129,19 @@
                     <f:facet name="header">
                         <h:outputText value="DIMENSIONES RIFA" />
                     </f:facet>
-                    <h:panelGrid columns="4" style="width: 100%">
-                        <h:outputText value="Fils" />
+                    <h:panelGrid columns="1" style="width: 100%">
+                        <h:outputText value="Filas" style="float: left" />
                         <p:inputText id="filas" value="#{cnf.filas}"
-                                     style="width: 50px"                                           
+                                     style="width: 98%"                                           
                                      />
+                        <p:slider for="filas" minValue="1" maxValue="10"/>
 
-                        <h:outputText value="Cols" />
+                        <h:outputText value="Columnas" style="float: left" />
                         <p:inputText id="columnas" value="#{cnf.columnas}" 
-                                     style="width: 50px"                                           
+                                     style="width: 98%"                                           
                                      />
+                        <p:slider for="columnas" minValue="1" maxValue="10"/>
+
                     </h:panelGrid>
 
                     <p:commandButton
