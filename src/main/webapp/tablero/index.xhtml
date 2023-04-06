@@ -90,7 +90,7 @@
                              update=":frm:usr" 
                              />
             <p:remoteCommand name="actualizarTablero" 
-                             update=":frm:usr :frm:tablero" 
+                             update=":frm:titulo :frm:usr :frm:tablero" 
                              />
             <p:remoteCommand name="actualizarMensajes" 
                              update=":frm:configMensaje :frm:bingoMensaje :frm:rifaMensaje" 
@@ -99,10 +99,9 @@
 
         <h:form id="frm">
 
-
             <p:panel>
                 <f:facet name="header">
-                    <h:outputText value="#{cnf.titulo}" />
+                    <h:outputText id="titulo" value="#{cnf.titulo}" />
 
                     <h:panelGroup id="usr" style="float: right">
                         <span class="pi pi-user"></span>

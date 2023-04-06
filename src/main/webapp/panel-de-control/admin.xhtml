@@ -4,6 +4,11 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <f:metadata>
+        <f:viewAction action="#{cnf.crearUrl()}" />
+    </f:metadata>
+    
     <h:head>
         <title>ADMIN</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
@@ -25,32 +30,16 @@
 
                 <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
                     <f:facet name="header">
-                        <h:outputText value="Título Juego" />
-                    </f:facet>
-                    <p:inputText id="titulo" value="#{cnf.titulo}"
-                                 style="width: 98%"
-                                 />
-                    <p:commandButton
-                        icon="pi pi-pencil"
-                        value="Actualizar"
-                        action="#{adminController.actualizarTitulo()}"
-                        process="titulo"
-                        />
-                </p:panelGrid>
-
-                <p:spacer height="10px" />
-
-                <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
-                    <f:facet name="header">
-                        <h:outputText value="Modo Juego" />
+                        <h:outputText value="MODO JUEGO" />
                     </f:facet>
 
                     <p:selectOneButton value="#{cnf.modo}"
                                        required="true"
+                                       label="MODO JUEGO"
                                        >
                         <f:selectItems value="#{adminController.lstModo}" />
                         <p:ajax listener="#{adminController.actualizarModo()}"
-                                update="pnlModo"
+                                update="@form"
                                 />
                     </p:selectOneButton>
 
@@ -58,78 +47,114 @@
 
                 <p:spacer height="10px" />
 
-                <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
-                    <f:facet name="header">
-                        <h:outputText value="Bloquear" />
-                    </f:facet>
+                <h:panelGroup rendered="#{cnf.modoConfig}">
 
-                    <p:toggleSwitch value="#{cnf.bloqueado}">
-                        <p:ajax listener="#{adminController.actualizarBloqueo()}" />
-                    </p:toggleSwitch>
-
-                </p:panelGrid>
-
-                <p:spacer height="10px" />
-
-                <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
-                    <f:facet name="header">
-                        <h:outputText value="Reiniciar Tablero" />
-                    </f:facet>
-
-                    <p:commandButton
-                        icon="pi pi-refresh"         
-                        value="Reiniciar" 
-                        action="#{adminController.actualizarTablero()}"
-                        />
-                </p:panelGrid>
-
-                <p:spacer height="10px" />
-
-                <h:panelGroup id="pnlModo">
-
-                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
-                                 rendered="#{cnf.modoBingo}"
-                                 >
+                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
                         <f:facet name="header">
-                            <h:outputText value="Reiniciar Cartones" />
+                            <h:outputText value="CONFIGURACION" />
                         </f:facet>
 
-                        <p:commandButton
-                            icon="pi pi-file-o"         
-                            value="Reiniciar (#{cartonFactory.cantidadUsuarios})" 
-                            actionListener="#{cartonFactory.reset()}" 
-                            action="#{adminController.actualizarCartones()}"
-                            update="@this"
-                            />
-                    </p:panelGrid>
-
-                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
-                                 rendered="#{cnf.modoRifa}"
-                                 >
-                        <f:facet name="header">
-                            <h:outputText value="Dimensiones de la Rifa" />
-                        </f:facet>
-                        <h:panelGrid columns="4" style="width: 100%">
-                            <h:outputText value="Fils" />
-                            <p:inputText id="filas" value="#{cnf.filas}"
-                                         style="width: 50px"                                           
+                        <h:panelGroup>
+                            <p:outputLabel for="titulo" value="Título" style="float: left" />
+                            <br />
+                            <p:inputText id="titulo" 
+                                         value="#{cnf.titulo}"
+                                         style="width: 98%"
                                          />
-
-                            <h:outputText value="Cols" />
-                            <p:inputText id="columnas" value="#{cnf.columnas}" 
-                                         style="width: 50px"                                           
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <p:outputLabel for="titulo" value="URL" style="float: left" />
+                            <br />
+                            <p:inputText id="url"
+                                         value="#{cnf.url}"
+                                         style="width: 98%"
                                          />
-                        </h:panelGrid>
+                        </h:panelGroup>
 
                         <p:commandButton
                             icon="pi pi-pencil"
                             value="Actualizar"
-                            action="#{adminController.actualizarDimensiones()}"
-                            process="filas columnas"
+                            action="#{adminController.actualizarTitulo()}"
+                            process="titulo url"
                             />
                     </p:panelGrid>
 
+                    <p:spacer height="10px" />
                 </h:panelGroup>
+
+                <h:panelGroup rendered="#{not cnf.modoConfig}">
+                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
+                        <f:facet name="header">
+                            <h:outputText value="Bloquear" />
+                        </f:facet>
+
+                        <p:toggleSwitch value="#{cnf.bloqueado}">
+                            <p:ajax process="@this"
+                                    listener="#{adminController.actualizarBloqueo()}"
+                                    />
+                        </p:toggleSwitch>
+                    </p:panelGrid>
+
+                    <p:spacer height="10px" />
+
+                    <p:panelGrid columns="1" columnClasses="col" style="width: 100%">
+                        <f:facet name="header">
+                            <h:outputText value="Reiniciar Tablero" />
+                        </f:facet>
+
+                        <p:commandButton
+                            icon="pi pi-refresh"         
+                            value="Reiniciar" 
+                            action="#{adminController.actualizarTablero()}"
+                            />
+                    </p:panelGrid>
+
+                    <p:spacer height="10px" />
+                </h:panelGroup>
+
+
+                <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
+                             rendered="#{cnf.modoBingo}"
+                             >
+                    <f:facet name="header">
+                        <h:outputText value="Reiniciar Cartones" />
+                    </f:facet>
+
+                    <p:commandButton
+                        icon="pi pi-file-o"         
+                        value="Reiniciar (#{cartonFactory.cantidadUsuarios})" 
+                        actionListener="#{cartonFactory.reset()}" 
+                        action="#{adminController.actualizarCartones()}"
+                        update="@this"
+                        />
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" columnClasses="col" style="width: 100%"
+                             rendered="#{cnf.modoRifa}"
+                             >
+                    <f:facet name="header">
+                        <h:outputText value="Dimensiones de la Rifa" />
+                    </f:facet>
+                    <h:panelGrid columns="4" style="width: 100%">
+                        <h:outputText value="Fils" />
+                        <p:inputText id="filas" value="#{cnf.filas}"
+                                     style="width: 50px"                                           
+                                     />
+
+                        <h:outputText value="Cols" />
+                        <p:inputText id="columnas" value="#{cnf.columnas}" 
+                                     style="width: 50px"                                           
+                                     />
+                    </h:panelGrid>
+
+                    <p:commandButton
+                        icon="pi pi-pencil"
+                        value="Actualizar"
+                        action="#{adminController.actualizarDimensiones()}"
+                        process="filas columnas"
+                        />
+                </p:panelGrid>
+
 
             </h:form>
 
