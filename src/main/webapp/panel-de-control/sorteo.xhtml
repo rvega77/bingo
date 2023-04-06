@@ -17,61 +17,63 @@
     <h:body>
         <ui:include src="/panel-de-control/menu.xhtml" />
 
-        <p:panel header="RIFA">
-            <h:form id="frm">
+        <p:accordionPanel>
+            <p:tab title="RIFA">
+                <h:form id="frm">
 
-                <p:panelGrid columns="1" style="width: 100%">
-                    <f:facet name="header">
-                        <h:outputText value="Ganador" />
-                    </f:facet>
+                    <p:panelGrid columns="1" style="width: 100%">
+                        <f:facet name="header">
+                            <h:outputText value="Sorteo" />
+                        </f:facet>
 
-                    <h:outputText value="#{sorteoController.mostrarGanador()}" 
-                                  styleClass="sorteo-ganador"
-                                  />
+                        <h:outputText value="#{sorteoController.mostrarGanador()}" 
+                                      styleClass="sorteo-ganador"
+                                      />
 
-                    <f:facet name="footer">
-                        <p:commandButton
-                            value="Iniciar (#{sorteoController.cantidadUsuarios})" 
-                            action="#{sorteoController.sortearRifa()}"
-                            update="@form"
-                            style="width: 98%; font-size: 35px"
+                        <f:facet name="footer">
+                            <p:commandButton
+                                value="Iniciar (#{sorteoController.cantidadUsuarios})" 
+                                action="#{sorteoController.sortearRifa()}"
+                                update="@form"
+                                style="width: 98%; font-size: 35px"
 
-                            />
-                    </f:facet>
-                </p:panelGrid>
-            </h:form>
+                                />
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:tab>
+            
+            <p:tab title="COMPRA NUMERO">
+                <h:form id="frmAdquirir">
 
-            <p:spacer height="15px" />
+                    <p:panelGrid columns="1" style="text-align: center; width: 100%">
+                        <f:facet name="header">
+                            <h:outputText value="Adquirir Manual" />
+                        </f:facet>  
 
-            <h:form id="frmAdquirir">
+                        <p:knob cursor="true" 
+                                value="#{sorteoController.numero}"
+                                min="1"
+                                max="#{cnf.maxNichos}"
+                                />
 
-                <p:panelGrid columns="1" style="text-align: center; width: 100%">
-                    <f:facet name="header">
-                        <h:outputText value="Adquirir Manual" />
-                    </f:facet>  
+                        <p:inputText value="#{sorteoController.nombre}" 
+                                     placeholder="nombre"
+                                     style="width: 98%"
+                                     />
 
-                    <p:knob cursor="true" 
-                            value="#{sorteoController.numero}"
-                            min="1"
-                            max="#{cnf.maxNichos}"
-                            />
-
-                    <p:inputText value="#{sorteoController.nombre}" 
-                                 placeholder="nombre"
-                                 style="width: 98%"
-                                 />
-
-                    <f:facet name="footer">
-                        <p:commandButton 
-                            value="Adquirir"
-                            icon="pi pi-shopping-cart"
-                            action="#{sorteoController.adquirirManual()}"
-                            />
-                    </f:facet> 
-                </p:panelGrid>
-            </h:form>
-        </p:panel>
-
+                        <f:facet name="footer">
+                            <p:commandButton 
+                                value="Adquirir"
+                                icon="pi pi-shopping-cart"
+                                action="#{sorteoController.adquirirManual()}"
+                                />
+                        </f:facet> 
+                    </p:panelGrid>
+                </h:form>
+            </p:tab>
+        </p:accordionPanel>
+        
     </h:body>
 </html>
 
