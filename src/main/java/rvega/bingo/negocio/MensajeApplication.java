@@ -50,7 +50,6 @@ public class MensajeApplication {
 
     public void purgar() {
         lstMensaje.clear();
-        enviarMensajeSistema("Reiniciar Tablero...");
     }
 
     public int getCantidad() {

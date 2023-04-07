@@ -46,6 +46,7 @@ public class AdminController {
                 .addMessage(null, new FacesMessage("Modo Juego Actualizado"));
         reinicarTableros();
         pushBean.enviarCarton("");
+        mensajeApplication.enviarMensajeSistema("Modo de Juego : " + cnf.getModo());
     }
 
     public void actualizarDimensiones() {
@@ -55,12 +56,15 @@ public class AdminController {
 
         reinicarTableros();
         pushBean.enviarCarton("");
+        mensajeApplication.enviarMensajeSistema("Rifa nuevas dimensiones : " + cnf.getFilas() + "x" + cnf.getColumnas());
     }
 
     public void actualizarBloqueo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Bloqueo Actualizado"));
+        mensajeApplication.enviarMensajeSistema("Juego  " + (cnf.isBloqueado() ? "BLOQUEADO" : "DESBLOQUEADO"));
+
     }
 
     public void actualizarTablero() {
@@ -70,6 +74,7 @@ public class AdminController {
 
         reinicarTableros();
         mensajeApplication.purgar();
+        mensajeApplication.enviarMensajeSistema("Reiniciar Tablero....");
     }
 
     public void actualizarCartones() {
@@ -77,6 +82,7 @@ public class AdminController {
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Cartones Reiniciados"));
         pushBean.enviarUsuario("");
+        mensajeApplication.enviarMensajeSistema("Reiniciar Cartones de Juego....");
     }
 
     private void reinicarTableros() {
