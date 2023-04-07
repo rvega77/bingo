@@ -63,12 +63,12 @@
                         </f:facet>  
 
                         <p:knob cursor="true" 
-                                value="#{sorteoController.numero}"
+                                value="#{adquirirRifaController.numero}"
                                 min="1"
                                 max="#{cnf.maxNichos}"
                                 />
 
-                        <p:inputText value="#{sorteoController.nombre}" 
+                        <p:inputText value="#{adquirirRifaController.nombre}" 
                                      placeholder="nombre"
                                      style="width: 98%"
                                      />
@@ -77,7 +77,7 @@
                             <p:commandButton 
                                 value="Adquirir"
                                 icon="pi pi-shopping-cart"
-                                action="#{sorteoController.adquirirManual()}"
+                                action="#{adquirirRifaController.adquirirManual()}"
                                 />
                         </f:facet> 
                     </p:panelGrid>
