@@ -1,0 +1,4 @@
+FROM azul/zulu-openjdk-alpine:11-latest
+COPY target/bingo-*-exec.jar bingo.jar
+CMD ["java", "-jar", "bingo.jar"]
+

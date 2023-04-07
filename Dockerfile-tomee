@@ -1,0 +1,3 @@
+FROM tomee:8.0.13-jre11-webprofile
+COPY target/bingo-*.war /usr/local/tomee/webapps/bingo.war
+
