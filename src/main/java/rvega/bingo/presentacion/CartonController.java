@@ -14,6 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Data;
 import rvega.bingo.dominio.CartonLinea;
+import rvega.bingo.negocio.MensajeApplication;
 import rvega.bingo.util.UsuarioSession;
 
 /**
@@ -24,23 +25,25 @@ import rvega.bingo.util.UsuarioSession;
 @SessionScoped
 @Data
 public class CartonController implements Serializable {
-
+    
     private static final Logger LOG = Logger.getLogger(CartonController.class.getName());
-
+    
+    @Inject
+    private MensajeApplication mensajeApplication;
     @Inject
     private UsuarioSession usuarioSession;
     @Inject
     private CartonFactory factory;
-
+    
     private Carton carton;
     //derivado para renderizar el carton
     private List<CartonLinea> lstCartonLineas;
-
+    
     @PostConstruct
     public void init() {
         nuevoCarton();
     }
-
+    
     private void convertir() {
         lstCartonLineas = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -52,9 +55,9 @@ public class CartonController implements Serializable {
             cl.setO(carton.getMapColumnas().get("O").get(i));
             lstCartonLineas.add(cl);
         }
-
+        
     }
-
+    
     public void jugar() {
         if (factory.existeUsuario(usuarioSession.getUsuario())) {
             String nro = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("nro");
@@ -63,19 +66,20 @@ public class CartonController implements Serializable {
             FacesContext
                     .getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Cartón Inválido", null));
-
+            
         }
     }
-
+    
     public void nuevoCarton() {
         try {
             carton = factory.crear(usuarioSession.getUsuario());
             convertir();
+            mensajeApplication.enviarMensajeSistema(usuarioSession.getNombre() + " ha solicitado un nuevo Cartón.");
         } catch (Exception ex) {
             FacesContext
                     .getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), null));
         }
     }
-
+    
 }
