@@ -19,30 +19,30 @@ import rvega.bingo.util.UsuarioSession;
 @RequestScoped
 @Data
 public class MensajeController implements Serializable {
-    
+
     @Inject
     private MensajeApplication mensajeApplication;
     @Inject
     private UsuarioSession usuarioSession;
-    
+
     private String texto;
-    
+
     public void enviarMensaje() {
         Mensaje m = new Mensaje();
-        
+
         m.setUsuario(usuarioSession.getUsuario().getNombre());
-        m.setColor(usuarioSession.getColor());
+        m.setFondo(usuarioSession.getColor());
         m.setTexto(texto);
         mensajeApplication.agregar(m);
         texto = null;
-        
+
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje Enviado...", null));
     }
-    
+
     public String enviar() {
         return "/index?faces-redirect=true";
     }
-    
+
 }

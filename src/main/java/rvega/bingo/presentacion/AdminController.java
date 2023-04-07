@@ -44,16 +44,17 @@ public class AdminController {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Modo Juego Actualizado"));
+        reinicarTableros();
         pushBean.enviarCarton("");
-        pushBean.enviarJuego("");
     }
 
     public void actualizarDimensiones() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Dimensiones Rifa Actualizada"));
-        rifaController.init();
-        pushBean.enviarJuego("");
+
+        reinicarTableros();
+        pushBean.enviarCarton("");
     }
 
     public void actualizarBloqueo() {
@@ -66,14 +67,8 @@ public class AdminController {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Tablero Reiniciado"));
-        
-        if (cnf.isModoBingo()) {
-            displayController.init();
-        }
-        if (cnf.isModoRifa()) {
-            rifaController.init();
-        }
-        pushBean.enviarJuego("");
+
+        reinicarTableros();
         mensajeApplication.purgar();
     }
 
@@ -82,6 +77,16 @@ public class AdminController {
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Cartones Reiniciados"));
         pushBean.enviarUsuario("");
+    }
+
+    private void reinicarTableros() {
+        if (cnf.isModoBingo()) {
+            displayController.init();
+        }
+        if (cnf.isModoRifa()) {
+            rifaController.init();
+        }
+        pushBean.enviarJuego("");
     }
 
 }

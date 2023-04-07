@@ -41,7 +41,7 @@ public class SorteoController implements Serializable {
             if (n.getUsuario() != null) {
                 s = n.getPosicion() + " : " + n.getUsuario().getNombre();
             } else {
-                s = n.getPosicion() + " : Al Agua...";
+                s = n.getPosicion() + " : Vacío...";
             }
         }
         return s;
@@ -79,6 +79,8 @@ public class SorteoController implements Serializable {
             int g = tombolaApplication.sacarNumero();
             rifa.marcarGanador(g);
             pushBean.enviarJuego("");
+            // informar
+            mensajeApplication.enviarMensajeSistema(mostrarGanador());
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
             LOG.log(Level.SEVERE, "SORTEO", ex);

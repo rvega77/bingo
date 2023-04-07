@@ -79,8 +79,15 @@ public class RifaController {
         if (cnf.isBloqueado()) {
             throw new IllegalStateException("Rifa Bloqueada !!");
         }
+        Integer actual = rifa.getPosicion(usr);
         rifa.adquirir(numero, usr);
         rifa.liberar(numero, usr);
+        if (actual == null) {
+            mensajeApplication.enviarMensajeSistema("Se ha adquirido el # " + numero);
+        } else {
+            mensajeApplication.enviarMensajeSistema("Se ha movido el # " + actual + " » # " + numero);
+        }
+
     }
 
 }

@@ -12,19 +12,21 @@ public class Mensaje implements Serializable {
 
     private String usuario;
     private String texto;
+    private String fondo;
     private String color;
     private long tiempo;
 
     public Mensaje() {
         tiempo = System.currentTimeMillis();
+        this.fondo = "black";
     }
 
     public Mensaje(String usuario, String texto) {
         this();
         this.usuario = usuario;
         this.texto = texto;
-        this.color = "#ffffff";
+        this.fondo = "#ffffff";
+        this.color = "gray";
     }
-    
 
 }

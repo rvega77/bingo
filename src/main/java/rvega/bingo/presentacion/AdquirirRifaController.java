@@ -37,7 +37,7 @@ public class AdquirirRifaController implements Serializable {
         usr.setNombre(nombre);
         try {
             rifa.adquirir(numero, usr);
-            mensajeApplication.enviarMensajeSistema(nombre + " tiene el # " + numero);
+            mensajeApplication.enviarMensajeSistema("Se ha adquirido el # " + numero);
             pushBean.enviarJuego("");
 
             FacesContext.getCurrentInstance()
