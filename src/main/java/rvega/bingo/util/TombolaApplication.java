@@ -18,6 +18,8 @@ public class TombolaApplication {
 
     private static final Logger LOG = Logger.getLogger(TombolaApplication.class.getName());
 
+    private static final boolean DEBUG = false;
+
     private List<Integer> lstNumeros;
     private List<Integer> lstUtilizados;
 
@@ -57,11 +59,13 @@ public class TombolaApplication {
     }
 
     private void print(String cabecera) {
-        LOG.info(
-                "\nTOMBOLA :: " + cabecera
-                + "\n - DISPONIBLES : " + lstNumeros
-                + "\n - UTILIZADOS  : " + lstUtilizados
-        );
+        if (DEBUG) {
+            LOG.info(
+                    "\nTOMBOLA :: " + cabecera
+                    + "\n - DISPONIBLES : " + lstNumeros
+                    + "\n - UTILIZADOS  : " + lstUtilizados
+            );
+        }
     }
 
 }

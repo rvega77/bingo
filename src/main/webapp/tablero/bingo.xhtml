@@ -12,55 +12,25 @@
 
                 <div class="ui-g">
                     <div class="ui-g-12">
-                        <p:dataTable id="bingo" var="fila" value="#{displayController.lstBingoLinea}" >
-                            <p:column footerText="">
-                                #{fila.letra}
+                        <p:dataTable id="bingo" 
+                                     var="ln" 
+                                     value="#{displayController.lstBingoLinea}" 
+                                     >
+                            <p:column headerText="" 
+                                      footerText=""
+                                      style="text-align:center;font-weight: bold" 
+                                      >
+                                #{ln.letra}
                             </p:column>
-                            <p:column styleClass="#{fila.c1.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c1.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c2.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c2.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c3.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c3.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c4.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c4.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c5.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c5.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c6.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c6.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c7.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c7.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c8.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c8.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c9.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c9.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c10.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c10.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c11.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c11.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c12.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c12.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c13.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c13.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c14.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c14.valor}
-                            </p:column>
-                            <p:column styleClass="#{fila.c15.utilizado ? 'seleccionado':'noseleccionado'}">                    
-                                #{fila.c15.valor}
-                            </p:column>
+                            <p:columns var="c" value="#{displayController.lstColumnas}" 
+                                       headerText=""
+                                       footerText=""
+                                       style="text-align:center" 
+                                       styleClass="#{displayController.get(ln, c).utilizado ? 'seleccionado':'noseleccionado'}"
+                                       >
+                                #{displayController.get(ln, c).valor}
+                            </p:columns>
+
                         </p:dataTable>
                     </div>
                     <div class="ui-g-3">

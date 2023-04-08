@@ -1,113 +1,62 @@
 package rvega.bingo.negocio;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.util.logging.Logger;
+import lombok.Data;
 import rvega.bingo.dominio.Numero;
+import rvega.bingo.util.ConfiguracionApplication;
 
 @Named
 @ApplicationScoped
+@Data
 public class Bingo implements Serializable {
 
-    private List<Numero> listaB;
-    private List<Numero> listaI;
-    private List<Numero> listaN;
-    private List<Numero> listaG;
-    private List<Numero> listaO;
-    private Map<Integer, Numero> mapTotal;
+    private static final Logger LOG = Logger.getLogger(Bingo.class.getName());
+
+    private static final boolean DEBUG = false;
+
+    @Inject
+    private ConfiguracionApplication cnf;
+    // bingo
+    private Map<Integer, Numero> map;
 
     @PostConstruct
     public void init() {
         // crear consola de bingo
-        listaB = new ArrayList<>();
-        listaI = new ArrayList<>();
-        listaN = new ArrayList<>();
-        listaG = new ArrayList<>();
-        listaO = new ArrayList<>();
-        mapTotal = new HashMap<>();
+        map = new HashMap<>();
 
-        //letra B
-        for (int i = 1; i <= 15; i++) {
-            Numero n = new Numero(i, "B");
-            listaB.add(n);
-            mapTotal.put(i, n);
+        int nroLinea = 0;
+        for (char letra : cnf.getBingo().getLetras()) {
+            String l = Character.toString(letra);
+            for (int idx = 1; idx <= cnf.getBingo().getCantidadPorLinea(); idx++) {
+                int posicion = idx + (nroLinea * cnf.getBingo().getCantidadPorLinea());
+                Numero n = new Numero(posicion, l);
+                map.put(n.getValor(), n);
+            }
+            nroLinea++;
         }
-        //letra I
-        for (int i = 16; i <= 30; i++) {
-            Numero n = new Numero(i, "I");
-            listaI.add(n);
-            mapTotal.put(i, n);
+
+        print();
+
+    }
+
+    public int getTotalNumeros() {
+        return map.size();
+    }
+
+    public Numero getNumero(int posicion) {
+        return map.get(posicion);
+    }
+
+    public void print() {
+        if (DEBUG) {
+            LOG.info("\nBINGO :: \n" + map.toString());
         }
-        //letra N
-        for (int i = 31; i <= 45; i++) {
-            Numero n = new Numero(i, "N");
-            listaN.add(n);
-            mapTotal.put(i, n);
-        }
-        //letra G
-        for (int i = 46; i <= 60; i++) {
-            Numero n = new Numero(i, "G");
-            listaG.add(n);
-            mapTotal.put(i, n);
-        }
-        //letra O
-        for (int i = 61; i <= 75; i++) {
-            Numero n = new Numero(i, "O");
-            listaO.add(n);
-            mapTotal.put(i, n);
-        }
-    }
-
-    public List<Numero> getListaB() {
-        return listaB;
-    }
-
-    public void setListaB(List<Numero> listaB) {
-        this.listaB = listaB;
-    }
-
-    public List<Numero> getListaI() {
-        return listaI;
-    }
-
-    public void setListaI(List<Numero> listaI) {
-        this.listaI = listaI;
-    }
-
-    public List<Numero> getListaN() {
-        return listaN;
-    }
-
-    public void setListaN(List<Numero> listaN) {
-        this.listaN = listaN;
-    }
-
-    public List<Numero> getListaG() {
-        return listaG;
-    }
-
-    public void setListaG(List<Numero> listaG) {
-        this.listaG = listaG;
-    }
-
-    public List<Numero> getListaO() {
-        return listaO;
-    }
-
-    public void setListaO(List<Numero> listaO) {
-        this.listaO = listaO;
-    }
-
-    public Map<Integer, Numero> getMapTotal() {
-        return mapTotal;
-    }
-
-    public void setMapTotal(Map<Integer, Numero> mapTotal) {
-        this.mapTotal = mapTotal;
     }
 }
