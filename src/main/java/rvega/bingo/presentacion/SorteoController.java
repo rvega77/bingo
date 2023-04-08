@@ -61,7 +61,7 @@ public class SorteoController implements Serializable {
     }
 
     public void sortearRifa() {
-        LOG.info("\nSORTEO");
+//        LOG.info("\nSORTEO");
         rifa.marcarUtilizados(tombolaApplication.getListaUtilizados());
         long t = 500;
         try {
