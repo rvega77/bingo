@@ -72,7 +72,7 @@ public class RifaController {
             css = "seleccionado";
         }
 
-        return css;
+        return "numero-tablero " + css;
     }
 
     public void adquirir(Usuario usr, int numero) {

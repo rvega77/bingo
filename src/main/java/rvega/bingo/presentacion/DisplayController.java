@@ -90,6 +90,19 @@ public class DisplayController {
         return n;
     }
 
+    public String css(BingoLinea bl, Integer nro) {
+        String css = "";
+        Numero n = get(bl, nro);
+        if (n != null) {
+            if (n.isUtilizado()) {
+                css = "seleccionado";
+            } else {
+                css = "noseleccionado";
+            }
+        }
+        return "numero-tablero " + css;
+    }
+
     public void sacarNumero() {
         if (tombolaApplication.isDisponibles()) {
             if (numeroCarton != null) {

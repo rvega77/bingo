@@ -18,27 +18,27 @@
                                      >
                             <p:column headerText="" 
                                       footerText=""
-                                      style="text-align:center;font-weight: bold" 
+                                      style="font-weight: bold"
+                                      styleClass="numero-tablero"
                                       >
                                 #{ln.letra}
                             </p:column>
                             <p:columns var="c" value="#{displayController.lstColumnas}" 
                                        headerText=""
                                        footerText=""
-                                       style="text-align:center" 
-                                       styleClass="#{displayController.get(ln, c).utilizado ? 'seleccionado':'noseleccionado'}"
+                                       styleClass="#{displayController.css(ln, c)}"
                                        >
                                 #{displayController.get(ln, c).valor}
                             </p:columns>
 
                         </p:dataTable>
                     </div>
-                    <div class="ui-g-3">
+                    <div class="ui-g-2">
 
                         <ui:include src="/tablero/numero.xhtml" />
 
                     </div>
-                    <div class="ui-g-9">
+                    <div class="ui-g-10">
                         <h:panelGroup id="bingoMensaje">
                             <ui:include src="/tablero/mensajes.xhtml" />
                         </h:panelGroup>
