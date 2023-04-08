@@ -56,7 +56,7 @@ public class AdminController {
 
         reinicarTableros();
         pushBean.enviarCarton("");
-        mensajeApplication.enviarMensajeSistema("Rifa nuevas dimensiones : " + cnf.getFilas() + "x" + cnf.getColumnas());
+        mensajeApplication.enviarMensajeSistema("Rifa nuevas dimensiones : " + cnf.getRifa().toFmtString());
     }
 
     public void actualizarBloqueo() {

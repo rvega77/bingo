@@ -43,21 +43,21 @@ public class RifaController {
     @PostConstruct
     public void init() {
         rifa.init();
-        rifa.crearNichos(cnf.getMaxNichos());
-        tombolaApplication.inicializar(cnf.getMaxNichos());
+        rifa.crearNichos(cnf.getRifa().getMaxNichos());
+        tombolaApplication.inicializar(cnf.getRifa().getMaxNichos());
 
         filas = new ArrayList<>();
-        for (int i = 0; i < cnf.getFilas(); i++) {
+        for (int i = 0; i < cnf.getRifa().getFilas(); i++) {
             filas.add(i);
         }
         columnas = new ArrayList<>();
-        for (int i = 0; i < cnf.getColumnas(); i++) {
+        for (int i = 0; i < cnf.getRifa().getColumnas(); i++) {
             columnas.add(i);
         }
     }
 
     public RifaNicho get(int f, int c) {
-        int posicion = f * cnf.getColumnas() + (c + 1);
+        int posicion = f * cnf.getRifa().getColumnas() + (c + 1);
         return rifa.getMap().get(posicion);
     }
 

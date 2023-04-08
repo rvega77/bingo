@@ -6,6 +6,8 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import lombok.Data;
+import rvega.bingo.dominio.BingoMetadata;
+import rvega.bingo.dominio.RifaMetadata;
 import rvega.bingo.dominio.TipoModo;
 
 /**
@@ -21,16 +23,16 @@ public class ConfiguracionApplication {
     private String url;
     private TipoModo modo;
     private boolean bloqueado;
-    private int columnas;
-    private int filas;
+    private RifaMetadata rifa;
+    private BingoMetadata bingo;
 
     @PostConstruct
     public void init() {
         titulo = "CAMARADERIA";
         modo = TipoModo.CONFIG;
         bloqueado = false;
-        columnas = 6;
-        filas = 8;
+        rifa = new RifaMetadata();
+        bingo = new BingoMetadata();
     }
 
     public void crearUrl() {
@@ -51,9 +53,5 @@ public class ConfiguracionApplication {
 
     public boolean isModoRifa() {
         return modo == TipoModo.RIFA;
-    }
-
-    public int getMaxNichos() {
-        return filas * columnas;
     }
 }
