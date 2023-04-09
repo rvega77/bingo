@@ -11,8 +11,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonObjectBuilder;
 import rvega.bingo.dominio.Mensaje;
 import rvega.bingo.socket.PushBean;
 

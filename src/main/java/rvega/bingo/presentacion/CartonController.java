@@ -74,7 +74,7 @@ public class CartonController implements Serializable {
         try {
             carton = factory.crear(usuarioSession.getUsuario());
             convertir();
-            mensajeApplication.enviarMensajeSistema(usuarioSession.getNombre() + " ha solicitado un nuevo Cartón.");
+//            mensajeApplication.enviarMensajeSistema(usuarioSession.getNombre() + " ha solicitado un nuevo Cartón.");
         } catch (Exception ex) {
             FacesContext
                     .getCurrentInstance()

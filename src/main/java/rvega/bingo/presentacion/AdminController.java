@@ -46,7 +46,7 @@ public class AdminController {
                 .addMessage(null, new FacesMessage("Modo Juego Actualizado"));
         reinicarTableros();
         pushBean.enviarCarton("");
-        mensajeApplication.enviarMensajeSistema("Modo de Juego : " + cnf.getModo());
+//        mensajeApplication.enviarMensajeSistema("Modo de Juego : " + cnf.getModo());
     }
 
     public void actualizarDimensiones() {
@@ -56,14 +56,14 @@ public class AdminController {
 
         reinicarTableros();
         pushBean.enviarCarton("");
-        mensajeApplication.enviarMensajeSistema("Rifa nuevas dimensiones : " + cnf.getRifa().toFmtString());
+//        mensajeApplication.enviarMensajeSistema("Rifa nuevas dimensiones : " + cnf.getRifa().toFmtString());
     }
 
     public void actualizarBloqueo() {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Bloqueo Actualizado"));
-        mensajeApplication.enviarMensajeSistema("Juego  " + (cnf.isBloqueado() ? "BLOQUEADO" : "DESBLOQUEADO"));
+//        mensajeApplication.enviarMensajeSistema("Juego  " + (cnf.isBloqueado() ? "BLOQUEADO" : "DESBLOQUEADO"));
 
     }
 

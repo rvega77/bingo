@@ -10,8 +10,8 @@ import lombok.Data;
 @Data
 public class RifaMetadata implements Serializable {
 
-    private int filas = 8;
-    private int columnas = 7;
+    private int filas = 10;
+    private int columnas = 6;
 
     public int getMaxNichos() {
         return filas * columnas;
