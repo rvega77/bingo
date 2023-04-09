@@ -2,8 +2,6 @@ package rvega.bingo.dominio;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -14,14 +14,14 @@
         <style>
             .seleccionado, .noseleccionado{
                 font-size: #{usuarioSession.tamanno}px;
+                text-align: center !important;
                 cursor: pointer;
             }
             .seleccionado{
-                text-align: center;
                 background-color: yellow;
             }
             .noseleccionado{
-                text-align: center;
+
             }
             .numero {
                 font-size: 50px;
@@ -33,6 +33,11 @@
                 font-size: 30px !important;
                 width: 90%;
             }
+            
+            .ui-growl {
+                top: 5px !important;
+            }
+            
         </style>
         <script type="text/javascript">
             function jugar(n) {
