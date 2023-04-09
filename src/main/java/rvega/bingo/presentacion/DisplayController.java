@@ -113,14 +113,22 @@ public class DisplayController {
     }
 
     private void calcularCartonesPorGanar() {
-        cantidadCartonesPorGanar = 0;
+        int nuevoCartonPorGanar = 0;
         List<Integer> numeros = tombolaApplication.getListaUtilizados();
         for (Carton c : factory.getCartones()) {
             if (c.contarFaltantes(numeros) <= 1) {
-                cantidadCartonesPorGanar++;
+                nuevoCartonPorGanar++;
             }
         }
-        //System.out.println("Por Ganar : " + cantidadCartonesPorGanar);
+
+        if (cantidadCartonesPorGanar != nuevoCartonPorGanar) {
+            if (nuevoCartonPorGanar == 1) {
+                mensajeApplication.enviarMensajeSistema("Hay " + nuevoCartonPorGanar + " cartón que esta por ganar...!!, yo lo sé..., el usuario lo sabrá??");
+            } else {
+                mensajeApplication.enviarMensajeSistema("Existen " + nuevoCartonPorGanar + " cartones por ganar!!");
+            }
+        }
+        this.cantidadCartonesPorGanar = nuevoCartonPorGanar;
     }
 
     public boolean isExistenPorGanar() {
