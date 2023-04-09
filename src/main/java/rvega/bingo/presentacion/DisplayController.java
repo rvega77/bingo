@@ -47,8 +47,6 @@ public class DisplayController {
     private CartonFactory factory;
 
     private Numero numeroCarton;
-    private List<BingoLinea> lstBingoLinea;
-    private List<Integer> lstColumnas;
     private int cantidadCartonesPorGanar;
     // ultimos numeros jugados
     private Deque<Numero> lstUltimosNumeros;
@@ -57,29 +55,17 @@ public class DisplayController {
     public void init() {
         bingo.init();
         tombolaApplication.inicializar(bingo.getTotalNumeros());
-        actualizarTablero();
         numeroCarton = null;
         cantidadCartonesPorGanar = 0;
         lstUltimosNumeros = new ArrayDeque<>();
     }
 
-    private void actualizarTablero() {
-        lstBingoLinea = new ArrayList<>();
-        int nroLinea = 0;
-        for (char letra : cnf.getBingo().getLetras()) {
-            List<Numero> lst = new ArrayList<>();
-            for (int idx = 1; idx <= cnf.getBingo().getCantidadPorLinea(); idx++) {
-                int posicion = idx + (nroLinea * cnf.getBingo().getCantidadPorLinea());
-                lst.add(bingo.getNumero(posicion));
-            }
-            nroLinea++;
-            lstBingoLinea.add(new BingoLinea(Character.toString(letra), lst));
-        }
-        lstColumnas = new ArrayList<>();
-        for (int i = 1; i <= cnf.getBingo().getCantidadPorLinea(); i++) {
-            lstColumnas.add(i);
-        }
+    public List<BingoLinea> getLstBingoLinea() {
+        return bingo.getLstBingoLinea();
+    }
 
+    public List<Integer> getLstColumnas() {
+        return bingo.getLstColumnas();
     }
 
     public Numero get(BingoLinea bl, Integer nro) {
@@ -109,9 +95,8 @@ public class DisplayController {
                 agregarUltimosUtilizados();
             }
             int numero = tombolaApplication.sacarNumero();
-            numeroCarton = bingo.getMap().get(numero);
+            numeroCarton = bingo.getNumero(numero);
             numeroCarton.setUtilizado(true);
-            actualizarTablero();
             calcularCartonesPorGanar();
             pushBean.enviarJuego(numeroCarton.toFmtString());
         } else {

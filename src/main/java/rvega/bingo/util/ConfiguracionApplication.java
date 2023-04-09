@@ -29,7 +29,7 @@ public class ConfiguracionApplication {
     @PostConstruct
     public void init() {
         titulo = "CAMARADERIA";
-        modo = TipoModo.CONFIG;
+        modo = TipoModo.BINGO;
         bloqueado = false;
         rifa = new RifaMetadata();
         bingo = new BingoMetadata();
