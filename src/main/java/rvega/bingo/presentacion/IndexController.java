@@ -32,8 +32,8 @@ public class IndexController {
     private UsuarioSession usuarioSession;
 
     private String nick;
-    
-    public String getMensaje(){
+
+    public String getMensaje() {
         return MensajeApplication.SISTEMA + " : Puedes usar Emojis!!";
     }
 
@@ -50,6 +50,8 @@ public class IndexController {
     }
 
     public void logout() {
+        String m = "ha salido : " + usuarioSession.getUsuario().getNombre();
+        mensajeApplication.enviarMensajeSistema(m);
         usuarioSession.setUsuario(null);
     }
 
