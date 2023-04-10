@@ -21,22 +21,13 @@
                 #{idx + 1}
             </p:column>
             <p:column headerText="USUARIO">
-                #{u.nombre}
+                #{u.usuario.nombre}
             </p:column>
-            <p:column headerText="CARTÓN"
-                      rendered="#{cnf.modoBingo}"
-                      >
+            <p:column headerText="#{usuariosController.nombreColumna}">
                 <span style="float: right">
-                    #{usuariosController.contarFaltantes(u)} 
+                    #{u.cantidad} 
                 </span>
-            </p:column>
-            <p:column headerText="NICHO"
-                      rendered="#{cnf.modoRifa}"
-                      >
-                <span style="float: right">
-                    #{usuariosController.obtenerPosicion(u)}
-                </span>
-            </p:column>
+            </p:column>            
         </p:dataTable>
     </h:body>
 </html>
