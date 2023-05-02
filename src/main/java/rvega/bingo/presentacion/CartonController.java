@@ -12,6 +12,7 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.util.logging.Level;
 import lombok.Data;
 import rvega.bingo.dominio.CartonLinea;
 import rvega.bingo.negocio.MensajeApplication;
@@ -65,7 +66,7 @@ public class CartonController implements Serializable {
         } else {
             FacesContext
                     .getCurrentInstance()
-                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Cartón Inválido", null));
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Cartón Inválido, favor solicite otro cartón.", null));
             
         }
     }
@@ -76,6 +77,7 @@ public class CartonController implements Serializable {
             convertir();
 //            mensajeApplication.enviarMensajeSistema(usuarioSession.getNombre() + " ha solicitado un nuevo Cartón.");
         } catch (Exception ex) {
+            LOG.log(Level.SEVERE, "nuevoCarton", ex);
             FacesContext
                     .getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), null));

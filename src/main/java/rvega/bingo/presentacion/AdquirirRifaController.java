@@ -6,6 +6,8 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Data;
 import rvega.bingo.dominio.Usuario;
 import rvega.bingo.negocio.MensajeApplication;
@@ -20,6 +22,8 @@ import rvega.bingo.socket.PushBean;
 @ViewScoped
 @Data
 public class AdquirirRifaController implements Serializable {
+
+    private static final Logger LOG = Logger.getLogger(AdquirirRifaController.class.getName());
 
     @Inject
     private MensajeApplication mensajeApplication;
@@ -43,6 +47,7 @@ public class AdquirirRifaController implements Serializable {
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK, número Adquirido !!", null));
         } catch (Exception ex) {
+            LOG.log(Level.SEVERE, "adquirirManual", ex);
             FacesContext.getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
 

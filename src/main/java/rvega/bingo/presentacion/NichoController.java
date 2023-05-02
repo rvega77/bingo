@@ -8,6 +8,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Data;
 import rvega.bingo.socket.PushBean;
 import rvega.bingo.util.UsuarioSession;
@@ -20,6 +22,8 @@ import rvega.bingo.util.UsuarioSession;
 @SessionScoped
 @Data
 public class NichoController implements Serializable {
+
+    private static final Logger LOG = Logger.getLogger(NichoController.class.getName());
 
     @Inject
     private PushBean pushBean;
@@ -46,6 +50,7 @@ public class NichoController implements Serializable {
                     .getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Número Adquirido", null));
         } catch (Exception ex) {
+            LOG.log(Level.SEVERE, "adquirir", ex);
             FacesContext
                     .getCurrentInstance()
                     .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ex.getMessage(), null));

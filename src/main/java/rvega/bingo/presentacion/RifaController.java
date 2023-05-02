@@ -79,6 +79,10 @@ public class RifaController {
         if (cnf.isBloqueado()) {
             throw new IllegalStateException("Rifa Bloqueada !!");
         }
+        // al redimensionar la rifa, es posible que los cartones tengan un numero mayor al permitido
+        if (numero < 1 || numero > cnf.getRifa().getMaxNichos()) {
+            throw new IllegalStateException("Número no válido, favor seleccione otro : " + numero);
+        }
         Integer actual = rifa.getPosicion(usr);
         rifa.adquirir(numero, usr);
         rifa.liberar(numero, usr);
