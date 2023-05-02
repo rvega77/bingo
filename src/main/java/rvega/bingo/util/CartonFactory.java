@@ -36,7 +36,7 @@ public class CartonFactory {
         if (cnf.isBloqueado()) {
             // solo se puede crear uno
             if (mapCarton.containsKey(usr)) {
-                throw new IllegalStateException("No se pueden crear cartones");
+                throw new IllegalStateException("Juego Bloqueado!!... No se pueden crear cartones.");
             }
         }
 

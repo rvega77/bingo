@@ -77,7 +77,7 @@ public class RifaController {
 
     public void adquirir(Usuario usr, int numero) {
         if (cnf.isBloqueado()) {
-            throw new IllegalStateException("Rifa Bloqueada !!");
+            throw new IllegalStateException("Juego Bloqueado!!... No se pueden adquirir números.");
         }
         // al redimensionar la rifa, es posible que los cartones tengan un numero mayor al permitido
         if (numero < 1 || numero > cnf.getRifa().getMaxNichos()) {
