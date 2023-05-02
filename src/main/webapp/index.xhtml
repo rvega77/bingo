@@ -33,11 +33,11 @@
                 font-size: 30px !important;
                 width: 90%;
             }
-            
+
             .ui-growl {
                 top: 5px !important;
             }
-            
+
         </style>
         <script type="text/javascript">
             function jugar(n) {
@@ -79,6 +79,12 @@
 
             <f:facet name="header">
                 <h:form style="display: inline">
+                    <h:panelGroup rendered="#{cnf.bloqueado}">
+                        <span class="pi pi-lock"
+                              style="color: red"
+                              ></span>
+                        <p:spacer width="5px" />
+                    </h:panelGroup>
                     <span class="pi pi-user"></span>
                     <p:spacer width="5px" />
                     <h:outputText value="#{usuarioSession.nombre}" />
