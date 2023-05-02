@@ -63,7 +63,7 @@ public class AdminController {
         FacesContext
                 .getCurrentInstance()
                 .addMessage(null, new FacesMessage("Bloqueo Actualizado"));
-        pushBean.enviarCarton("");
+        pushBean.enviarUsuario("");
 //        mensajeApplication.enviarMensajeSistema("Juego  " + (cnf.isBloqueado() ? "BLOQUEADO" : "DESBLOQUEADO"));
 
     }

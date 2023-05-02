@@ -44,6 +44,10 @@
                 rc([{name: "nro", value: n}]);
             }
 
+            function socketUsuarioListener(message, channel, event) {
+                actualizarUsuarios();
+            }
+
             function socketCartonListener(message, channel, event) {
                 console.log(message + " : " + channel + " : " + event);
                 actualizarCarton();
@@ -65,9 +69,13 @@
         </script>
     </h:head>
     <h:body>
+        <o:socket channel="bingoUsuarioChannel" onmessage="socketUsuarioListener" />
         <o:socket channel="bingoCartonChannel" onmessage="socketCartonListener" />
         <o:socket channel="bingoMensajeChannel" onmessage="socketMensajeListener" />
         <h:form>
+            <p:remoteCommand name="actualizarUsuarios" 
+                             update=":frmUsrHeader" 
+                             />
             <p:remoteCommand name="actualizarCarton" 
                              update=":pnl" 
                              />
@@ -78,7 +86,7 @@
         <p:panel id="pnl" >
 
             <f:facet name="header">
-                <h:form style="display: inline">
+                <h:form id="frmUsrHeader" style="display: inline">
                     <h:panelGroup rendered="#{cnf.bloqueado}">
                         <span class="pi pi-lock"
                               style="color: red"
