@@ -24,6 +24,10 @@ public class IndexController {
     private static final Logger LOG = Logger.getLogger(IndexController.class.getName());
 
     @Inject
+    private Rifa rifa;
+    @Inject
+    private NichoController nichoController;
+    @Inject
     private PushBean pushBean;
     @Inject
     private ColorFactory colorFactory;
@@ -31,8 +35,6 @@ public class IndexController {
     private MensajeApplication mensajeApplication;
     @Inject
     private UsuarioSession usuarioSession;
-    @Inject
-    private Rifa rifa;
 
     private String nick;
 
@@ -54,6 +56,7 @@ public class IndexController {
 
     public void logout() {
         // limpiar el numero de rifa
+        nichoController.init();
         Integer nro = rifa.getPosicion(usuarioSession.getUsuario());
         if (nro != null) {
             rifa.liberar(nro, usuarioSession.getUsuario());

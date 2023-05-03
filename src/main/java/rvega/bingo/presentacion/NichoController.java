@@ -38,6 +38,7 @@ public class NichoController implements Serializable {
     @PostConstruct
     public void init() {
         numero = 1;
+        adquirido = null;
     }
 
     public void adquirir() {
