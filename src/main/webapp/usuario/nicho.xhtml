@@ -3,6 +3,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       lang="es"
       >
     <h:head id="cabecera">
@@ -12,7 +13,22 @@
         <ui:composition>
             <h:panelGroup rendered="#{cnf.modoRifa}" >
                 <h:form>
-                    <p:panel header="RIFA">
+                    <p:panel>
+                        <f:facet name="header">
+                            <h:outputText value="RIFA" />
+
+                            <h:panelGroup id="salida">
+                                <h:panelGroup
+                                    rendered="#{not empty nichoController.adquirido}"
+                                    styleClass="nro-nicho"
+                                    >                                    
+                                    <span class="pi pi-shopping-cart"
+                                          ></span>
+                                    <p:spacer width="5px" />
+                                    <h:outputText value="# #{nichoController.adquirido}" />
+                                </h:panelGroup>                     
+                            </h:panelGroup>                     
+                        </f:facet>
                         <h:panelGrid columns="1" style="text-align: center; width: 100%">
                             <p:knob cursor="true" 
                                     value="#{nichoController.numero}"
@@ -28,12 +44,6 @@
                                 action="#{nichoController.adquirir()}"
                                 update="salida"
                                 />
-                            <h:panelGroup id="salida">
-                                <p:staticMessage severity="info"
-                                                 summary="Aquirido # #{nichoController.adquirido}"
-                                                 rendered="#{false and not empty nichoController.adquirido}"
-                                                 />
-                            </h:panelGroup>
 
                         </h:panelGrid>
                     </p:panel>
