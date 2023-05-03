@@ -22,7 +22,10 @@ public class ImagenEsperaApplication {
     }
 
     private static final String[] DATA = {
+        "gato.gif",
         "hourglass.gif",
+        "molino.gif",
+        "planta.gif",
         "spinner-3.gif",
         "skateboarding.gif",
         "rueda-gobierno.gif",
