@@ -85,10 +85,10 @@ public class RifaController {
         }
         Integer actual = rifa.getPosicion(usr);
         rifa.adquirir(numero, usr);
-        rifa.liberar(numero, usr);
         if (actual == null) {
             mensajeApplication.enviarMensajeSistema("Se ha adquirido el # " + numero);
         } else {
+            rifa.liberar(actual, usr);
             mensajeApplication.enviarMensajeSistema("Se ha movido el # " + actual + " » # " + numero);
         }
 

@@ -46,7 +46,7 @@ public class Rifa {
     public void liberar(int numero, Usuario usr) {
         map.values().forEach(n -> {
             if (usr.equals(n.getUsuario())) {
-                if (n.getPosicion() != numero) {
+                if (n.getPosicion() == numero) {
                     n.setUsuario(null);
                 }
             }

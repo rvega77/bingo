@@ -7,6 +7,7 @@ import jakarta.inject.Named;
 import lombok.Data;
 import rvega.bingo.dominio.Usuario;
 import rvega.bingo.negocio.MensajeApplication;
+import rvega.bingo.negocio.Rifa;
 import rvega.bingo.socket.PushBean;
 import rvega.bingo.util.ColorFactory;
 import rvega.bingo.util.UsuarioSession;
@@ -30,6 +31,8 @@ public class IndexController {
     private MensajeApplication mensajeApplication;
     @Inject
     private UsuarioSession usuarioSession;
+    @Inject
+    private Rifa rifa;
 
     private String nick;
 
@@ -50,9 +53,16 @@ public class IndexController {
     }
 
     public void logout() {
+        // limpiar el numero de rifa
+        Integer nro = rifa.getPosicion(usuarioSession.getUsuario());
+        if (nro != null) {
+            rifa.liberar(nro, usuarioSession.getUsuario());
+            pushBean.enviarJuego("");
+        }
         String m = "ha salido : " + usuarioSession.getUsuario().getNombre();
         mensajeApplication.enviarMensajeSistema(m);
         usuarioSession.setUsuario(null);
+        LOG.info("LOGOUT : " + nick);
     }
 
 }
