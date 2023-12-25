@@ -1,0 +1,1 @@
+java -jar /home/rvega77/Descargas/payara-micro-6.2023.9.jar --deploy bingo-3.0.2.war

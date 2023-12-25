@@ -58,10 +58,10 @@
                 <artifactId>tomee-maven-plugin</artifactId>
                 <version>7.1.1</version>
                 <configuration>
-                    <tomeeVersion>9.0.0</tomeeVersion>
+                    <tomeeVersion>9.1.0</tomeeVersion>
                     <tomeeClassifier>webprofile</tomeeClassifier>                    
                     <webapps>
-                        <webapp>${project.groupId}:${project.artifactId}:${project.version}?name=ROOT</webapp> 
+                        <webapp>${project.groupId}:${project.artifactId}:${project.version}?name=bingo</webapp> 
                     </webapps>
                     <tomeeHttpPort>9090</tomeeHttpPort>
                 </configuration>
