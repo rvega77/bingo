@@ -1,0 +1,9 @@
+services:
+  bingo:
+    image: docker.io/payara/micro:6.2025.7-jdk21
+    hostname: bingo
+    ports:
+      - 8080:8080
+    volumes:
+       - ./target/bingo-3.0.2.war:/opt/payara/deployments/bingo.war
+
