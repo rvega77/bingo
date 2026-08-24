@@ -29,7 +29,7 @@
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>4.7.5</version>
+            <version>4.7.12</version>
         </dependency>
         <dependency>
             <groupId>io.nayuki</groupId>
