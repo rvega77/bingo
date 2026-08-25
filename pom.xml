@@ -4,7 +4,7 @@
 
     <groupId>rvega</groupId>
     <artifactId>bingo</artifactId>
-    <version>3.0.2</version>
+    <version>4.0.0</version>
     <packaging>war</packaging>
 
     <name>bingo</name>
@@ -60,6 +60,7 @@
                     <deployWar>true</deployWar>
                     <contextRoot>/</contextRoot>
                 </configuration>
+                <!--
                 <executions>
                     <execution>
                         <goals>
@@ -67,6 +68,7 @@
                         </goals>
                     </execution>
                 </executions>
+                -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -81,12 +83,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.5.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.11.0</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
